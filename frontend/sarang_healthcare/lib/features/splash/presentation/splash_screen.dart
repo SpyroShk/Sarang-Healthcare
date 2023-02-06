@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sarang_healthcare/core/presentation/theme/app_color.dart';
-import 'package:sarang_healthcare/features/login/presentation/login_screen.dart';
+
+import '../../login/application/cubit/login_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -14,16 +16,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-      const Duration(seconds: 3),
-      () => Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
-          transitionDuration: const Duration(seconds: 2),
-          pageBuilder: ((context, animation, secondaryAnimation) =>
-              const LoginScreen()),
-        ),
-      ),
-    );
+    Timer(const Duration(seconds: 3), () {
+      context.read<LoginCubit>().checkSignInStatus();
+    });
   }
 
   @override
@@ -31,12 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: AppColor.canvas,
       body: Center(
-        child: Hero(
-          tag: 'logo',
-          child: Image.asset(
-            'assets/logo.png',
-            width: 300,
-          ),
+        child: Image.asset(
+          'assets/logo.png',
+          width: 300,
         ),
       ),
     );

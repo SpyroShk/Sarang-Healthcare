@@ -23,15 +23,15 @@ class UserNameField extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
       autofillHints: const [AutofillHints.username],
       validator: (value) {
-        // if (value!.isEmpty) {
-        //   return 'UserName can\'t be empty.';
+        if (value!.isEmpty) {
+          return 'UserName can\'t be empty.';
         // } else if (!RegExp(
         //         r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z\s]{2,5})$')
         //     .hasMatch(value)) {
         //   return 'Please enter a valid UserName.';
-        // }
+        }
 
-        // return null;
+        return null;
       },
       decoration: const InputDecoration(
         labelText: 'Username',

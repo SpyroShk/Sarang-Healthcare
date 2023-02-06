@@ -1,13 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sarang_healthcare/core/presentation/route/app_router.dart';
 import 'package:sarang_healthcare/core/presentation/theme/app_color.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/core/presentation/theme/sizes.dart';
+import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
+import 'package:sarang_healthcare/features/login/application/cubit/login_cubit.dart';
 
 import '../../../core/presentation/widgets/widgets.dart';
-import '../../signup/presentation/signup.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,7 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  bool isChecked = false;
   double show = 0;
 
   @override
@@ -41,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
     });
-    // context.read<AuthCubit>().getUser(emailController);
+    context.read<LoginCubit>().getUser(emailController);
   }
 
   @override
@@ -71,12 +73,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: Hero(
-                        tag: 'logo',
-                        child: Image.asset(
-                          "assets/logo.png",
-                          width: 300,
-                        ),
+                      child: Image.asset(
+                        "assets/logo.png",
+                        width: 300,
                       ),
                     ),
                   ),
@@ -133,10 +132,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 50,
                         ),
-                        SarangButton(
-                          onPressed: loginHandler,
-                          isLoading: false,
-                          label: 'Sign In',
+                        Stack(
+                          children: [
+                            BlocListener<LoginCubit, LoginState>(
+                              listener: (context, state) {
+                                state.whenOrNull(
+                                  unauthenticated: (message) =>
+                                      context.showCustomSnackBar(
+                                    result: false,
+                                    message: message,
+                                  ),
+                                );
+                              },
+                              child: BlocBuilder<LoginCubit, LoginState>(
+                                builder: (context, state) {
+                                  return SarangButton(
+                                    onPressed: loginHandler,
+                                    isLoading: state.maybeWhen(
+                                      orElse: () => false,
+                                      loading: () => true,
+                                    ),
+                                    label: 'Sign In',
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 50,
@@ -151,17 +172,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  PageRouteBuilder(
-                                    transitionDuration:
-                                        const Duration(seconds: 2),
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        const SignUpScreen(),
-                                  ),
-                                );
-                              },
+                              onTap: () => context.push(AppRoutes.signup),
+                              // Navigator.of(context).push(
+                              //   PageRouteBuilder(
+                              //     transitionDuration:
+                              //         const Duration(seconds: 2),
+                              //     pageBuilder: (context, animation,
+                              //             secondaryAnimation) =>
+                              //         const SignUpScreen(),
+                              //   ),
+                              // );
                               child: const Text(
                                 "Sign Up",
                                 style: TextStyle(
@@ -187,15 +207,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void loginHandler() {
     if (formKey.currentState!.validate()) {
-      // final email =
-      emailController.text.trim();
-      // final password =
-      passwordController.text.trim();
-      // context.read<AuthCubit>().login(
-      //       rememberMe: isChecked,
-      //       email: email,
-      //       password: password,
-      //     );
+      final usernameEmail = emailController.text.trim();
+      final password = passwordController.text.trim();
+      context.read<LoginCubit>().login(
+            usernameEmail: usernameEmail,
+            password: password,
+          );
     }
   }
 }

@@ -1,22 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:sarang_healthcare/features/splash/presentation/splash_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sarang_healthcare/core/presentation/sarang_app.dart';
+import 'package:sarang_healthcare/features/profile/infrastructure/dtos/user_detail_dto.dart';
+import 'package:sarang_healthcare/features/signup/application/cubit/signup_cubit.dart';
+import 'core/shared/get_it.dart';
+import 'features/login/application/cubit/login_cubit.dart';
+import 'features/profile/application/cubit/profile_cubit.dart';
+import 'features/profile/infrastructure/profile_repository.dart';
 
-import 'core/presentation/theme/app_theme.dart';
-
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocators();
+  await Hive.initFlutter();
+  registerAdapters();
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: getIt.get<LoginCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt.get<SignupCubit>(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              ProfileCubit(profileRepository: getIt.get<ProfileRepository>())
+                ..getUserDetails(),
+        ),
+      ],
+      child: const SarangApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Sarang Healthcare',
-      theme: AppTheme.theme(context),
-      home: const SplashScreen(),
-    );
-  }
+void registerAdapters() {
+  Hive.registerAdapter(UserDetailDtoAdapter());
 }

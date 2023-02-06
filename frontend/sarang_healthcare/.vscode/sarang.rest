@@ -1,0 +1,50 @@
+
+POST http://127.0.0.1:8000/registration/
+Content-Type: application/json
+
+{
+    "username": "sande",
+    "email": "sandeshs@gmail.com",
+    "password1": "shubhekshya",
+    "password2": "shubhekshya"
+}
+
+
+
+### unsuccessul login request
+POST http://127.0.0.1:8000/accounts/login/
+Content-Type: application/json
+
+{
+    "username": "sandeshs@gmail.com",
+    "email": "",
+    "password": "shubhekshya1"
+}
+
+
+### successful login request
+# @name login
+POST http://127.0.0.1:8000/accounts/login/
+Content-Type: application/json
+
+{
+    "username": "sandeshs@gmail.com",
+    "email": "",
+    "password": "shubhekshya"
+}
+
+### get userdetails
+# @name userdetails
+GET http://127.0.0.1:8000/accounts/user/
+Content-Type: application/json
+
+POST http://127.0.0.1:8000/core/a
+Content-Type: application/json
+
+{
+    "username": "sandesh",
+    "email": "sandeshshakya19@gmail.com",
+    "password": "password"
+}
+
+# registation
