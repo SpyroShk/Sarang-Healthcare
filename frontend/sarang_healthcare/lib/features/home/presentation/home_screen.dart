@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
@@ -7,9 +8,21 @@ import 'package:sarang_healthcare/features/home/presentation/widgets/widgets.dar
 
 import '../../../core/presentation/route/app_router.dart';
 import '../../../core/presentation/theme/app_color.dart';
+import '../../profile/application/cubit/profile_cubit.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProfileCubit>().getUserDetails();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,19 +43,35 @@ class HomeScreen extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Hello,',
                               style: TextStyle(
                                 fontSize: Sizes.s16,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Text(
-                              'Patients Name,',
-                              style: TextStyle(
-                                  fontSize: Sizes.s20,
-                                  fontWeight: FontWeight.w900),
+                            BlocBuilder<ProfileCubit, ProfileState>(
+                              builder: (context, state) {
+                                String? username = state.maybeWhen(
+                                    loadedCache: (userDetail) =>
+                                        userDetail.username,
+                                    loadedNetwork: (userDetail) =>
+                                        userDetail.username,
+                                    orElse: () => null);
+                                return Text(
+                                  username.toString(),
+                                  style: const TextStyle(
+                                      fontSize: Sizes.s20,
+                                      fontWeight: FontWeight.w900),
+                                );
+                              },
                             ),
+                            // Text(
+                            //   'Patients Name,',
+                            //   style: TextStyle(
+                            //       fontSize: Sizes.s20,
+                            //       fontWeight: FontWeight.w900),
+                            // ),
                           ],
                         ),
                         IconButton(
@@ -70,7 +99,8 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           CardButton(
                             title: 'Doctors',
-                            onPressed: () {},
+                            onPressed: () =>
+                                context.push(AppRoutes.preferreddoc),
                             icon: Icons.medical_information_outlined,
                           ),
                           CardButton(
@@ -122,7 +152,8 @@ class HomeScreen extends StatelessWidget {
                         ),
                         QuickButton(
                           title: 'Create new Appointment',
-                          onPressed: () {},
+                          onPressed: () =>
+                              context.push(AppRoutes.docappointment),
                         ),
                         const SizedBox(
                           height: 25,

@@ -14,6 +14,7 @@ class SarangAppbar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: const TextStyle(
           fontSize: Sizes.s20,
+          fontWeight: FontWeight.bold,
         ),
       ),
       centerTitle: true,

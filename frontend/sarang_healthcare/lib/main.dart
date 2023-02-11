@@ -23,11 +23,16 @@ void main() async {
         BlocProvider.value(
           value: getIt.get<SignupCubit>(),
         ),
-        BlocProvider(
-          create: (context) =>
-              ProfileCubit(profileRepository: getIt.get<ProfileRepository>())
-                ..getUserDetails(),
+
+        BlocProvider.value(
+          value: getIt.get<ProfileCubit>(),
         ),
+
+        // BlocProvider(
+        //   create: (context) =>
+        //       ProfileCubit(profileRepository: getIt.get<ProfileRepository>())
+        //         ..getUserDetails(),
+        // ),
       ],
       child: const SarangApp(),
     ),

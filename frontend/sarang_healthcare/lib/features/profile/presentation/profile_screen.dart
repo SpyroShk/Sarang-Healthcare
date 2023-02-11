@@ -20,80 +20,78 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return GradientBg(
-      child: Scaffold(
-        body: GradientBg(
-          child: Column(
-            children: [
-              const SarangAppbar(title: 'Profile'),
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: AppColor.canvas,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 50),
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          BlocBuilder<ProfileCubit, ProfileState>(
-                            builder: (context, state) {
-                              return state.maybeWhen(
-                                loadedCache: (userDetail) {
-                                  return ProfileView(userDetail: userDetail);
-                                },
-                                loadedNetwork: (userDetail) =>
-                                    ProfileView(userDetail: userDetail),
-                                loading: () => CircularProgressIndicator(),
-                                notLoaded: (message) {
-                                  return Text('fail');
-                                  // ConnectionLost(
-                                  //   onRetry: () {
-                                  //     context.read<ProfileCubit>().getUserDetails();
-                                  //   },
-                                  // );
-                                },
-                                orElse: () => const SizedBox.shrink(),
-                              );
-                            },
-                          ),
-                          BlocBuilder<ProfileCubit, ProfileState>(
-                            builder: (context, state) {
-                              String? email = state.maybeWhen(
-                                  loadedCache: (userDetail) => userDetail.email,
-                                  loadedNetwork: (userDetail) =>
-                                      userDetail.email,
-                                  orElse: () => null);
-                              return SizedBox(
-                                height: 50,
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SarangButton(
-                              onPressed: () {
-                                context.read<LoginCubit>().logOut();
-                              },
-                              isLoading: false,
-                              label: 'Log Out'),
-                        ),
-                      )
-                    ],
+    return Scaffold(
+      body: GradientBg(
+        child: Column(
+          children: [
+            const SarangAppbar(title: 'Profile'),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: AppColor.canvas,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
                 ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 50),
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        BlocBuilder<ProfileCubit, ProfileState>(
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              loadedCache: (userDetail) {
+                                return ProfileView(userDetail: userDetail);
+                              },
+                              loadedNetwork: (userDetail) =>
+                                  ProfileView(userDetail: userDetail),
+                              loading: () => CircularProgressIndicator(),
+                              notLoaded: (message) {
+                                return Text('fail');
+                                // ConnectionLost(
+                                //   onRetry: () {
+                                //     context.read<ProfileCubit>().getUserDetails();
+                                //   },
+                                // );
+                              },
+                              orElse: () => const SizedBox.shrink(),
+                            );
+                          },
+                        ),
+                        // BlocBuilder<ProfileCubit, ProfileState>(
+                        //   builder: (context, state) {
+                        //     String? email = state.maybeWhen(
+                        //         loadedCache: (userDetail) => userDetail.email,
+                        //         loadedNetwork: (userDetail) =>
+                        //             userDetail.email,
+                        //         orElse: () => null);
+                        //     return SizedBox(
+                        //       height: 50,
+                        //     );
+                        //   },
+                        // ),
+                      ],
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SarangButton(
+                            onPressed: () {
+                              context.read<LoginCubit>().logOut();
+                            },
+                            isLoading: false,
+                            label: 'Log Out'),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -13,15 +13,10 @@ typedef SignupSuccess = String;
 
 class SignupRepository {
   final Dio _dio;
-  // final SecureCredentialStorage _secureCredentialStorage;
   SignupRepository({
     required Dio dio,
     required SecureCredentialStorage secureCredentialStorage,
   }) : _dio = dio;
-  // _secureCredentialStorage = secureCredentialStorage;
-
-  // Future<String?> getToken() async =>
-  //     await _secureCredentialStorage.getApiToken();
 
   Future<Either<SignupFailure, SignupSuccess>> signup({
     required SignupDetail signupDetail,
@@ -35,11 +30,7 @@ class SignupRepository {
         url,
         data: data,
       );
-      // log(response.data);
-      final respData = response.data;
-      // print(respData);
-      // await _secureCredentialStorage.setApiToken(respData["key"]);
-      // log(jsonDecode(respData));
+      response.data;
       return const Right("Account registered successfully.");
     } on DioError catch (e) {
       return Left(
@@ -51,10 +42,6 @@ class SignupRepository {
   SignupFailure failure(DioError error) {
     final respData = error.response?.data;
     final statusCode = error.response?.statusCode ?? 0;
-    // if (statusCode == 201) {
-    //   return const SignupFailure.client(
-    //       message: "Account registered successfully.");
-    // }
     if (statusCode == 429) {
       return const SignupFailure.client(message: "Too many requests");
     }
