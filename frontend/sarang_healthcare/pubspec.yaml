@@ -50,6 +50,8 @@ dependencies:
   flutter_lints: ^2.0.1
   hive_flutter: ^1.1.0
   hive_generator: ^2.0.0
+  circular_profile_avatar: ^2.0.5
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:

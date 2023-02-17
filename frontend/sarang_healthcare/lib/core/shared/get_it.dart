@@ -4,6 +4,8 @@ import 'package:get_it/get_it.dart';
 
 import '../../features/login/application/cubit/login_cubit.dart';
 import '../../features/login/infrastructure/login_repository.dart';
+import '../../features/preferred_doctor/application/cubit/preferred_doctor_cubit.dart';
+import '../../features/preferred_doctor/infrastructure/preferred_doctor_repository.dart';
 import '../../features/profile/application/cubit/profile_cubit.dart';
 import '../../features/profile/infrastructure/local_storage/user_detail_storage.dart';
 import '../../features/profile/infrastructure/profile_repository.dart';
@@ -72,6 +74,18 @@ void setupLocators() {
   getIt.registerSingleton<ProfileCubit>(
     ProfileCubit(
       profileRepository: getIt.get<ProfileRepository>(),
+    ),
+  );
+
+  getIt.registerSingleton<PreferredDoctorRepository>(
+    PreferredDoctorRepository(
+      dio: getIt.get<Dio>(),
+    ),
+  );
+
+  getIt.registerSingleton<PreferredDoctorCubit>(
+    PreferredDoctorCubit(
+      preferredDoctorRepository: getIt.get<PreferredDoctorRepository>(),
     ),
   );
 }

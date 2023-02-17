@@ -1,4 +1,4 @@
-
+# registation
 POST http://127.0.0.1:8000/registration/
 Content-Type: application/json
 
@@ -47,4 +47,8 @@ Content-Type: application/json
     "password": "password"
 }
 
-# registation
+### get preferredDoctor
+# @name preferredDoctor
+GET http://127.0.0.1:8000/doctor/doctorlist
+Content-Type: application/json
+

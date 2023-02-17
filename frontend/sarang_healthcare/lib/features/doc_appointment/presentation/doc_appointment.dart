@@ -8,16 +8,20 @@ import '../../../core/presentation/theme/app_color.dart';
 import '../../../core/presentation/theme/sizes.dart';
 import '../../../core/presentation/widgets/sarang_appbar.dart';
 import '../../../core/presentation/widgets/widgets.dart';
+import '../../preferred_doctor/domain/preferred_doctor_model.dart';
 import 'widgets/widgets.dart';
 
 class DocAppointment extends StatefulWidget {
-  const DocAppointment({super.key});
+  const DocAppointment({super.key, required this.preferredDoctor});
+  final PreferredDoctorModel preferredDoctor;
 
   @override
   State<DocAppointment> createState() => _DocAppointmentState();
 }
 
 class _DocAppointmentState extends State<DocAppointment> {
+  late DateTime appointmentDateTime;
+
   String selectedGenderValue = 'Male';
   String selectedRelationValue = 'Self';
 
@@ -40,18 +44,27 @@ class _DocAppointmentState extends State<DocAppointment> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    appointmentDateTime = DateTime.now();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GradientBg(
         child: Column(
           children: [
-            const SarangAppbar(title: 'Create new appointment'),
+            const SarangAppbar(
+              title: 'Create new appointment',
+            ),
             CanvasCard(
               child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 50,
+                      height: 30,
                     ),
                     OutlinedButton(
                       style: ElevatedButton.styleFrom(
@@ -60,7 +73,8 @@ class _DocAppointmentState extends State<DocAppointment> {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                       ),
-                      onPressed: () => context.push(AppRoutes.preferreddoc),
+                      onPressed: () =>
+                          context.pushReplacement(AppRoutes.preferreddoc),
                       child: SizedBox(
                         height: 58,
                         child: Row(
@@ -80,26 +94,38 @@ class _DocAppointmentState extends State<DocAppointment> {
                         ),
                       ),
                     ),
+                    // FormButton(
+                    //   text: 'Select Your Preferred Doctor',
+                    //   icon: Icons.local_hospital_rounded,
+                    //   onPressed: () =>
+                    //       context.pushReplacement(AppRoutes.preferreddoc),
+                    // ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    PreferredDoctorCard(
+                        preferredDoctor: widget.preferredDoctor),
                     const SizedBox(
                       height: 24,
                     ),
                     Row(
-                      children: const [
-                        Expanded(
-                          child: Textfield(
-                            labelText: 'Date',
-                            enablePrefixIcon: true,
-                            prefixIcon: Icons.calendar_month_outlined,
-                          ),
+                      children: [
+                        DataTimeSelector(
+                          text: Utils.toDate(appointmentDateTime),
+                          icon: Icons.calendar_month_outlined,
+                          width: MediaQuery.of(context).size.width / 1.90,
+                          onPressed: () =>
+                              pickAppointmentDateTime(pickDate: true),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 24,
                         ),
                         Expanded(
-                          child: Textfield(
-                            labelText: 'Time',
-                            enablePrefixIcon: true,
-                            prefixIcon: Icons.access_time_outlined,
+                          child: DataTimeSelector(
+                            text: Utils.toTime(appointmentDateTime),
+                            icon: Icons.access_time_outlined,
+                            onPressed: () =>
+                                pickAppointmentDateTime(pickDate: false),
                           ),
                         ),
                       ],
@@ -232,7 +258,7 @@ class _DocAppointmentState extends State<DocAppointment> {
                       ),
                     ),
                     const SizedBox(
-                      height: 50,
+                      height: 24,
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -244,16 +270,16 @@ class _DocAppointmentState extends State<DocAppointment> {
                         ),
                       ),
                       child: Row(
-                        children: [
-                          const Icon(
+                        children: const [
+                          Icon(
                             Icons.error,
                             size: 18,
                             color: AppColor.grey,
                           ),
-                          const SizedBox(
+                          SizedBox(
                             width: 6,
                           ),
-                          const Expanded(
+                          Expanded(
                             child: Text(
                               'Complete necessary data before continuing.',
                               style: TextStyle(
@@ -273,6 +299,9 @@ class _DocAppointmentState extends State<DocAppointment> {
                       isLoading: false,
                       label: 'Continue',
                     ),
+                    const SizedBox(
+                      height: 30,
+                    ),
                   ],
                 ),
               ),
@@ -281,5 +310,47 @@ class _DocAppointmentState extends State<DocAppointment> {
         ),
       ),
     );
+  }
+
+  Future pickAppointmentDateTime({required bool pickDate}) async {
+    final date = await pickDateTime(appointmentDateTime, pickDate: pickDate);
+    if (date == null) return;
+    // if (date.isAfter(to)) {
+    //   to = DateTime(date.year, date.month, date.day, to.hour);
+    // }
+    setState(() {
+      appointmentDateTime = date;
+    });
+  }
+
+  Future<DateTime?> pickDateTime(
+    DateTime initialDate, {
+    required bool pickDate,
+    DateTime? firstDate,
+  }) async {
+    if (pickDate) {
+      final date = await showDatePicker(
+        context: context,
+        initialDate: initialDate,
+        firstDate: firstDate ?? DateTime(2013, 1),
+        lastDate: DateTime(2101),
+      );
+      if (date == null) return null;
+      final time = Duration(
+        hours: initialDate.hour,
+        minutes: initialDate.minute,
+      );
+      return date.add(time);
+    } else {
+      final timeOfDay = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(initialDate),
+      );
+      if (timeOfDay == null) return null;
+      final date =
+          DateTime(initialDate.year, initialDate.month, initialDate.day);
+      final time = Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute);
+      return date.add(time);
+    }
   }
 }

@@ -7,7 +7,7 @@ class Textfield extends StatelessWidget {
     required this.labelText,
     this.prefixIcon,
     this.suffixIcon,
-    this.enablePrefixIcon = true,
+    this.enablePrefixIcon = true, this.enabled= true,
   });
 
   // final TextEditingController textcontroller;
@@ -15,10 +15,12 @@ class Textfield extends StatelessWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final bool enablePrefixIcon;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enabled,
       // controller: textcontroller,
       decoration: InputDecoration(
         labelText: labelText,

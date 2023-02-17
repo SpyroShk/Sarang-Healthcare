@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/features/doc_appointment/presentation/doc_appointment.dart';
 import 'package:sarang_healthcare/features/login/application/cubit/login_cubit.dart';
+import 'package:sarang_healthcare/features/preferred_doctor/domain/preferred_doctor_model.dart';
 import 'package:sarang_healthcare/features/preferred_doctor/presentation/preferred_doctor.dart';
 
 import '../../../features/home/presentation/home_screen.dart';
@@ -77,7 +78,7 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.docappointment,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (_, state) => const DocAppointment(),
+        builder: (_, state) => DocAppointment(preferredDoctor: state.extra as PreferredDoctorModel),
       ),
       GoRoute(
         path: AppRoutes.preferreddoc,

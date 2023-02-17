@@ -6,6 +6,7 @@ import 'package:sarang_healthcare/features/profile/infrastructure/dtos/user_deta
 import 'package:sarang_healthcare/features/signup/application/cubit/signup_cubit.dart';
 import 'core/shared/get_it.dart';
 import 'features/login/application/cubit/login_cubit.dart';
+import 'features/preferred_doctor/application/cubit/preferred_doctor_cubit.dart';
 import 'features/profile/application/cubit/profile_cubit.dart';
 import 'features/profile/infrastructure/profile_repository.dart';
 
@@ -26,6 +27,9 @@ void main() async {
 
         BlocProvider.value(
           value: getIt.get<ProfileCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt.get<PreferredDoctorCubit>(),
         ),
 
         // BlocProvider(

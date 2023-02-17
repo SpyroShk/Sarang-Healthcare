@@ -66,12 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
                               },
                             ),
-                            // Text(
-                            //   'Patients Name,',
-                            //   style: TextStyle(
-                            //       fontSize: Sizes.s20,
-                            //       fontWeight: FontWeight.w900),
-                            // ),
                           ],
                         ),
                         IconButton(
