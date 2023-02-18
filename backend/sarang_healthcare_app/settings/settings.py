@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     # local
     'core',
     'accounts',
-    'doctor'
+    'doctor',
+    'doctor_appointment'
 ]
 
 AUTH_USER_MODEL = "core.User"

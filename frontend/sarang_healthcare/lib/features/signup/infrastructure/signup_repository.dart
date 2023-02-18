@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../../core/infrastructure/secure_credential_storage.dart';
 import '../../../core/shared/api_constants.dart';
 import '../domain/signup_detail.dart';
 import '../domain/signup_failure.dart';
@@ -15,7 +14,6 @@ class SignupRepository {
   final Dio _dio;
   SignupRepository({
     required Dio dio,
-    required SecureCredentialStorage secureCredentialStorage,
   }) : _dio = dio;
 
   Future<Either<SignupFailure, SignupSuccess>> signup({

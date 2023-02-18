@@ -7,3 +7,4 @@ from .serializers import DoctorSerializer
 class DoctorListView(generics.ListAPIView):
     queryset=Doctor.objects.all()
     serializer_class=DoctorSerializer
+    

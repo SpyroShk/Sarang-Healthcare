@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/features/doc_appointment/presentation/doc_appointment.dart';
 import 'package:sarang_healthcare/features/login/application/cubit/login_cubit.dart';
+import 'package:sarang_healthcare/features/payment/presentation/payment.dart';
 import 'package:sarang_healthcare/features/preferred_doctor/domain/preferred_doctor_model.dart';
 import 'package:sarang_healthcare/features/preferred_doctor/presentation/preferred_doctor.dart';
 
@@ -30,6 +31,7 @@ class AppRoutes {
   static const String docappointment = '/docappointment';
   static const String preferreddoc = '/preferreddoc';
   static const String appointment = '/appointment';
+  static const String payment = '/payment';
 }
 
 class AppRouter {
@@ -78,12 +80,18 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.docappointment,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (_, state) => DocAppointment(preferredDoctor: state.extra as PreferredDoctorModel),
+        builder: (_, state) => DocAppointment(
+            preferredDoctor: state.extra as PreferredDoctorModel),
       ),
       GoRoute(
         path: AppRoutes.preferreddoc,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (_, state) => const PreferredDoctor(),
+      ),
+      GoRoute(
+        path: AppRoutes.payment,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) => const Payment(),
       ),
     ],
     redirect: (context, state) {

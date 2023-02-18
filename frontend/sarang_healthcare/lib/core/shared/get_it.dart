@@ -47,7 +47,6 @@ void setupLocators() {
   getIt.registerSingleton<SignupRepository>(
     SignupRepository(
       dio: getIt.get<Dio>(),
-      secureCredentialStorage: getIt.get<SecureCredentialStorage>(),
     ),
   );
 

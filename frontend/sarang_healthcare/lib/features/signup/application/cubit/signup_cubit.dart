@@ -42,8 +42,9 @@ class SignupCubit extends Cubit<SignupState> {
         emit(SignupState.unauthenticated(message: message));
       },
       (_) {
-        emit(const SignupState.authenticated(
-            message: "Registered sucessfully."));
+        emit(
+          const SignupState.authenticated(message: "Registered sucessfully."),
+        );
       },
     );
   }

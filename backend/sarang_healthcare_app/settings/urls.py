@@ -24,5 +24,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('registration/', include('dj_rest_auth.registration.urls')),
     path('account/',include('allauth.urls')),
+    path('appointments/',include('doctor_appointment.urls')),
     path('doctor/',include('doctor.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

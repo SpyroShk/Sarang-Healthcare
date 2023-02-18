@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../../core/infrastructure/secure_credential_storage.dart';
 import '../../../core/shared/api_constants.dart';
 import '../domain/preferred_doctor_failure.dart';
 import '../domain/preferred_doctor_model.dart';

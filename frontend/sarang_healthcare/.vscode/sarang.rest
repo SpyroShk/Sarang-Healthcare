@@ -52,3 +52,27 @@ Content-Type: application/json
 GET http://127.0.0.1:8000/doctor/doctorlist
 Content-Type: application/json
 
+### get appointmentlist
+# @name appointmentlist
+GET http://127.0.0.1:8000/appointments/appointmentlist
+Content-Type: application/json
+
+### post appointmentlist
+# @name appointmentlist
+POST http://127.0.0.1:8000/appointments/appointmentlist
+Content-Type: application/json
+
+    {
+        "id": 2,
+        "user_id": "2",
+        "username": "ramua",
+        "doctor_name": "shyamu",
+        "doctor_id": 2,
+        "appointment_date": "2023-02-19",
+        "appointment_time": "12:15:00",
+        "contact": 9812354671,
+        "patient_name": "ramu",
+        "age": 23,
+        "gender": "Male",
+        "user_patient_relation": "self"
+    }

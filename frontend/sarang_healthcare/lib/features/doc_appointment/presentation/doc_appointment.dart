@@ -21,6 +21,12 @@ class DocAppointment extends StatefulWidget {
 
 class _DocAppointmentState extends State<DocAppointment> {
   late DateTime appointmentDateTime;
+  final formKey = GlobalKey<FormState>();
+
+  final contactController = TextEditingController();
+  final patientNameController = TextEditingController();
+  final ageController = TextEditingController();
+  final doctorNameController = TextEditingController();
 
   String selectedGenderValue = 'Male';
   String selectedRelationValue = 'Self';
@@ -47,6 +53,7 @@ class _DocAppointmentState extends State<DocAppointment> {
   void initState() {
     super.initState();
     appointmentDateTime = DateTime.now();
+    doctorNameController.text = widget.preferredDoctor?.name ?? 'Doctor';
   }
 
   @override
@@ -61,248 +68,290 @@ class _DocAppointmentState extends State<DocAppointment> {
             CanvasCard(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    OutlinedButton(
-                      style: ElevatedButton.styleFrom(
-                        side: const BorderSide(color: AppColor.grey),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 30,
                       ),
-                      onPressed: () =>
-                          context.pushReplacement(AppRoutes.preferreddoc),
-                      child: SizedBox(
-                        height: 58,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'Select Your Preferred Doctor',
-                              style: TextStyle(
-                                  fontSize: Sizes.s16, color: AppColor.grey),
-                            ),
-                            Icon(
-                              Icons.local_hospital_rounded,
-                              size: 22,
-                              color: AppColor.grey,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    // FormButton(
-                    //   text: 'Select Your Preferred Doctor',
-                    //   icon: Icons.local_hospital_rounded,
-                    //   onPressed: () =>
-                    //       context.pushReplacement(AppRoutes.preferreddoc),
-                    // ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    PreferredDoctorCard(
-                        preferredDoctor: widget.preferredDoctor),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Row(
-                      children: [
-                        DataTimeSelector(
-                          text: Utils.toDate(appointmentDateTime),
-                          icon: Icons.calendar_month_outlined,
-                          width: MediaQuery.of(context).size.width / 1.90,
-                          onPressed: () =>
-                              pickAppointmentDateTime(pickDate: true),
-                        ),
-                        const SizedBox(
-                          width: 24,
-                        ),
-                        Expanded(
-                          child: DataTimeSelector(
-                            text: Utils.toTime(appointmentDateTime),
-                            icon: Icons.access_time_outlined,
-                            onPressed: () =>
-                                pickAppointmentDateTime(pickDate: false),
+                      OutlinedButton(
+                        style: ElevatedButton.styleFrom(
+                          side: const BorderSide(color: AppColor.grey),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
                           ),
                         ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    const Textfield(
-                      labelText: 'Contact',
-                      enablePrefixIcon: false,
-                      suffixIcon: Icons.phone_outlined,
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    const Textfield(
-                      labelText: "Patient's Name",
-                      enablePrefixIcon: false,
-                      suffixIcon: Icons.person_outline,
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Row(
-                      children: [
-                        const Expanded(
-                          child: Textfield(
-                            labelText: 'Age',
-                            enablePrefixIcon: false,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 24,
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 58,
-                            padding: const EdgeInsets.only(right: 5),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
+                        onPressed: () =>
+                            context.pushReplacement(AppRoutes.preferreddoc),
+                        child: SizedBox(
+                          height: 58,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text(
+                                'Select Your Preferred Doctor',
+                                style: TextStyle(
+                                    fontSize: Sizes.s16, color: AppColor.grey),
+                              ),
+                              Icon(
+                                Icons.local_hospital_rounded,
+                                size: 22,
                                 color: AppColor.grey,
-                              ),
-                            ),
-                            child: DropdownButtonHideUnderline(
-                              child: ButtonTheme(
-                                alignedDropdown: true,
-                                padding: EdgeInsets.zero,
-                                child: DropdownButton(
-                                  borderRadius: BorderRadius.circular(12),
-                                  alignment: Alignment.bottomCenter,
-                                  icon: const Icon(Icons.keyboard_arrow_down),
-                                  style: Theme.of(context).textTheme.headline6,
-                                  items: gender.map((option) {
-                                    return DropdownMenuItem(
-                                      value: option,
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 3),
-                                        child: Text(
-                                          option,
-                                          style: const TextStyle(
-                                              fontSize: Sizes.s16,
-                                              color: AppColor.grey),
-                                        ),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      selectedGenderValue = newValue!;
-                                    });
-                                  },
-                                  value: selectedGenderValue,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Container(
-                      height: 58,
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.only(right: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: AppColor.grey,
-                        ),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: ButtonTheme(
-                          alignedDropdown: true,
-                          padding: EdgeInsets.zero,
-                          child: DropdownButton(
-                            borderRadius: BorderRadius.circular(12),
-                            alignment: Alignment.bottomCenter,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            style: Theme.of(context).textTheme.headline6,
-                            items: relation.map((option) {
-                              return DropdownMenuItem(
-                                value: option,
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 3),
-                                  child: Text(
-                                    option,
-                                    style: const TextStyle(
-                                        fontSize: Sizes.s16,
-                                        color: AppColor.grey),
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedRelationValue = newValue!;
-                              });
-                            },
-                            value: selectedRelationValue,
+                              )
+                            ],
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: AppColor.grey.withOpacity(0.15),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(12),
-                        ),
+                      const SizedBox(
+                        height: 24,
                       ),
-                      child: Row(
-                        children: const [
-                          Icon(
-                            Icons.error,
-                            size: 18,
-                            color: AppColor.grey,
+                      PreferredDoctorCard(
+                        preferredDoctor: widget.preferredDoctor,
+                        controller: doctorNameController,
+                        validator: (value) {
+                          if (value == 'Doctor') {
+                            return 'Select your doctor.';
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Row(
+                        children: [
+                          DataTimeSelector(
+                            text: Utils.toDate(appointmentDateTime),
+                            icon: Icons.calendar_month_outlined,
+                            width: MediaQuery.of(context).size.width / 1.90,
+                            onPressed: () =>
+                                pickAppointmentDateTime(pickDate: true),
                           ),
-                          SizedBox(
-                            width: 6,
+                          const SizedBox(
+                            width: 24,
                           ),
                           Expanded(
-                            child: Text(
-                              'Complete necessary data before continuing.',
-                              style: TextStyle(
-                                fontSize: Sizes.s12,
-                                color: AppColor.grey,
+                            child: DataTimeSelector(
+                              text: Utils.toTime(appointmentDateTime),
+                              icon: Icons.access_time_outlined,
+                              onPressed: () =>
+                                  pickAppointmentDateTime(pickDate: false),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Textfield(
+                        labelText: 'Contact',
+                        keyboardType: TextInputType.number,
+                        enablePrefixIcon: false,
+                        suffixIcon: Icons.phone_outlined,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Contacts can\'t be empty.';
+                          } else if (!RegExp(r'^(\+977)?98\d{8}$')
+                              .hasMatch(value)) {
+                            return 'Please enter a valid Contact Number.';
+                          }
+
+                          return null;
+                        },
+                        textcontroller: contactController,
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Textfield(
+                        labelText: "Patient's Name",
+                        enablePrefixIcon: false,
+                        suffixIcon: Icons.person_outline,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Patient Name can\'t be empty.';
+                          } else if (!RegExp(
+                                  r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$")
+                              .hasMatch(value)) {
+                            return 'Please enter a valid Patient Name.';
+                          }
+
+                          return null;
+                        },
+                        textcontroller: patientNameController,
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Textfield(
+                              keyboardType: TextInputType.number,
+                              labelText: 'Age',
+                              enablePrefixIcon: false,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Age can\'t be empty.';
+                                } else if (!RegExp(
+                                        r'^[1-9][0-9]{0,1}$|^1[0-2][0-9]$|^130$')
+                                    .hasMatch(value)) {
+                                  return 'Invalid Age.';
+                                }
+
+                                return null;
+                              },
+                              textcontroller: ageController,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 24,
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 58,
+                              padding: const EdgeInsets.only(right: 5),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: AppColor.grey,
+                                ),
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: ButtonTheme(
+                                  alignedDropdown: true,
+                                  padding: EdgeInsets.zero,
+                                  child: DropdownButton(
+                                    borderRadius: BorderRadius.circular(12),
+                                    alignment: Alignment.bottomCenter,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    style:
+                                        Theme.of(context).textTheme.headline6,
+                                    items: gender.map((option) {
+                                      return DropdownMenuItem(
+                                        value: option,
+                                        alignment: Alignment.centerLeft,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 3),
+                                          child: Text(
+                                            option,
+                                            style: const TextStyle(
+                                                fontSize: Sizes.s16,
+                                                color: AppColor.grey),
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        selectedGenderValue = newValue!;
+                                      });
+                                    },
+                                    value: selectedGenderValue,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    SarangButton(
-                      onPressed: () {},
-                      isLoading: false,
-                      label: 'Continue',
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Container(
+                        height: 58,
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.only(right: 5),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: AppColor.grey,
+                          ),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: ButtonTheme(
+                            alignedDropdown: true,
+                            padding: EdgeInsets.zero,
+                            child: DropdownButton(
+                              borderRadius: BorderRadius.circular(12),
+                              alignment: Alignment.bottomCenter,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              style: Theme.of(context).textTheme.headline6,
+                              items: relation.map((option) {
+                                return DropdownMenuItem(
+                                  value: option,
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 3),
+                                    child: Text(
+                                      option,
+                                      style: const TextStyle(
+                                          fontSize: Sizes.s16,
+                                          color: AppColor.grey),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  selectedRelationValue = newValue!;
+                                });
+                              },
+                              value: selectedRelationValue,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: AppColor.grey.withOpacity(0.15),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                        ),
+                        child: Row(
+                          children: const [
+                            Icon(
+                              Icons.error,
+                              size: 18,
+                              color: AppColor.grey,
+                            ),
+                            SizedBox(
+                              width: 6,
+                            ),
+                            Expanded(
+                              child: Text(
+                                'Complete necessary data before continuing.',
+                                style: TextStyle(
+                                  fontSize: Sizes.s12,
+                                  color: AppColor.grey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      SarangButton(
+                        onPressed: continueHandler,
+                        isLoading: false,
+                        label: 'Continue',
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -310,6 +359,15 @@ class _DocAppointmentState extends State<DocAppointment> {
         ),
       ),
     );
+  }
+
+  void continueHandler() {
+    if (formKey.currentState!.validate()) {
+      contactController.text.trim();
+      patientNameController.text.trim();
+      ageController.text.trim();
+      context.push(AppRoutes.payment);
+    }
   }
 
   Future pickAppointmentDateTime({required bool pickDate}) async {

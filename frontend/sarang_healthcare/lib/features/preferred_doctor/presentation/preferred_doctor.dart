@@ -5,9 +5,7 @@ import 'package:sarang_healthcare/core/presentation/widgets/canvas_card.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/sarang_appbar.dart';
 import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 import 'package:sarang_healthcare/features/preferred_doctor/presentation/widgets/category_header.dart';
-import 'package:sarang_healthcare/features/preferred_doctor/presentation/widgets/preferred_doctor_list_item.dart';
 
-import '../../../core/presentation/theme/app_color.dart';
 import '../application/cubit/preferred_doctor_cubit.dart';
 import '../domain/preferred_doctor_model.dart';
 import 'widgets/components/components.dart';

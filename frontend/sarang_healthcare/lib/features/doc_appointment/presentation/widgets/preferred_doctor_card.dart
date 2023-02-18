@@ -7,20 +7,28 @@ import '../../../../core/presentation/theme/sizes.dart';
 import '../../../preferred_doctor/domain/preferred_doctor_model.dart';
 
 class PreferredDoctorCard extends StatelessWidget {
-  const PreferredDoctorCard({super.key, required this.preferredDoctor});
+  const PreferredDoctorCard({
+    super.key,
+    required this.preferredDoctor,
+    this.controller,
+    this.validator,
+  });
   final PreferredDoctorModel? preferredDoctor;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(30),
-      height: 140,
+      height: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: AppColor.primary.withOpacity(0.1),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircularProfileAvatar(
             preferredDoctor?.image ?? '',
@@ -30,7 +38,7 @@ class PreferredDoctorCard extends StatelessWidget {
               height: 50,
               child: CircularProgressIndicator(),
             ),
-            radius: 40,
+            radius: 50,
             backgroundColor: Colors.transparent,
             cacheImage: true,
             initialsText: const Text(
@@ -39,41 +47,53 @@ class PreferredDoctorCard extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 20,
+            width: 10,
           ),
           Expanded(
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 10),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        preferredDoctor?.name ?? 'Doctor',
-                        style: GoogleFonts.inter(
-                          fontSize: Sizes.s20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        preferredDoctor?.qualifications ?? 'Qualifications',
-                        style: GoogleFonts.inter(
-                          fontSize: Sizes.s14,
-                          color: AppColor.grey,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  // const SizedBox(height: 8),
+                  TextFormField(
+                    showCursor: false,
+                    readOnly: true,
+                    focusNode: AlwaysDisabledFocusNode(),
+                    controller: controller,
+                    decoration: const InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.zero,
+                      border: InputBorder.none,
+                    ),
+                    style: GoogleFonts.inter(
+                      fontSize: Sizes.s20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    validator: validator,
+                  ),
+                  // Text(
+                  //   maxLines: 2,
+                  //   overflow: TextOverflow.ellipsis,
+                  //   preferredDoctor?.name ?? 'Doctor',
+                  //   style: GoogleFonts.inter(
+                  //     fontSize: Sizes.s20,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   height: 8,
+                  // ),
+                  Text(
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    preferredDoctor?.qualifications ?? 'Qualification',
+                    style: GoogleFonts.inter(
+                      fontSize: Sizes.s14,
+                      color: AppColor.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ],
               ),
@@ -83,4 +103,9 @@ class PreferredDoctorCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }

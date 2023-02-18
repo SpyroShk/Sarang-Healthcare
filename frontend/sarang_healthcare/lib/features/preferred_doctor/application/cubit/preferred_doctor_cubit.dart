@@ -78,20 +78,4 @@ class PreferredDoctorCubit extends Cubit<PreferredDoctorState> {
         .toList();
     return filteredDoctor;
   }
-
-  // bool changeDoctor({required String selectedCategory}){
-  //   return state.maybeWhen(
-  //     loadedNetwork:(apiData)=> apiData.any(
-  //       (category) {
-  //         switch(selectedCategory){
-  //           case ("Paediatrician"):
-  //             return category.category && category.isSelected;
-
-  //           case ("Orthopaedic"):
-  //             return category.category
-  //         }
-  //       },
-  //     ),orElse: ()=>false,
-  //   );
-  // }
 }
