@@ -9,6 +9,8 @@ class DocAppointmentMapper {
         username: docAppointmentDetail.username,
         doctorName: docAppointmentDetail.doctorName,
         doctorId: docAppointmentDetail.doctorId,
+        doctorImage: docAppointmentDetail.doctorImage,
+        doctorCategory: docAppointmentDetail.doctorCategory,
         appointmentDate: docAppointmentDetail.appointmentDate,
         appointmentTime: docAppointmentDetail.appointmentTime,
         contact: docAppointmentDetail.contact,
@@ -16,5 +18,6 @@ class DocAppointmentMapper {
         age: docAppointmentDetail.age,
         gender: docAppointmentDetail.gender,
         userPatientRelation: docAppointmentDetail.userPatientRelation,
+        patientDescription: docAppointmentDetail.patientDescription,
       );
 }

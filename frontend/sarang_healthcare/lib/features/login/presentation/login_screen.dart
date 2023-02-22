@@ -53,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Form(
           key: formKey,
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Container(
               margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.20),

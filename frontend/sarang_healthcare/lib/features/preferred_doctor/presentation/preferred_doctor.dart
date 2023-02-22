@@ -6,6 +6,7 @@ import 'package:sarang_healthcare/core/presentation/widgets/sarang_appbar.dart';
 import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 import 'package:sarang_healthcare/features/preferred_doctor/presentation/widgets/category_header.dart';
 
+import '../../../core/presentation/widgets/connection_lost.dart';
 import '../application/cubit/preferred_doctor_cubit.dart';
 import '../domain/preferred_doctor_model.dart';
 import 'widgets/components/components.dart';
@@ -67,10 +68,6 @@ class _PreferredDoctorState extends State<PreferredDoctor> {
                   state.whenOrNull(
                     loadFailure: (message) => context.showCustomSnackBar(
                         message: message, result: false),
-                    notLoaded: (message) => context.showCustomSnackBar(
-                      result: false,
-                      message: message,
-                    ),
                   );
                 },
                 child: BlocBuilder<PreferredDoctorCubit, PreferredDoctorState>(
@@ -119,13 +116,14 @@ class _PreferredDoctorState extends State<PreferredDoctor> {
                       loading: () => const Center(
                         child: CircularProgressIndicator(),
                       ),
-                      notLoaded: (message) {
-                        return Text('data');
-                        // ConnectionLost(
-                        //   onRetry: () {
-                        //     context.read<PreferredDoctorCubit>().getPreferredDoctorDetail();
-                        //   },
-                        // );
+                      loadFailure: (message) {
+                        return ConnectionLost(
+                          onRetry: () {
+                            context
+                                .read<PreferredDoctorCubit>()
+                                .getPreferredDoctorDetail();
+                          },
+                        );
                       },
                       orElse: () => const SizedBox.shrink(),
                     );

@@ -14,18 +14,26 @@ class DocAppointmentCubit extends Cubit<DocAppointmentState> {
         super(const DocAppointmentState.initial());
   final DocAppointmentRepository _docAppointmentRepository;
 
+  Future<String?> getToken() async {
+    final token = await _docAppointmentRepository.getToken();
+    return token;
+  }
+
   void docAppointment({
     required String userId,
     required String username,
     required String doctorName,
     required int doctorId,
-    required DateTime appointmentDate,
-    required DateTime appointmentTime,
+    required String doctorImage,
+    required String doctorCategory,
+    required String appointmentDate,
+    required String appointmentTime,
     required int contact,
     required String patientName,
     required int age,
     required String gender,
     required String userPatientRelation,
+    required String patientDescription,
   }) async {
     emit(const DocAppointmentState.loading());
 
@@ -38,9 +46,12 @@ class DocAppointmentCubit extends Cubit<DocAppointmentState> {
       contact: contact,
       doctorId: doctorId,
       doctorName: doctorName,
+      doctorImage: doctorImage,
+      doctorCategory: doctorCategory,
       gender: gender,
       patientName: patientName,
       userPatientRelation: userPatientRelation,
+      patientDescription: patientDescription,
     );
     final response = await _docAppointmentRepository.docAppointment(
         docAppointmentDetail: docAppointmentDetail);

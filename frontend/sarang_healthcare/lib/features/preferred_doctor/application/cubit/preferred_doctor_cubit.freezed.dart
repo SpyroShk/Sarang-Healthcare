@@ -21,7 +21,6 @@ mixin _$PreferredDoctorState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<PreferredDoctorModel> apiData) loadedNetwork,
-    required TResult Function(String message) notLoaded,
     required TResult Function(String message) loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -30,7 +29,6 @@ mixin _$PreferredDoctorState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult? Function(String message)? notLoaded,
     TResult? Function(String message)? loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -39,7 +37,6 @@ mixin _$PreferredDoctorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult Function(String message)? notLoaded,
     TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) =>
@@ -49,7 +46,6 @@ mixin _$PreferredDoctorState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadedNetwork value) loadedNetwork,
-    required TResult Function(_NotLoaded value) notLoaded,
     required TResult Function(_LoadFailure value) loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -58,7 +54,6 @@ mixin _$PreferredDoctorState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_LoadedNetwork value)? loadedNetwork,
-    TResult? Function(_NotLoaded value)? notLoaded,
     TResult? Function(_LoadFailure value)? loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -67,7 +62,6 @@ mixin _$PreferredDoctorState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadedNetwork value)? loadedNetwork,
-    TResult Function(_NotLoaded value)? notLoaded,
     TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) =>
@@ -133,7 +127,6 @@ class _$_Initial implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<PreferredDoctorModel> apiData) loadedNetwork,
-    required TResult Function(String message) notLoaded,
     required TResult Function(String message) loadFailure,
   }) {
     return initial();
@@ -145,7 +138,6 @@ class _$_Initial implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult? Function(String message)? notLoaded,
     TResult? Function(String message)? loadFailure,
   }) {
     return initial?.call();
@@ -157,7 +149,6 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult Function(String message)? notLoaded,
     TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) {
@@ -173,7 +164,6 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadedNetwork value) loadedNetwork,
-    required TResult Function(_NotLoaded value) notLoaded,
     required TResult Function(_LoadFailure value) loadFailure,
   }) {
     return initial(this);
@@ -185,7 +175,6 @@ class _$_Initial implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_LoadedNetwork value)? loadedNetwork,
-    TResult? Function(_NotLoaded value)? notLoaded,
     TResult? Function(_LoadFailure value)? loadFailure,
   }) {
     return initial?.call(this);
@@ -197,7 +186,6 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadedNetwork value)? loadedNetwork,
-    TResult Function(_NotLoaded value)? notLoaded,
     TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
@@ -252,7 +240,6 @@ class _$_Loading implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<PreferredDoctorModel> apiData) loadedNetwork,
-    required TResult Function(String message) notLoaded,
     required TResult Function(String message) loadFailure,
   }) {
     return loading();
@@ -264,7 +251,6 @@ class _$_Loading implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult? Function(String message)? notLoaded,
     TResult? Function(String message)? loadFailure,
   }) {
     return loading?.call();
@@ -276,7 +262,6 @@ class _$_Loading implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult Function(String message)? notLoaded,
     TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) {
@@ -292,7 +277,6 @@ class _$_Loading implements _Loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadedNetwork value) loadedNetwork,
-    required TResult Function(_NotLoaded value) notLoaded,
     required TResult Function(_LoadFailure value) loadFailure,
   }) {
     return loading(this);
@@ -304,7 +288,6 @@ class _$_Loading implements _Loading {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_LoadedNetwork value)? loadedNetwork,
-    TResult? Function(_NotLoaded value)? notLoaded,
     TResult? Function(_LoadFailure value)? loadFailure,
   }) {
     return loading?.call(this);
@@ -316,7 +299,6 @@ class _$_Loading implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadedNetwork value)? loadedNetwork,
-    TResult Function(_NotLoaded value)? notLoaded,
     TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
@@ -405,7 +387,6 @@ class _$_LoadedNetwork implements _LoadedNetwork {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<PreferredDoctorModel> apiData) loadedNetwork,
-    required TResult Function(String message) notLoaded,
     required TResult Function(String message) loadFailure,
   }) {
     return loadedNetwork(apiData);
@@ -417,7 +398,6 @@ class _$_LoadedNetwork implements _LoadedNetwork {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult? Function(String message)? notLoaded,
     TResult? Function(String message)? loadFailure,
   }) {
     return loadedNetwork?.call(apiData);
@@ -429,7 +409,6 @@ class _$_LoadedNetwork implements _LoadedNetwork {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult Function(String message)? notLoaded,
     TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) {
@@ -445,7 +424,6 @@ class _$_LoadedNetwork implements _LoadedNetwork {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadedNetwork value) loadedNetwork,
-    required TResult Function(_NotLoaded value) notLoaded,
     required TResult Function(_LoadFailure value) loadFailure,
   }) {
     return loadedNetwork(this);
@@ -457,7 +435,6 @@ class _$_LoadedNetwork implements _LoadedNetwork {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_LoadedNetwork value)? loadedNetwork,
-    TResult? Function(_NotLoaded value)? notLoaded,
     TResult? Function(_LoadFailure value)? loadFailure,
   }) {
     return loadedNetwork?.call(this);
@@ -469,7 +446,6 @@ class _$_LoadedNetwork implements _LoadedNetwork {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadedNetwork value)? loadedNetwork,
-    TResult Function(_NotLoaded value)? notLoaded,
     TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
@@ -487,157 +463,6 @@ abstract class _LoadedNetwork implements PreferredDoctorState {
   List<PreferredDoctorModel> get apiData;
   @JsonKey(ignore: true)
   _$$_LoadedNetworkCopyWith<_$_LoadedNetwork> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_NotLoadedCopyWith<$Res> {
-  factory _$$_NotLoadedCopyWith(
-          _$_NotLoaded value, $Res Function(_$_NotLoaded) then) =
-      __$$_NotLoadedCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
-}
-
-/// @nodoc
-class __$$_NotLoadedCopyWithImpl<$Res>
-    extends _$PreferredDoctorStateCopyWithImpl<$Res, _$_NotLoaded>
-    implements _$$_NotLoadedCopyWith<$Res> {
-  __$$_NotLoadedCopyWithImpl(
-      _$_NotLoaded _value, $Res Function(_$_NotLoaded) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? message = null,
-  }) {
-    return _then(_$_NotLoaded(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_NotLoaded implements _NotLoaded {
-  const _$_NotLoaded({required this.message});
-
-  @override
-  final String message;
-
-  @override
-  String toString() {
-    return 'PreferredDoctorState.notLoaded(message: $message)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_NotLoaded &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_NotLoadedCopyWith<_$_NotLoaded> get copyWith =>
-      __$$_NotLoadedCopyWithImpl<_$_NotLoaded>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<PreferredDoctorModel> apiData) loadedNetwork,
-    required TResult Function(String message) notLoaded,
-    required TResult Function(String message) loadFailure,
-  }) {
-    return notLoaded(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult? Function(String message)? notLoaded,
-    TResult? Function(String message)? loadFailure,
-  }) {
-    return notLoaded?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult Function(String message)? notLoaded,
-    TResult Function(String message)? loadFailure,
-    required TResult orElse(),
-  }) {
-    if (notLoaded != null) {
-      return notLoaded(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_LoadedNetwork value) loadedNetwork,
-    required TResult Function(_NotLoaded value) notLoaded,
-    required TResult Function(_LoadFailure value) loadFailure,
-  }) {
-    return notLoaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_LoadedNetwork value)? loadedNetwork,
-    TResult? Function(_NotLoaded value)? notLoaded,
-    TResult? Function(_LoadFailure value)? loadFailure,
-  }) {
-    return notLoaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_LoadedNetwork value)? loadedNetwork,
-    TResult Function(_NotLoaded value)? notLoaded,
-    TResult Function(_LoadFailure value)? loadFailure,
-    required TResult orElse(),
-  }) {
-    if (notLoaded != null) {
-      return notLoaded(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _NotLoaded implements PreferredDoctorState {
-  const factory _NotLoaded({required final String message}) = _$_NotLoaded;
-
-  String get message;
-  @JsonKey(ignore: true)
-  _$$_NotLoadedCopyWith<_$_NotLoaded> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -708,7 +533,6 @@ class _$_LoadFailure implements _LoadFailure {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<PreferredDoctorModel> apiData) loadedNetwork,
-    required TResult Function(String message) notLoaded,
     required TResult Function(String message) loadFailure,
   }) {
     return loadFailure(message);
@@ -720,7 +544,6 @@ class _$_LoadFailure implements _LoadFailure {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult? Function(String message)? notLoaded,
     TResult? Function(String message)? loadFailure,
   }) {
     return loadFailure?.call(message);
@@ -732,7 +555,6 @@ class _$_LoadFailure implements _LoadFailure {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<PreferredDoctorModel> apiData)? loadedNetwork,
-    TResult Function(String message)? notLoaded,
     TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) {
@@ -748,7 +570,6 @@ class _$_LoadFailure implements _LoadFailure {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_LoadedNetwork value) loadedNetwork,
-    required TResult Function(_NotLoaded value) notLoaded,
     required TResult Function(_LoadFailure value) loadFailure,
   }) {
     return loadFailure(this);
@@ -760,7 +581,6 @@ class _$_LoadFailure implements _LoadFailure {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_LoadedNetwork value)? loadedNetwork,
-    TResult? Function(_NotLoaded value)? notLoaded,
     TResult? Function(_LoadFailure value)? loadFailure,
   }) {
     return loadFailure?.call(this);
@@ -772,7 +592,6 @@ class _$_LoadFailure implements _LoadFailure {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_LoadedNetwork value)? loadedNetwork,
-    TResult Function(_NotLoaded value)? notLoaded,
     TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {

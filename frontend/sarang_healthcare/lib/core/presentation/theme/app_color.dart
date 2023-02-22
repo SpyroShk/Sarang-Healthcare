@@ -9,4 +9,5 @@ class AppColor {
   static const Color error = Color(0xffEF1010);
   static const Color dark = Color(0xFF151D19);
   static const Color grey = Color(0xFF9095A1);
+  static const Color appointmentCard = Color(0xFF061C1F);
 }

@@ -21,7 +21,8 @@ class ProfileCubit extends Cubit<ProfileState> {
         String message = "";
 
         profileFailure.when(
-          server: () => message = "Server error occured. Please try again later.",
+          server: () =>
+              message = "Server error occured. Please try again later.",
           storage: () => message = "Internal error occured.",
           network: () => message = "Network error occured.",
           client: (errMsg) => message = errMsg,
@@ -39,5 +40,21 @@ class ProfileCubit extends Cubit<ProfileState> {
         );
       },
     );
+  }
+
+  UserDetail loadDetails() {
+    UserDetail defaultDetails =
+        const UserDetail(email: '', pk: 0, username: '');
+    final UserDetail userDetails = state.when(
+      initial: () => throw StateError(
+          'Cannot load details in initial state'), //PreferredDoctorState.initial(),
+      loadedNetwork: (apiData) => apiData,
+      loading: () => defaultDetails,
+      notLoaded: (String message) =>
+          throw StateError('Cannot load details in notLoaded state'),
+      loadedCache: (apiData) => apiData,
+    );
+    final userDetail = userDetails;
+    return userDetail;
   }
 }

@@ -11,6 +11,7 @@ class Textfield extends StatelessWidget {
     this.enabled = true,
     this.validator,
     this.keyboardType,
+    this.maxLines, this.hintText,
   });
 
   final TextEditingController textcontroller;
@@ -21,16 +22,20 @@ class Textfield extends StatelessWidget {
   final bool enabled;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final int? maxLines;
+  final String? hintText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
       textInputAction: TextInputAction.next,
       keyboardType: keyboardType,
       enabled: enabled,
       controller: textcontroller,
       validator: validator,
       decoration: InputDecoration(
+        hintText: hintText,
         labelText: labelText,
         prefixIcon: enablePrefixIcon == true
             ? Icon(

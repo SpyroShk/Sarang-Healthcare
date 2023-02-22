@@ -1,7 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sarang_healthcare/features/doc_appointment/infrastructure/doc_appointment_repository.dart';
 
+import '../../features/appointment_list/application/cubit/appointment_list_cubit.dart';
+import '../../features/appointment_list/infrastructure/appointment_list_repository.dart';
+import '../../features/doc_appointment/application/cubit/doc_appointment_cubit.dart';
 import '../../features/login/application/cubit/login_cubit.dart';
 import '../../features/login/infrastructure/login_repository.dart';
 import '../../features/preferred_doctor/application/cubit/preferred_doctor_cubit.dart';
@@ -53,6 +57,31 @@ void setupLocators() {
   getIt.registerLazySingleton<SignupCubit>(
     () => SignupCubit(
       signupRepository: getIt.get<SignupRepository>(),
+    ),
+  );
+
+  getIt.registerSingleton<DocAppointmentRepository>(
+    DocAppointmentRepository(
+      dio: getIt.get<Dio>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<DocAppointmentCubit>(
+    () => DocAppointmentCubit(
+      docAppointmentRepository: getIt.get<DocAppointmentRepository>(),
+    ),
+  );
+
+  getIt.registerSingleton<AppointmentListRepository>(
+    AppointmentListRepository(
+      dio: getIt.get<Dio>(),
+      secureCredentialStorage: getIt.get<SecureCredentialStorage>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<AppointmentListCubit>(
+    () => AppointmentListCubit(
+      appointmentListRepository: getIt.get<AppointmentListRepository>(),
     ),
   );
 

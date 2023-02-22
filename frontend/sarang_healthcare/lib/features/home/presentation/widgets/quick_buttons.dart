@@ -28,7 +28,10 @@ class QuickButton extends StatelessWidget {
       ),
       child: TextButton.icon(
         onPressed: onPressed,
-        icon: const Icon(Icons.add),
+        icon: const Icon(
+          Icons.add,
+          color: AppColor.primary,
+        ),
         label: Text(
           title,
           style: const TextStyle(

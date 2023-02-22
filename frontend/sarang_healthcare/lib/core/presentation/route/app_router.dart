@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sarang_healthcare/features/appointment_list/presentation/appointment_list.dart';
+import 'package:sarang_healthcare/features/contact/presentation/contact.dart';
 import 'package:sarang_healthcare/features/doc_appointment/presentation/doc_appointment.dart';
 import 'package:sarang_healthcare/features/login/application/cubit/login_cubit.dart';
 import 'package:sarang_healthcare/features/payment/presentation/payment.dart';
@@ -28,6 +30,7 @@ class AppRoutes {
   static const String signup = '/signup';
   static const String home = '/home';
   static const String profile = '/profile';
+  static const String contact = '/contact';
   static const String docappointment = '/docappointment';
   static const String preferreddoc = '/preferreddoc';
   static const String appointment = '/appointment';
@@ -63,12 +66,15 @@ class AppRouter {
         navigatorKey: _shellNavigatorKey,
         builder: (_, state, child) {
           return ScaffoldWithButtomNavbar(body: child);
-          // return const Text('AAAA');
         },
         routes: [
           GoRoute(
             path: AppRoutes.home,
             builder: (_, state) => const HomeScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.appointment,
+            builder: (_, state) => const AppointmentList(),
           ),
         ],
       ),
@@ -76,6 +82,11 @@ class AppRouter {
         path: AppRoutes.profile,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (_, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.contact,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) => const Contact(),
       ),
       GoRoute(
         path: AppRoutes.docappointment,
@@ -89,10 +100,38 @@ class AppRouter {
         builder: (_, state) => const PreferredDoctor(),
       ),
       GoRoute(
-        path: AppRoutes.payment,
-        parentNavigatorKey: _rootNavigatorKey,
-        builder: (_, state) => const Payment(),
-      ),
+          path: AppRoutes.payment,
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (_, state) {
+            final a = state.extra as Map;
+
+            final doctorId = a['doctorId'];
+            final appointmentDate = a['appointmentDate'];
+            final appointmentTime = a['appointmentTime'];
+            final contact = a['contact'];
+            final patientName = a['patientName'];
+            final age = a['age'];
+            final doctorName = a['doctorName'];
+            final gender = a['gender'];
+            final userPatientRelation = a['userPatientRelation'];
+            final doctorImage = a['doctorImage'];
+            final doctorCategory = a['doctorCategory'];
+            final patientDescription = a['patientDescription'];
+            return Payment(
+              doctorId: doctorId,
+              doctorName: doctorName,
+              appointmentDate: appointmentDate,
+              appointmentTime: appointmentTime,
+              contact: contact,
+              age: age,
+              gender: gender,
+              patientName: patientName,
+              userPatientRelation: userPatientRelation,
+              doctorCategory: doctorCategory,
+              doctorImage: doctorImage,
+              patientDescription: patientDescription,
+            );
+          }),
     ],
     redirect: (context, state) {
       LoginState authState = loginCubit.state;

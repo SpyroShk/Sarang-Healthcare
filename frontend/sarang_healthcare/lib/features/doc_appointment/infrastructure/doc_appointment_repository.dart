@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
+import '../../../core/infrastructure/secure_credential_storage.dart';
 import '../../../core/shared/api_constants.dart';
 import '../domain/doc_appointment_detail.dart';
 import '../domain/doc_appointment_failure.dart';
@@ -12,10 +13,16 @@ typedef DocAppointmentSuccess = String;
 
 class DocAppointmentRepository {
   final Dio _dio;
+  final SecureCredentialStorage? _secureCredentialStorage;
 
   DocAppointmentRepository({
     required Dio dio,
-  }) : _dio = dio;
+    SecureCredentialStorage? secureCredentialStorage,
+  })  : _dio = dio,
+        _secureCredentialStorage = secureCredentialStorage;
+
+  Future<String?> getToken() async =>
+      await _secureCredentialStorage?.getApiToken();
 
   Future<Either<DocAppointmentFailure, DocAppointmentSuccess>> docAppointment({
     required DocAppointmentDetail docAppointmentDetail,
@@ -48,15 +55,15 @@ class DocAppointmentRepository {
     if (statusCode >= 400 && statusCode < 500) {
       return DocAppointmentFailure.client(
         message: (respData["username"] ??
-                respData["doctor_name"] ??
-                respData["doctor_id"] ??
-                respData["appointment_date"] ??
-                respData["appointment_time"] ??
+                respData["doctorName"] ??
+                respData["doctorId"] ??
+                respData["appointmentDate"] ??
+                respData["appointmentTime"] ??
                 respData["contact"] ??
-                respData["patient_name"] ??
+                respData["patientName"] ??
                 respData["age"] ??
                 respData["gender"] ??
-                respData["user_patient_relation"] ??
+                respData["userPatientRelation"] ??
                 respData["non_field_errors"])
             .toString(),
       );

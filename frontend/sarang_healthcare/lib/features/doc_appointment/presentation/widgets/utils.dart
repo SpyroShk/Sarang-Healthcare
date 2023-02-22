@@ -9,7 +9,7 @@ class Utils {
   }
 
   static String toDate(DateTime dateTime) {
-    final date = DateFormat.yMMMEd().format(dateTime);
+    final date = DateFormat('y-M-d').format(dateTime);
     return date;
   }
 

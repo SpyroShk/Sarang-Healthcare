@@ -12,7 +12,6 @@ part 'preferred_doctor_state.dart';
 
 class PreferredDoctorCubit extends Cubit<PreferredDoctorState> {
   final PreferredDoctorRepository _preferredDoctorRepository;
-  int page = 1;
 
   PreferredDoctorCubit(
       {required PreferredDoctorRepository preferredDoctorRepository})
@@ -58,20 +57,12 @@ class PreferredDoctorCubit extends Cubit<PreferredDoctorState> {
     );
   }
 
-  List<PreferredDoctorModel> _getPreferredDoctorsFromState() {
-    return state.whenOrNull(
-          loadedNetwork: (apiData) => apiData,
-        ) ??
-        [];
-  }
-
   List<PreferredDoctorModel> changeDoctor(String doctorCategory) {
     final List<PreferredDoctorModel> preferredDoctors = state.when(
       initial: () => const [], //PreferredDoctorState.initial(),
       loadedNetwork: (apiData) => apiData,
       loadFailure: (String message) => const [],
       loading: () => const [],
-      notLoaded: (String message) => const [],
     );
     final filteredDoctor = preferredDoctors
         .where((doctor) => doctor.category == doctorCategory)

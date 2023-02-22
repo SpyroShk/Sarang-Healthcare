@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/core/presentation/theme/app_color.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/core/presentation/theme/sizes.dart';
@@ -56,6 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Form(
           key: formKey,
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Container(
               margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.10),
@@ -63,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 horizontal: 16,
               ),
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.99,
+              height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(
                 color: AppColor.canvas,
                 borderRadius: BorderRadius.only(
@@ -134,7 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           textInputAction: TextInputAction.send,
                         ),
                         const SizedBox(
-                          height: 50,
+                          height: 40,
                         ),
                         Stack(
                           children: [
@@ -169,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         ),
                         const SizedBox(
-                          height: 25,
+                          height: 24,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -181,7 +183,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                             InkWell(
-                              onTap: () => Navigator.of(context).pop(),
+                              onTap: () => context.pop(),
                               child: const Text(
                                 "Sign In",
                                 style: TextStyle(

@@ -63,16 +63,15 @@ POST http://127.0.0.1:8000/appointments/appointmentlist
 Content-Type: application/json
 
     {
-        "id": 2,
-        "user_id": "2",
+        "userId": "2",
         "username": "ramua",
-        "doctor_name": "shyamu",
-        "doctor_id": 2,
-        "appointment_date": "2023-02-19",
-        "appointment_time": "12:15:00",
+        "doctorName": "shyamu",
+        "doctorId": 2,
+        "appointmentDate": "2023-02-19 00:00:00.000",
+        "appointmentTime": "12:15:00",
         "contact": 9812354671,
-        "patient_name": "ramu",
+        "patientName": "ramu",
         "age": 23,
         "gender": "Male",
-        "user_patient_relation": "self"
+        "userPatientRelation": "self"
     }

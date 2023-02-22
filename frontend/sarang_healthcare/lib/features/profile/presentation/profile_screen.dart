@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
-import 'package:sarang_healthcare/core/presentation/theme/sizes.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/sarang_appbar.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/sarang_button.dart';
 
 import '../../../core/presentation/theme/app_color.dart';
+import '../../../core/presentation/widgets/connection_lost.dart';
 import '../../login/application/cubit/login_cubit.dart';
 import '../application/cubit/profile_cubit.dart';
 import 'widgets/profile_view.dart';
@@ -51,29 +51,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ProfileView(userDetail: userDetail),
                               loading: () => CircularProgressIndicator(),
                               notLoaded: (message) {
-                                return Text('fail');
-                                // ConnectionLost(
-                                //   onRetry: () {
-                                //     context.read<ProfileCubit>().getUserDetails();
-                                //   },
-                                // );
+                                return ConnectionLost(
+                                  onRetry: () {
+                                    context
+                                        .read<ProfileCubit>()
+                                        .getUserDetails();
+                                  },
+                                );
                               },
                               orElse: () => const SizedBox.shrink(),
                             );
                           },
                         ),
-                        // BlocBuilder<ProfileCubit, ProfileState>(
-                        //   builder: (context, state) {
-                        //     String? email = state.maybeWhen(
-                        //         loadedCache: (userDetail) => userDetail.email,
-                        //         loadedNetwork: (userDetail) =>
-                        //             userDetail.email,
-                        //         orElse: () => null);
-                        //     return SizedBox(
-                        //       height: 50,
-                        //     );
-                        //   },
-                        // ),
                       ],
                     ),
                     Expanded(

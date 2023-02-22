@@ -41,4 +41,22 @@ class SecureCredentialStorage implements CredentialStorage {
     final email = await _secureStorage.read(key: "KEY_USERNAME") ?? "";
     return email;
   }
+
+    static const userIdKey = "user_id";
+  String? _userId;
+
+  @override
+  Future<String?> getUserId() async {
+    if (_userId != null) {
+      return _userId;
+    }
+    final token = await _secureStorage.read(key: userIdKey);
+    return token;
+  }
+
+  @override
+  Future<void> setUserId(String userId) {
+    _userId = userId;
+    return _secureStorage.write(key: userIdKey, value: userId);
+  }
 }

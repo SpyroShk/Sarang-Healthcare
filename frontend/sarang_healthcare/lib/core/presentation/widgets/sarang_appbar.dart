@@ -15,8 +15,8 @@ class SarangAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: const TextStyle(
-          fontSize: Sizes.s20,
-          fontWeight: FontWeight.bold,
+          fontSize: Sizes.s22,
+          fontWeight: FontWeight.w900,
         ),
       ),
       centerTitle: true,
@@ -24,5 +24,5 @@ class SarangAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 20);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 120);
 }

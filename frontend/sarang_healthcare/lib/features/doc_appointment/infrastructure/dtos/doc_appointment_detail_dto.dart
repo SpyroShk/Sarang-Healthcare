@@ -10,13 +10,16 @@ class DocAppointmentDetailDto with _$DocAppointmentDetailDto {
     required String username,
     required String doctorName,
     required int doctorId,
-    required DateTime appointmentDate,
-    required DateTime appointmentTime,
+    required String doctorImage,
+    required String doctorCategory,
+    required String appointmentDate,
+    required String appointmentTime,
     required int contact,
     required String patientName,
     required int age,
     required String gender,
     required String userPatientRelation,
+    required String patientDescription,
   }) = _DocAppointmentDetailDto;
 
   factory DocAppointmentDetailDto.fromJson(Map<String, dynamic> json) =>

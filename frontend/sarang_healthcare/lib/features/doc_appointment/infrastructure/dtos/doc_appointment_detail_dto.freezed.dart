@@ -25,13 +25,16 @@ mixin _$DocAppointmentDetailDto {
   String get username => throw _privateConstructorUsedError;
   String get doctorName => throw _privateConstructorUsedError;
   int get doctorId => throw _privateConstructorUsedError;
-  DateTime get appointmentDate => throw _privateConstructorUsedError;
-  DateTime get appointmentTime => throw _privateConstructorUsedError;
+  String get doctorImage => throw _privateConstructorUsedError;
+  String get doctorCategory => throw _privateConstructorUsedError;
+  String get appointmentDate => throw _privateConstructorUsedError;
+  String get appointmentTime => throw _privateConstructorUsedError;
   int get contact => throw _privateConstructorUsedError;
   String get patientName => throw _privateConstructorUsedError;
   int get age => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
   String get userPatientRelation => throw _privateConstructorUsedError;
+  String get patientDescription => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,13 +53,16 @@ abstract class $DocAppointmentDetailDtoCopyWith<$Res> {
       String username,
       String doctorName,
       int doctorId,
-      DateTime appointmentDate,
-      DateTime appointmentTime,
+      String doctorImage,
+      String doctorCategory,
+      String appointmentDate,
+      String appointmentTime,
       int contact,
       String patientName,
       int age,
       String gender,
-      String userPatientRelation});
+      String userPatientRelation,
+      String patientDescription});
 }
 
 /// @nodoc
@@ -77,6 +83,8 @@ class _$DocAppointmentDetailDtoCopyWithImpl<$Res,
     Object? username = null,
     Object? doctorName = null,
     Object? doctorId = null,
+    Object? doctorImage = null,
+    Object? doctorCategory = null,
     Object? appointmentDate = null,
     Object? appointmentTime = null,
     Object? contact = null,
@@ -84,6 +92,7 @@ class _$DocAppointmentDetailDtoCopyWithImpl<$Res,
     Object? age = null,
     Object? gender = null,
     Object? userPatientRelation = null,
+    Object? patientDescription = null,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -102,14 +111,22 @@ class _$DocAppointmentDetailDtoCopyWithImpl<$Res,
           ? _value.doctorId
           : doctorId // ignore: cast_nullable_to_non_nullable
               as int,
+      doctorImage: null == doctorImage
+          ? _value.doctorImage
+          : doctorImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      doctorCategory: null == doctorCategory
+          ? _value.doctorCategory
+          : doctorCategory // ignore: cast_nullable_to_non_nullable
+              as String,
       appointmentDate: null == appointmentDate
           ? _value.appointmentDate
           : appointmentDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       appointmentTime: null == appointmentTime
           ? _value.appointmentTime
           : appointmentTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       contact: null == contact
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
@@ -129,6 +146,10 @@ class _$DocAppointmentDetailDtoCopyWithImpl<$Res,
       userPatientRelation: null == userPatientRelation
           ? _value.userPatientRelation
           : userPatientRelation // ignore: cast_nullable_to_non_nullable
+              as String,
+      patientDescription: null == patientDescription
+          ? _value.patientDescription
+          : patientDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -147,13 +168,16 @@ abstract class _$$_DocAppointmentDetailDtoCopyWith<$Res>
       String username,
       String doctorName,
       int doctorId,
-      DateTime appointmentDate,
-      DateTime appointmentTime,
+      String doctorImage,
+      String doctorCategory,
+      String appointmentDate,
+      String appointmentTime,
       int contact,
       String patientName,
       int age,
       String gender,
-      String userPatientRelation});
+      String userPatientRelation,
+      String patientDescription});
 }
 
 /// @nodoc
@@ -172,6 +196,8 @@ class __$$_DocAppointmentDetailDtoCopyWithImpl<$Res>
     Object? username = null,
     Object? doctorName = null,
     Object? doctorId = null,
+    Object? doctorImage = null,
+    Object? doctorCategory = null,
     Object? appointmentDate = null,
     Object? appointmentTime = null,
     Object? contact = null,
@@ -179,6 +205,7 @@ class __$$_DocAppointmentDetailDtoCopyWithImpl<$Res>
     Object? age = null,
     Object? gender = null,
     Object? userPatientRelation = null,
+    Object? patientDescription = null,
   }) {
     return _then(_$_DocAppointmentDetailDto(
       userId: null == userId
@@ -197,14 +224,22 @@ class __$$_DocAppointmentDetailDtoCopyWithImpl<$Res>
           ? _value.doctorId
           : doctorId // ignore: cast_nullable_to_non_nullable
               as int,
+      doctorImage: null == doctorImage
+          ? _value.doctorImage
+          : doctorImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      doctorCategory: null == doctorCategory
+          ? _value.doctorCategory
+          : doctorCategory // ignore: cast_nullable_to_non_nullable
+              as String,
       appointmentDate: null == appointmentDate
           ? _value.appointmentDate
           : appointmentDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       appointmentTime: null == appointmentTime
           ? _value.appointmentTime
           : appointmentTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       contact: null == contact
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
@@ -225,6 +260,10 @@ class __$$_DocAppointmentDetailDtoCopyWithImpl<$Res>
           ? _value.userPatientRelation
           : userPatientRelation // ignore: cast_nullable_to_non_nullable
               as String,
+      patientDescription: null == patientDescription
+          ? _value.patientDescription
+          : patientDescription // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -237,13 +276,16 @@ class _$_DocAppointmentDetailDto implements _DocAppointmentDetailDto {
       required this.username,
       required this.doctorName,
       required this.doctorId,
+      required this.doctorImage,
+      required this.doctorCategory,
       required this.appointmentDate,
       required this.appointmentTime,
       required this.contact,
       required this.patientName,
       required this.age,
       required this.gender,
-      required this.userPatientRelation});
+      required this.userPatientRelation,
+      required this.patientDescription});
 
   factory _$_DocAppointmentDetailDto.fromJson(Map<String, dynamic> json) =>
       _$$_DocAppointmentDetailDtoFromJson(json);
@@ -257,9 +299,13 @@ class _$_DocAppointmentDetailDto implements _DocAppointmentDetailDto {
   @override
   final int doctorId;
   @override
-  final DateTime appointmentDate;
+  final String doctorImage;
   @override
-  final DateTime appointmentTime;
+  final String doctorCategory;
+  @override
+  final String appointmentDate;
+  @override
+  final String appointmentTime;
   @override
   final int contact;
   @override
@@ -270,10 +316,12 @@ class _$_DocAppointmentDetailDto implements _DocAppointmentDetailDto {
   final String gender;
   @override
   final String userPatientRelation;
+  @override
+  final String patientDescription;
 
   @override
   String toString() {
-    return 'DocAppointmentDetailDto(userId: $userId, username: $username, doctorName: $doctorName, doctorId: $doctorId, appointmentDate: $appointmentDate, appointmentTime: $appointmentTime, contact: $contact, patientName: $patientName, age: $age, gender: $gender, userPatientRelation: $userPatientRelation)';
+    return 'DocAppointmentDetailDto(userId: $userId, username: $username, doctorName: $doctorName, doctorId: $doctorId, doctorImage: $doctorImage, doctorCategory: $doctorCategory, appointmentDate: $appointmentDate, appointmentTime: $appointmentTime, contact: $contact, patientName: $patientName, age: $age, gender: $gender, userPatientRelation: $userPatientRelation, patientDescription: $patientDescription)';
   }
 
   @override
@@ -288,6 +336,10 @@ class _$_DocAppointmentDetailDto implements _DocAppointmentDetailDto {
                 other.doctorName == doctorName) &&
             (identical(other.doctorId, doctorId) ||
                 other.doctorId == doctorId) &&
+            (identical(other.doctorImage, doctorImage) ||
+                other.doctorImage == doctorImage) &&
+            (identical(other.doctorCategory, doctorCategory) ||
+                other.doctorCategory == doctorCategory) &&
             (identical(other.appointmentDate, appointmentDate) ||
                 other.appointmentDate == appointmentDate) &&
             (identical(other.appointmentTime, appointmentTime) ||
@@ -298,7 +350,9 @@ class _$_DocAppointmentDetailDto implements _DocAppointmentDetailDto {
             (identical(other.age, age) || other.age == age) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.userPatientRelation, userPatientRelation) ||
-                other.userPatientRelation == userPatientRelation));
+                other.userPatientRelation == userPatientRelation) &&
+            (identical(other.patientDescription, patientDescription) ||
+                other.patientDescription == patientDescription));
   }
 
   @JsonKey(ignore: true)
@@ -309,13 +363,16 @@ class _$_DocAppointmentDetailDto implements _DocAppointmentDetailDto {
       username,
       doctorName,
       doctorId,
+      doctorImage,
+      doctorCategory,
       appointmentDate,
       appointmentTime,
       contact,
       patientName,
       age,
       gender,
-      userPatientRelation);
+      userPatientRelation,
+      patientDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -339,13 +396,16 @@ abstract class _DocAppointmentDetailDto implements DocAppointmentDetailDto {
       required final String username,
       required final String doctorName,
       required final int doctorId,
-      required final DateTime appointmentDate,
-      required final DateTime appointmentTime,
+      required final String doctorImage,
+      required final String doctorCategory,
+      required final String appointmentDate,
+      required final String appointmentTime,
       required final int contact,
       required final String patientName,
       required final int age,
       required final String gender,
-      required final String userPatientRelation}) = _$_DocAppointmentDetailDto;
+      required final String userPatientRelation,
+      required final String patientDescription}) = _$_DocAppointmentDetailDto;
 
   factory _DocAppointmentDetailDto.fromJson(Map<String, dynamic> json) =
       _$_DocAppointmentDetailDto.fromJson;
@@ -359,9 +419,13 @@ abstract class _DocAppointmentDetailDto implements DocAppointmentDetailDto {
   @override
   int get doctorId;
   @override
-  DateTime get appointmentDate;
+  String get doctorImage;
   @override
-  DateTime get appointmentTime;
+  String get doctorCategory;
+  @override
+  String get appointmentDate;
+  @override
+  String get appointmentTime;
   @override
   int get contact;
   @override
@@ -372,6 +436,8 @@ abstract class _DocAppointmentDetailDto implements DocAppointmentDetailDto {
   String get gender;
   @override
   String get userPatientRelation;
+  @override
+  String get patientDescription;
   @override
   @JsonKey(ignore: true)
   _$$_DocAppointmentDetailDtoCopyWith<_$_DocAppointmentDetailDto>

@@ -9,14 +9,20 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from .models import appointments
 from .serializers import appointmentsSerializer
+from types import NoneType
 
 class appointmentList(APIView):
     def get(self, request):
-        appointments1=appointments.objects.all()
+        
+        a = request.query_params.get("id")
+        if(a == None):
+            return Response({"message" : "error"},status=404)
+        appointments1=appointments.objects.filter(user_id=a)
         serializer=appointmentsSerializer(appointments1,many=True)
         return Response(serializer.data)
     
     def post(self, request):
+        
         jsonData=JSONParser().parse(request)
         serializer=appointmentsSerializer(data=jsonData)
         if serializer.is_valid():

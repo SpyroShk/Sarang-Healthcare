@@ -20,13 +20,16 @@ mixin _$DocAppointmentDetail {
   String get username => throw _privateConstructorUsedError;
   String get doctorName => throw _privateConstructorUsedError;
   int get doctorId => throw _privateConstructorUsedError;
-  DateTime get appointmentDate => throw _privateConstructorUsedError;
-  DateTime get appointmentTime => throw _privateConstructorUsedError;
+  String get doctorImage => throw _privateConstructorUsedError;
+  String get doctorCategory => throw _privateConstructorUsedError;
+  String get appointmentDate => throw _privateConstructorUsedError;
+  String get appointmentTime => throw _privateConstructorUsedError;
   int get contact => throw _privateConstructorUsedError;
   String get patientName => throw _privateConstructorUsedError;
   int get age => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
   String get userPatientRelation => throw _privateConstructorUsedError;
+  String get patientDescription => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DocAppointmentDetailCopyWith<DocAppointmentDetail> get copyWith =>
@@ -44,13 +47,16 @@ abstract class $DocAppointmentDetailCopyWith<$Res> {
       String username,
       String doctorName,
       int doctorId,
-      DateTime appointmentDate,
-      DateTime appointmentTime,
+      String doctorImage,
+      String doctorCategory,
+      String appointmentDate,
+      String appointmentTime,
       int contact,
       String patientName,
       int age,
       String gender,
-      String userPatientRelation});
+      String userPatientRelation,
+      String patientDescription});
 }
 
 /// @nodoc
@@ -71,6 +77,8 @@ class _$DocAppointmentDetailCopyWithImpl<$Res,
     Object? username = null,
     Object? doctorName = null,
     Object? doctorId = null,
+    Object? doctorImage = null,
+    Object? doctorCategory = null,
     Object? appointmentDate = null,
     Object? appointmentTime = null,
     Object? contact = null,
@@ -78,6 +86,7 @@ class _$DocAppointmentDetailCopyWithImpl<$Res,
     Object? age = null,
     Object? gender = null,
     Object? userPatientRelation = null,
+    Object? patientDescription = null,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -96,14 +105,22 @@ class _$DocAppointmentDetailCopyWithImpl<$Res,
           ? _value.doctorId
           : doctorId // ignore: cast_nullable_to_non_nullable
               as int,
+      doctorImage: null == doctorImage
+          ? _value.doctorImage
+          : doctorImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      doctorCategory: null == doctorCategory
+          ? _value.doctorCategory
+          : doctorCategory // ignore: cast_nullable_to_non_nullable
+              as String,
       appointmentDate: null == appointmentDate
           ? _value.appointmentDate
           : appointmentDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       appointmentTime: null == appointmentTime
           ? _value.appointmentTime
           : appointmentTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       contact: null == contact
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
@@ -123,6 +140,10 @@ class _$DocAppointmentDetailCopyWithImpl<$Res,
       userPatientRelation: null == userPatientRelation
           ? _value.userPatientRelation
           : userPatientRelation // ignore: cast_nullable_to_non_nullable
+              as String,
+      patientDescription: null == patientDescription
+          ? _value.patientDescription
+          : patientDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -141,13 +162,16 @@ abstract class _$$_DocAppointmentDetailCopyWith<$Res>
       String username,
       String doctorName,
       int doctorId,
-      DateTime appointmentDate,
-      DateTime appointmentTime,
+      String doctorImage,
+      String doctorCategory,
+      String appointmentDate,
+      String appointmentTime,
       int contact,
       String patientName,
       int age,
       String gender,
-      String userPatientRelation});
+      String userPatientRelation,
+      String patientDescription});
 }
 
 /// @nodoc
@@ -165,6 +189,8 @@ class __$$_DocAppointmentDetailCopyWithImpl<$Res>
     Object? username = null,
     Object? doctorName = null,
     Object? doctorId = null,
+    Object? doctorImage = null,
+    Object? doctorCategory = null,
     Object? appointmentDate = null,
     Object? appointmentTime = null,
     Object? contact = null,
@@ -172,6 +198,7 @@ class __$$_DocAppointmentDetailCopyWithImpl<$Res>
     Object? age = null,
     Object? gender = null,
     Object? userPatientRelation = null,
+    Object? patientDescription = null,
   }) {
     return _then(_$_DocAppointmentDetail(
       userId: null == userId
@@ -190,14 +217,22 @@ class __$$_DocAppointmentDetailCopyWithImpl<$Res>
           ? _value.doctorId
           : doctorId // ignore: cast_nullable_to_non_nullable
               as int,
+      doctorImage: null == doctorImage
+          ? _value.doctorImage
+          : doctorImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      doctorCategory: null == doctorCategory
+          ? _value.doctorCategory
+          : doctorCategory // ignore: cast_nullable_to_non_nullable
+              as String,
       appointmentDate: null == appointmentDate
           ? _value.appointmentDate
           : appointmentDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       appointmentTime: null == appointmentTime
           ? _value.appointmentTime
           : appointmentTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       contact: null == contact
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
@@ -218,6 +253,10 @@ class __$$_DocAppointmentDetailCopyWithImpl<$Res>
           ? _value.userPatientRelation
           : userPatientRelation // ignore: cast_nullable_to_non_nullable
               as String,
+      patientDescription: null == patientDescription
+          ? _value.patientDescription
+          : patientDescription // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -230,13 +269,16 @@ class _$_DocAppointmentDetail implements _DocAppointmentDetail {
       required this.username,
       required this.doctorName,
       required this.doctorId,
+      required this.doctorImage,
+      required this.doctorCategory,
       required this.appointmentDate,
       required this.appointmentTime,
       required this.contact,
       required this.patientName,
       required this.age,
       required this.gender,
-      required this.userPatientRelation});
+      required this.userPatientRelation,
+      required this.patientDescription});
 
   @override
   final String userId;
@@ -247,9 +289,13 @@ class _$_DocAppointmentDetail implements _DocAppointmentDetail {
   @override
   final int doctorId;
   @override
-  final DateTime appointmentDate;
+  final String doctorImage;
   @override
-  final DateTime appointmentTime;
+  final String doctorCategory;
+  @override
+  final String appointmentDate;
+  @override
+  final String appointmentTime;
   @override
   final int contact;
   @override
@@ -260,10 +306,12 @@ class _$_DocAppointmentDetail implements _DocAppointmentDetail {
   final String gender;
   @override
   final String userPatientRelation;
+  @override
+  final String patientDescription;
 
   @override
   String toString() {
-    return 'DocAppointmentDetail(userId: $userId, username: $username, doctorName: $doctorName, doctorId: $doctorId, appointmentDate: $appointmentDate, appointmentTime: $appointmentTime, contact: $contact, patientName: $patientName, age: $age, gender: $gender, userPatientRelation: $userPatientRelation)';
+    return 'DocAppointmentDetail(userId: $userId, username: $username, doctorName: $doctorName, doctorId: $doctorId, doctorImage: $doctorImage, doctorCategory: $doctorCategory, appointmentDate: $appointmentDate, appointmentTime: $appointmentTime, contact: $contact, patientName: $patientName, age: $age, gender: $gender, userPatientRelation: $userPatientRelation, patientDescription: $patientDescription)';
   }
 
   @override
@@ -278,6 +326,10 @@ class _$_DocAppointmentDetail implements _DocAppointmentDetail {
                 other.doctorName == doctorName) &&
             (identical(other.doctorId, doctorId) ||
                 other.doctorId == doctorId) &&
+            (identical(other.doctorImage, doctorImage) ||
+                other.doctorImage == doctorImage) &&
+            (identical(other.doctorCategory, doctorCategory) ||
+                other.doctorCategory == doctorCategory) &&
             (identical(other.appointmentDate, appointmentDate) ||
                 other.appointmentDate == appointmentDate) &&
             (identical(other.appointmentTime, appointmentTime) ||
@@ -288,7 +340,9 @@ class _$_DocAppointmentDetail implements _DocAppointmentDetail {
             (identical(other.age, age) || other.age == age) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.userPatientRelation, userPatientRelation) ||
-                other.userPatientRelation == userPatientRelation));
+                other.userPatientRelation == userPatientRelation) &&
+            (identical(other.patientDescription, patientDescription) ||
+                other.patientDescription == patientDescription));
   }
 
   @override
@@ -298,13 +352,16 @@ class _$_DocAppointmentDetail implements _DocAppointmentDetail {
       username,
       doctorName,
       doctorId,
+      doctorImage,
+      doctorCategory,
       appointmentDate,
       appointmentTime,
       contact,
       patientName,
       age,
       gender,
-      userPatientRelation);
+      userPatientRelation,
+      patientDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -320,13 +377,16 @@ abstract class _DocAppointmentDetail implements DocAppointmentDetail {
       required final String username,
       required final String doctorName,
       required final int doctorId,
-      required final DateTime appointmentDate,
-      required final DateTime appointmentTime,
+      required final String doctorImage,
+      required final String doctorCategory,
+      required final String appointmentDate,
+      required final String appointmentTime,
       required final int contact,
       required final String patientName,
       required final int age,
       required final String gender,
-      required final String userPatientRelation}) = _$_DocAppointmentDetail;
+      required final String userPatientRelation,
+      required final String patientDescription}) = _$_DocAppointmentDetail;
 
   @override
   String get userId;
@@ -337,9 +397,13 @@ abstract class _DocAppointmentDetail implements DocAppointmentDetail {
   @override
   int get doctorId;
   @override
-  DateTime get appointmentDate;
+  String get doctorImage;
   @override
-  DateTime get appointmentTime;
+  String get doctorCategory;
+  @override
+  String get appointmentDate;
+  @override
+  String get appointmentTime;
   @override
   int get contact;
   @override
@@ -350,6 +414,8 @@ abstract class _DocAppointmentDetail implements DocAppointmentDetail {
   String get gender;
   @override
   String get userPatientRelation;
+  @override
+  String get patientDescription;
   @override
   @JsonKey(ignore: true)
   _$$_DocAppointmentDetailCopyWith<_$_DocAppointmentDetail> get copyWith =>

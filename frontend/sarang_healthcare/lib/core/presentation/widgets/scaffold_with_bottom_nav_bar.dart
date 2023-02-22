@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../features/profile/application/cubit/profile_cubit.dart';
 import '../route/app_router.dart';
 
 class ScaffoldWithButtomNavbar extends StatefulWidget {
@@ -20,6 +21,7 @@ class _ScaffoldWithButtomNavbarState extends State<ScaffoldWithButtomNavbar> {
   @override
   void initState() {
     super.initState();
+    context.read<ProfileCubit>().getUserDetails();
     // context.read<PushNotificationCubit>().getpushNotification();
   }
 
@@ -30,8 +32,6 @@ class _ScaffoldWithButtomNavbarState extends State<ScaffoldWithButtomNavbar> {
     return Scaffold(
       body: widget.body,
       extendBody: true,
-      // appBar: FeatherwebsAppbar(title: getTitle(context)),
-      // drawer: const ProfileView(),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(
           left: 25,
@@ -45,7 +45,7 @@ class _ScaffoldWithButtomNavbarState extends State<ScaffoldWithButtomNavbar> {
             BoxShadow(
               color: Color.fromRGBO(0, 0, 0, 0.1),
               spreadRadius: 4,
-              blurRadius: 10,
+              blurRadius: 20,
             ),
           ],
         ),

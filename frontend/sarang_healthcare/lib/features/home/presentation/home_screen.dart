@@ -4,10 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/core/presentation/theme/sizes.dart';
+import 'package:sarang_healthcare/features/appointment_list/presentation/widgets/appointment_list_item.dart';
 import 'package:sarang_healthcare/features/home/presentation/widgets/widgets.dart';
 
 import '../../../core/presentation/route/app_router.dart';
 import '../../../core/presentation/theme/app_color.dart';
+import '../../appointment_list/application/cubit/appointment_list_cubit.dart';
 import '../../profile/application/cubit/profile_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<ProfileCubit>().getUserDetails();
+    context.read<AppointmentListCubit>().getAppointmentListDetail();
   }
 
   @override
@@ -46,8 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             const Text(
                               'Hello,',
                               style: TextStyle(
-                                fontSize: Sizes.s16,
+                                fontSize: Sizes.s18,
                                 fontWeight: FontWeight.w500,
+                                color: AppColor.canvas,
                               ),
                             ),
                             BlocBuilder<ProfileCubit, ProfileState>(
@@ -61,8 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return Text(
                                   username.toString(),
                                   style: const TextStyle(
-                                      fontSize: Sizes.s20,
-                                      fontWeight: FontWeight.w900),
+                                    fontSize: Sizes.s22,
+                                    fontWeight: FontWeight.w900,
+                                  ),
                                 );
                               },
                             ),
@@ -99,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           CardButton(
                             title: 'Contact',
-                            onPressed: () {},
+                            onPressed: () => context.push(AppRoutes.contact),
                             icon: Icons.phone_android_outlined,
                           ),
                           CardButton(
@@ -116,9 +120,59 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+              BlocBuilder<AppointmentListCubit, AppointmentListState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    loadedNetwork: (appointmentListGroup) {
+                      if (appointmentListGroup.isEmpty) {
+                        return const Text(
+                          'No Appointments',
+                          style: TextStyle(
+                            fontSize: Sizes.s16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        );
+                      }
+                      return SizedBox(
+                        height: 170,
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 1,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          itemBuilder: (context, index) {
+                            return AppointmentListItem(
+                              appointmentList: appointmentListGroup.last,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    loadFailure: (message) {
+                      return const Text(
+                        'Connection Lost!',
+                        style: TextStyle(
+                          fontSize: Sizes.s16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      );
+                    },
+                    orElse: () => const SizedBox.shrink(),
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 25,
+              ),
               Expanded(
                 child: Container(
                   width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 30,
+                  ),
                   decoration: const BoxDecoration(
                     color: AppColor.canvas,
                     borderRadius: BorderRadius.only(
@@ -126,38 +180,31 @@ class _HomeScreenState extends State<HomeScreen> {
                       topRight: Radius.circular(30),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 30,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Quick Actions',
-                          style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w700,
-                            fontSize: Sizes.s32,
-                          ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Quick Actions',
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.w700,
+                          fontSize: Sizes.s32,
                         ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        QuickButton(
-                          title: 'Create new Appointment',
-                          onPressed: () =>
-                              context.push(AppRoutes.docappointment),
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        QuickButton(
-                          title: 'Book for lab testing',
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      QuickButton(
+                        title: 'Create new Appointment',
+                        onPressed: () => context.push(AppRoutes.docappointment),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      QuickButton(
+                        title: 'Book for lab testing',
+                        onPressed: () {},
+                      ),
+                    ],
                   ),
                 ),
               ),

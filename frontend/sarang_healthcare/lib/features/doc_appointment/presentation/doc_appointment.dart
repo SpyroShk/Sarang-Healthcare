@@ -27,6 +27,7 @@ class _DocAppointmentState extends State<DocAppointment> {
   final patientNameController = TextEditingController();
   final ageController = TextEditingController();
   final doctorNameController = TextEditingController();
+  final patientDescriptionController = TextEditingController();
 
   String selectedGenderValue = 'Male';
   String selectedRelationValue = 'Self';
@@ -46,6 +47,8 @@ class _DocAppointmentState extends State<DocAppointment> {
     'Brother',
     'Husband',
     'Wife',
+    'Son',
+    'Daughter',
     'In-Laws',
   ];
 
@@ -113,6 +116,7 @@ class _DocAppointmentState extends State<DocAppointment> {
                           if (value == 'Doctor') {
                             return 'Select your doctor.';
                           }
+                          return null;
                         },
                       ),
                       const SizedBox(
@@ -198,7 +202,6 @@ class _DocAppointmentState extends State<DocAppointment> {
                                     .hasMatch(value)) {
                                   return 'Invalid Age.';
                                 }
-
                                 return null;
                               },
                               textcontroller: ageController,
@@ -308,6 +311,17 @@ class _DocAppointmentState extends State<DocAppointment> {
                       const SizedBox(
                         height: 24,
                       ),
+                      Textfield(
+                        hintText:
+                            'Any past medical history and previous doctors can be mentioned here.',
+                        maxLines: 8,
+                        labelText: "Patient's Description (Optional)",
+                        enablePrefixIcon: false,
+                        textcontroller: patientDescriptionController,
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 10),
@@ -363,15 +377,33 @@ class _DocAppointmentState extends State<DocAppointment> {
 
   void continueHandler() {
     if (formKey.currentState!.validate()) {
-      contactController.text.trim();
-      patientNameController.text.trim();
-      ageController.text.trim();
-      context.push(AppRoutes.payment);
+      final contact = contactController.text.trim();
+      final patientName = patientNameController.text.trim();
+      final age = ageController.text.trim();
+      final doctorName = doctorNameController;
+      final patientDescription = patientDescriptionController.text.trim() == ''
+          ? 'No description.'
+          : patientDescriptionController.text.trim();
+      context.push(AppRoutes.payment, extra: {
+        'doctorId': widget.preferredDoctor.id,
+        'doctorCategory': widget.preferredDoctor.category,
+        'doctorImage': widget.preferredDoctor.image,
+        'appointmentDate': Utils.toDate(appointmentDateTime),
+        'appointmentTime': Utils.toTime(appointmentDateTime),
+        'contact': int.parse(contact),
+        'patientName': patientName,
+        'age': int.parse(age),
+        'doctorName': doctorName.text,
+        'gender': selectedGenderValue,
+        'userPatientRelation': selectedRelationValue,
+        'patientDescription': patientDescription,
+      });
     }
   }
 
   Future pickAppointmentDateTime({required bool pickDate}) async {
-    final date = await pickDateTime(appointmentDateTime, pickDate: pickDate);
+    final date = await pickDateTime(appointmentDateTime,
+        pickDate: pickDate, firstDate: DateTime.now());
     if (date == null) return;
     // if (date.isAfter(to)) {
     //   to = DateTime(date.year, date.month, date.day, to.hour);
