@@ -10,7 +10,7 @@ part 'signup_cubit.freezed.dart';
 class SignupCubit extends Cubit<SignupState> {
   SignupCubit({required SignupRepository signupRepository})
       : _signupRepository = signupRepository,
-        super(const SignupState.initial()) {}
+        super(const SignupState.initial());
   final SignupRepository _signupRepository;
 
   void signup({

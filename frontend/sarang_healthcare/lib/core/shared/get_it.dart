@@ -6,6 +6,12 @@ import 'package:sarang_healthcare/features/doc_appointment/infrastructure/doc_ap
 import '../../features/appointment_list/application/cubit/appointment_list_cubit.dart';
 import '../../features/appointment_list/infrastructure/appointment_list_repository.dart';
 import '../../features/doc_appointment/application/cubit/doc_appointment_cubit.dart';
+import '../../features/lab_testing/application/cubit/lab_testing_cubit.dart';
+import '../../features/lab_testing/infrastructure/lab_testing_repository.dart';
+import '../../features/lab_testing_list/application/cubit/lab_testing_list_cubit.dart';
+import '../../features/lab_testing_list/infrastructure/lab_testing_list_repository.dart';
+import '../../features/lab_tests/application/cubit/lab_tests_cubit.dart';
+import '../../features/lab_tests/infrastructure/lab_tests_repository.dart';
 import '../../features/login/application/cubit/login_cubit.dart';
 import '../../features/login/infrastructure/login_repository.dart';
 import '../../features/preferred_doctor/application/cubit/preferred_doctor_cubit.dart';
@@ -85,6 +91,31 @@ void setupLocators() {
     ),
   );
 
+  getIt.registerSingleton<LabTestingRepository>(
+    LabTestingRepository(
+      dio: getIt.get<Dio>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<LabTestingCubit>(
+    () => LabTestingCubit(
+      labTestingRepository: getIt.get<LabTestingRepository>(),
+    ),
+  );
+
+  getIt.registerSingleton<LabTestingListRepository>(
+    LabTestingListRepository(
+      dio: getIt.get<Dio>(),
+      secureCredentialStorage: getIt.get<SecureCredentialStorage>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<LabTestingListCubit>(
+    () => LabTestingListCubit(
+      labTestingListRepository: getIt.get<LabTestingListRepository>(),
+    ),
+  );
+
   getIt.registerLazySingleton<AppRouter>(
     () => AppRouter(
       loginCubit: getIt.get<LoginCubit>(),
@@ -114,6 +145,18 @@ void setupLocators() {
   getIt.registerSingleton<PreferredDoctorCubit>(
     PreferredDoctorCubit(
       preferredDoctorRepository: getIt.get<PreferredDoctorRepository>(),
+    ),
+  );
+
+  getIt.registerSingleton<LabTestsRepository>(
+    LabTestsRepository(
+      dio: getIt.get<Dio>(),
+    ),
+  );
+
+  getIt.registerSingleton<LabTestsCubit>(
+    LabTestsCubit(
+      labTestsRepository: getIt.get<LabTestsRepository>(),
     ),
   );
 }

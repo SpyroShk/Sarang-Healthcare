@@ -22,7 +22,13 @@ class AppointmentListCubit extends Cubit<AppointmentListState> {
     emit(const AppointmentListState.loading());
     final response = await _appointmentListRepository.appointmentList();
     _handleAppointmentListResponse(response, []);
-    
+  }
+
+  Future<void> getAppointmentListWithoutIdDetail() async {
+    emit(const AppointmentListState.loading());
+    final response = await _appointmentListRepository.appointmentListWithoutId();
+    _handleAppointmentListResponse(response, []);
+
   }
 
   void _handleAppointmentListResponse(
@@ -58,4 +64,9 @@ class AppointmentListCubit extends Cubit<AppointmentListState> {
     );
   }
 
+  List<AppointmentListModel> getAppointmentsListWithoutIdDetail() {
+    final List<AppointmentListModel> appointmentListWithoutId = state.maybeWhen(
+        loadedNetwork: (apiData) => apiData, orElse: () => const []);
+    return appointmentListWithoutId;
+  }
 }

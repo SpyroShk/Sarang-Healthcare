@@ -14,10 +14,6 @@ class DocAppointmentCubit extends Cubit<DocAppointmentState> {
         super(const DocAppointmentState.initial());
   final DocAppointmentRepository _docAppointmentRepository;
 
-  Future<String?> getToken() async {
-    final token = await _docAppointmentRepository.getToken();
-    return token;
-  }
 
   void docAppointment({
     required String userId,

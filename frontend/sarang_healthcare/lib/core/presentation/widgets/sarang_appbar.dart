@@ -24,5 +24,5 @@ class SarangAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 120);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 20);
 }

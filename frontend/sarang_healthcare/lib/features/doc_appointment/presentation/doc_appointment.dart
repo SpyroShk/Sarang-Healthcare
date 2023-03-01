@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
-import 'package:sarang_healthcare/core/presentation/widgets/canvas_card.dart';
+import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 
 import '../../../core/presentation/route/app_router.dart';
 import '../../../core/presentation/theme/app_color.dart';
 import '../../../core/presentation/theme/sizes.dart';
-import '../../../core/presentation/widgets/sarang_appbar.dart';
 import '../../../core/presentation/widgets/widgets.dart';
+import '../../appointment_list/application/cubit/appointment_list_cubit.dart';
 import '../../preferred_doctor/domain/preferred_doctor_model.dart';
 import 'widgets/widgets.dart';
 
@@ -57,6 +59,7 @@ class _DocAppointmentState extends State<DocAppointment> {
     super.initState();
     appointmentDateTime = DateTime.now();
     doctorNameController.text = widget.preferredDoctor?.name ?? 'Doctor';
+    context.read<AppointmentListCubit>().getAppointmentListWithoutIdDetail();
   }
 
   @override
@@ -93,7 +96,7 @@ class _DocAppointmentState extends State<DocAppointment> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
                               Text(
-                                'Select Your Preferred Doctor',
+                                'Select Your Preferred Doctor First',
                                 style: TextStyle(
                                     fontSize: Sizes.s16, color: AppColor.grey),
                               ),
@@ -150,12 +153,12 @@ class _DocAppointmentState extends State<DocAppointment> {
                       Textfield(
                         labelText: 'Contact',
                         keyboardType: TextInputType.number,
-                        enablePrefixIcon: false,
+                        disableSuffixIcon: false,
                         suffixIcon: Icons.phone_outlined,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Contacts can\'t be empty.';
-                          } else if (!RegExp(r'^(\+977)?98\d{8}$')
+                          } else if (!RegExp(r'^(\+977)?9\d{9}$')
                               .hasMatch(value)) {
                             return 'Please enter a valid Contact Number.';
                           }
@@ -169,7 +172,7 @@ class _DocAppointmentState extends State<DocAppointment> {
                       ),
                       Textfield(
                         labelText: "Patient's Name",
-                        enablePrefixIcon: false,
+                        disableSuffixIcon: false,
                         suffixIcon: Icons.person_outline,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -193,7 +196,7 @@ class _DocAppointmentState extends State<DocAppointment> {
                             child: Textfield(
                               keyboardType: TextInputType.number,
                               labelText: 'Age',
-                              enablePrefixIcon: false,
+                              disableSuffixIcon: false,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Age can\'t be empty.';
@@ -316,7 +319,7 @@ class _DocAppointmentState extends State<DocAppointment> {
                             'Any past medical history and previous doctors can be mentioned here.',
                         maxLines: 8,
                         labelText: "Patient's Description (Optional)",
-                        enablePrefixIcon: false,
+                        disableSuffixIcon: false,
                         textcontroller: patientDescriptionController,
                       ),
                       const SizedBox(
@@ -356,10 +359,17 @@ class _DocAppointmentState extends State<DocAppointment> {
                       const SizedBox(
                         height: 24,
                       ),
-                      SarangButton(
-                        onPressed: continueHandler,
-                        isLoading: false,
-                        label: 'Continue',
+                      BlocBuilder<AppointmentListCubit, AppointmentListState>(
+                        builder: (context, state) {
+                          return SarangButton(
+                            onPressed: continueHandler,
+                            isLoading: state.maybeWhen(
+                              orElse: () => false,
+                              loading: () => true,
+                            ),
+                            label: 'Continue',
+                          );
+                        },
                       ),
                       const SizedBox(
                         height: 30,
@@ -384,20 +394,51 @@ class _DocAppointmentState extends State<DocAppointment> {
       final patientDescription = patientDescriptionController.text.trim() == ''
           ? 'No description.'
           : patientDescriptionController.text.trim();
-      context.push(AppRoutes.payment, extra: {
-        'doctorId': widget.preferredDoctor.id,
-        'doctorCategory': widget.preferredDoctor.category,
-        'doctorImage': widget.preferredDoctor.image,
-        'appointmentDate': Utils.toDate(appointmentDateTime),
-        'appointmentTime': Utils.toTime(appointmentDateTime),
-        'contact': int.parse(contact),
-        'patientName': patientName,
-        'age': int.parse(age),
-        'doctorName': doctorName.text,
-        'gender': selectedGenderValue,
-        'userPatientRelation': selectedRelationValue,
-        'patientDescription': patientDescription,
-      });
+
+      final appointmentsListWithoutId = context
+          .read<AppointmentListCubit>()
+          .getAppointmentsListWithoutIdDetail();
+
+      bool hasConflict = false;
+      for (final appointment in appointmentsListWithoutId) {
+        String timeString = appointment.appointmentTime;
+        DateTime time = DateFormat('H:mm:ss').parse(timeString);
+        String formattedTime = DateFormat('H:mm').format(time);
+
+        String dateString = appointment.appointmentDate;
+        DateTime date = DateTime.parse(dateString);
+        String formattedDate = DateFormat('yyyy-M-d').format(date);
+
+        if (formattedDate == Utils.toDate(appointmentDateTime) &&
+            formattedTime == Utils.toTime(appointmentDateTime) &&
+            appointment.doctorId == widget.preferredDoctor.id) {
+          hasConflict = true;
+          break;
+        }
+      }
+
+      if (hasConflict) {
+        context.showCustomSnackBar(
+            message:
+                'The Date and Time you picked is already picked by someone else, please pick a new time',
+            result: false);
+      } else {
+        context.push(AppRoutes.payment, extra: {
+          'doctorId': widget.preferredDoctor.id,
+          'doctorCategory': widget.preferredDoctor.category,
+          'doctorImage': widget.preferredDoctor.image,
+          'appointmentDate': Utils.toDate(appointmentDateTime),
+          'appointmentTime': Utils.toTime(appointmentDateTime),
+          'contact': int.parse(contact),
+          'patientName': patientName,
+          'age': int.parse(age),
+          'doctorName': doctorName.text,
+          'gender': selectedGenderValue,
+          'userPatientRelation': selectedRelationValue,
+          'patientDescription': patientDescription,
+          'boolValue': false,
+        });
+      }
     }
   }
 

@@ -75,3 +75,27 @@ Content-Type: application/json
         "gender": "Male",
         "userPatientRelation": "self"
     }
+
+   
+### post labtestinglist
+# @name labtestinglist
+POST http://127.0.0.1:8000/labtestingappointments/labtestinglist
+Content-Type: application/json
+
+    {
+        "id": 21,
+        "userId": "20",
+        "username": "shakya",
+        "testList": [1],
+        "collectionDate": "2023-02-28",
+        "collectionTime": "16:07:00",
+        "contact": 9812345678,
+        "age": 23,
+        "gender": "Male",
+        "patientName": "dfs sdf",
+        "userPatientRelation": "Self",
+        "service": "On Site",
+        "city": "No city.",
+        "address": "No address.",
+        "landmark": "No landmark."
+    }

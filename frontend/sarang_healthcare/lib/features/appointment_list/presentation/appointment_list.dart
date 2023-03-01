@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
-import 'package:sarang_healthcare/core/presentation/widgets/canvas_card.dart';
 import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 import 'package:sarang_healthcare/features/appointment_list/application/cubit/appointment_list_cubit.dart';
 
 import '../../../core/presentation/widgets/connection_lost.dart';
-import '../../../core/presentation/widgets/sarang_appbar.dart';
 import 'widgets/widgets.dart';
 
 class AppointmentList extends StatefulWidget {
@@ -26,48 +23,35 @@ class _AppointmentListState extends State<AppointmentList> {
   final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GradientBg(
-        child: Column(
-          children: [
-            const SarangAppbar(title: 'Appointments'),
-            CanvasCard(
-              child: BlocListener<AppointmentListCubit, AppointmentListState>(
-                listener: (context, state) {
-                  state.whenOrNull(
-                    loadFailure: (message) => context.showCustomSnackBar(
-                        message: message, result: false),
-                  );
-                },
-                child: BlocBuilder<AppointmentListCubit, AppointmentListState>(
-                    builder: (context, state) {
-                  return state.maybeWhen(
-                    loadedNetwork: (appointmentListGroup) {
-                      return AppointmentListGroup(
-                        scrollController: _scrollController,
-                        appointmentListGroup: appointmentListGroup,
-                      );
-                    },
-                    loading: () => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    loadFailure: (message) {
-                      return ConnectionLost(
-                        onRetry: () {
-                          context
-                              .read<AppointmentListCubit>()
-                              .getAppointmentListDetail();
-                        },
-                      );
-                    },
-                    orElse: () => const SizedBox.shrink(),
-                  );
-                }),
-              ),
-            ),
-          ],
-        ),
-      ),
+    return BlocListener<AppointmentListCubit, AppointmentListState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          loadFailure: (message) =>
+              context.showCustomSnackBar(message: message, result: false),
+        );
+      },
+      child: BlocBuilder<AppointmentListCubit, AppointmentListState>(
+          builder: (context, state) {
+        return state.maybeWhen(
+          loadedNetwork: (appointmentListGroup) {
+            return AppointmentListGroup(
+              scrollController: _scrollController,
+              appointmentListGroup: appointmentListGroup,
+            );
+          },
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          loadFailure: (message) {
+            return ConnectionLost(
+              onRetry: () {
+                context.read<AppointmentListCubit>().getAppointmentListDetail();
+              },
+            );
+          },
+          orElse: () => const SizedBox.shrink(),
+        );
+      }),
     );
   }
 }

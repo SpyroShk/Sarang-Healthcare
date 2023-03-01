@@ -42,10 +42,10 @@ class SecureCredentialStorage implements CredentialStorage {
     return email;
   }
 
-    static const userIdKey = "user_id";
+  static const userIdKey = "user_id";
   String? _userId;
 
-  @override
+  // @override
   Future<String?> getUserId() async {
     if (_userId != null) {
       return _userId;
@@ -54,7 +54,7 @@ class SecureCredentialStorage implements CredentialStorage {
     return token;
   }
 
-  @override
+  // @override
   Future<void> setUserId(String userId) {
     _userId = userId;
     return _secureStorage.write(key: userIdKey, value: userId);

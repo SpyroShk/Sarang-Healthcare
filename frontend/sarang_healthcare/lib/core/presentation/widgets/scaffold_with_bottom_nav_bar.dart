@@ -81,7 +81,7 @@ String getTitle(BuildContext context) {
   if (location.startsWith(AppRoutes.home)) {
     return 'Home';
   }
-  if (location.startsWith(AppRoutes.appointment)) {
+  if (location.startsWith(AppRoutes.appointments)) {
     return 'Appointment';
   }
 
@@ -94,7 +94,7 @@ void _onItemTapped(BuildContext context, int index) {
       context.go(AppRoutes.home);
       break;
     case 1:
-      context.go(AppRoutes.appointment);
+      context.go(AppRoutes.appointments);
       break;
   }
 }
@@ -104,7 +104,7 @@ int _calculateSelectedIndex(BuildContext context) {
   if (location.startsWith(AppRoutes.home)) {
     return 0;
   }
-  if (location.startsWith(AppRoutes.appointment)) {
+  if (location.startsWith(AppRoutes.appointments)) {
     return 1;
   }
   return 0;

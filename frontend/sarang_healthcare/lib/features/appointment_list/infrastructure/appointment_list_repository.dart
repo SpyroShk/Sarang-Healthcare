@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -25,7 +24,28 @@ class AppointmentListRepository {
       appointmentList() async {
     final userId = await _secureCredentialStorage.getUserId();
     String url = "${ApiConstants.baseUrl}/appointments/appointmentlist?id=$userId";
-    log(url);
+    try {
+      final response = await _dio.get(url);
+      final respData = response.data;
+      List<AppointmentListModel> listOfAppointments = [];
+      for (final docs in respData) {
+        final dto = AppointmentListDto.fromJson(docs);
+        final detail = AppointmentListMapper.toAppointmentListDetail(dto);
+        listOfAppointments.add(detail);
+      }
+      return Right(
+        AppointmentListSuccess.network(apiData: listOfAppointments),
+      );
+    } on DioError catch (e) {
+      return Left(
+        failure(e),
+      );
+    }
+  }
+
+  Future<Either<AppointmentListFailure, AppointmentListSuccess>>
+      appointmentListWithoutId() async {
+    String url = "${ApiConstants.baseUrl}/appointments/appointmentlist";
     try {
       final response = await _dio.get(url);
       final respData = response.data;
@@ -46,7 +66,6 @@ class AppointmentListRepository {
   }
 
   AppointmentListFailure failure(DioError error) {
-    // final respData = error.response?.data;
     final statusCode = error.response?.statusCode ?? 0;
     if (statusCode == 401) {
       return const AppointmentListFailure.client(

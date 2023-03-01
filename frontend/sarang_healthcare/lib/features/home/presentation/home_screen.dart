@@ -73,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         IconButton(
-                            onPressed: () {}, icon: Icon(Icons.notifications))
+                            onPressed: () {},
+                            icon: const Icon(Icons.notifications))
                       ],
                     ),
                     const SizedBox(
@@ -202,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       QuickButton(
                         title: 'Book for lab testing',
-                        onPressed: () {},
+                        onPressed: () => context.push(AppRoutes.labtesting),
                       ),
                     ],
                   ),

@@ -28,7 +28,7 @@ class _PreferredDoctorTitleState extends State<PreferredDoctorTitle> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
         Text(

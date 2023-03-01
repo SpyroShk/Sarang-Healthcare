@@ -15,8 +15,11 @@ class appointmentList(APIView):
     def get(self, request):
         
         a = request.query_params.get("id")
+        appointments2=appointments.objects.all()
+        serializer2=appointmentsSerializer(appointments2,many=True)
         if(a == None):
-            return Response({"message" : "error"},status=404)
+            return Response(serializer2.data)
+            # return Response({"message" : "error"},status=404)
         appointments1=appointments.objects.filter(user_id=a)
         serializer=appointmentsSerializer(appointments1,many=True)
         return Response(serializer.data)

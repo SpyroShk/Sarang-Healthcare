@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../../core/infrastructure/secure_credential_storage.dart';
 import '../../../core/shared/api_constants.dart';
 import '../domain/doc_appointment_detail.dart';
 import '../domain/doc_appointment_failure.dart';
@@ -13,16 +12,10 @@ typedef DocAppointmentSuccess = String;
 
 class DocAppointmentRepository {
   final Dio _dio;
-  final SecureCredentialStorage? _secureCredentialStorage;
 
   DocAppointmentRepository({
     required Dio dio,
-    SecureCredentialStorage? secureCredentialStorage,
-  })  : _dio = dio,
-        _secureCredentialStorage = secureCredentialStorage;
-
-  Future<String?> getToken() async =>
-      await _secureCredentialStorage?.getApiToken();
+  }) : _dio = dio;
 
   Future<Either<DocAppointmentFailure, DocAppointmentSuccess>> docAppointment({
     required DocAppointmentDetail docAppointmentDetail,

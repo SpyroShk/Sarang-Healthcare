@@ -4,14 +4,19 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/features/appointment_list/presentation/appointment_list.dart';
+import 'package:sarang_healthcare/features/appointments/presentation/appointments.dart';
 import 'package:sarang_healthcare/features/contact/presentation/contact.dart';
 import 'package:sarang_healthcare/features/doc_appointment/presentation/doc_appointment.dart';
+import 'package:sarang_healthcare/features/lab_testing/presentation/lab_testing.dart';
+import 'package:sarang_healthcare/features/lab_tests/presentation/lab_tests.dart';
 import 'package:sarang_healthcare/features/login/application/cubit/login_cubit.dart';
 import 'package:sarang_healthcare/features/payment/presentation/payment.dart';
 import 'package:sarang_healthcare/features/preferred_doctor/domain/preferred_doctor_model.dart';
 import 'package:sarang_healthcare/features/preferred_doctor/presentation/preferred_doctor.dart';
 
 import '../../../features/home/presentation/home_screen.dart';
+import '../../../features/lab_testing_list/presentation/lab_testing_list.dart';
+import '../../../features/lab_tests/domain/lab_tests_model.dart';
 import '../../../features/login/presentation/login_screen.dart';
 import '../../../features/profile/presentation/profile_screen.dart';
 import '../../../features/signup/presentation/signup_screen.dart';
@@ -32,8 +37,12 @@ class AppRoutes {
   static const String profile = '/profile';
   static const String contact = '/contact';
   static const String docappointment = '/docappointment';
+  static const String labtesting = '/labtesting';
   static const String preferreddoc = '/preferreddoc';
-  static const String appointment = '/appointment';
+  static const String labtests = '/labtests';
+  static const String appointments = '/appointments';
+  static const String appointmentlist = '/appointmentlist';
+  static const String labtestinglist = '/labtestinglist';
   static const String payment = '/payment';
 }
 
@@ -73,10 +82,20 @@ class AppRouter {
             builder: (_, state) => const HomeScreen(),
           ),
           GoRoute(
-            path: AppRoutes.appointment,
-            builder: (_, state) => const AppointmentList(),
+            path: AppRoutes.appointments,
+            builder: (_, state) => const Appointments(),
           ),
         ],
+      ),
+      GoRoute(
+        path: AppRoutes.appointmentlist,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) => const AppointmentList(),
+      ),
+      GoRoute(
+        path: AppRoutes.labtestinglist,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) => const LabTestingList(),
       ),
       GoRoute(
         path: AppRoutes.profile,
@@ -100,6 +119,17 @@ class AppRouter {
         builder: (_, state) => const PreferredDoctor(),
       ),
       GoRoute(
+        path: AppRoutes.labtests,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) => const LabTests(),
+      ),
+      GoRoute(
+        path: AppRoutes.labtesting,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) =>
+            LabTesting(selectedLabTests: state.extra as List<LabTestsModel>),
+      ),
+      GoRoute(
           path: AppRoutes.payment,
           parentNavigatorKey: _rootNavigatorKey,
           builder: (_, state) {
@@ -117,6 +147,12 @@ class AppRouter {
             final doctorImage = a['doctorImage'];
             final doctorCategory = a['doctorCategory'];
             final patientDescription = a['patientDescription'];
+            final testName = a['testName'];
+            final city = a['city'];
+            final address = a['address'];
+            final landmark = a['landmark'];
+            final service = a['service'];
+            final boolValue = a['boolValue'] as bool;
             return Payment(
               doctorId: doctorId,
               doctorName: doctorName,
@@ -130,6 +166,12 @@ class AppRouter {
               doctorCategory: doctorCategory,
               doctorImage: doctorImage,
               patientDescription: patientDescription,
+              testName: testName,
+              city: city,
+              address: address,
+              landmark: landmark,
+              service: service,
+              boolValue: boolValue,
             );
           }),
     ],

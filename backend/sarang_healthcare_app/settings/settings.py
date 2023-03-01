@@ -54,7 +54,9 @@ INSTALLED_APPS = [
     'core',
     'accounts',
     'doctor',
-    'doctor_appointment'
+    'doctor_appointment',
+    'lab_tests',
+    'lab_testing_appointment'
 ]
 
 AUTH_USER_MODEL = "core.User"
