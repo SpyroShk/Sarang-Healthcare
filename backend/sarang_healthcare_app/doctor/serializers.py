@@ -8,7 +8,7 @@ class DoctorSerializer(serializers.ModelSerializer):
     # imageMemory=serializers.SerializerMethodField("get_imageMemory")
     class Meta:
         model=Doctor
-        fields=('id','name','qualifications','category','image')
+        fields=('id','name','qualifications','category','image','availableFrom','availableTo')
 
     # def get_imageMemory(request,doctor:Doctor):
     #     with open(doctor.image.name,'rb') as loadedfile:

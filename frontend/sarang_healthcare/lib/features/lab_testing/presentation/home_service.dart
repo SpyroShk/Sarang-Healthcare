@@ -60,6 +60,7 @@ class _HomeServiceState extends State<HomeService> {
   void initState() {
     super.initState();
     collectionDateTime = DateTime.now();
+    testNameController.text = 'No Tests selected yet.';
   }
 
   @override
@@ -87,12 +88,12 @@ class _HomeServiceState extends State<HomeService> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text(
-                      'Select Tests',
+                      'Select Tests First',
                       style:
                           TextStyle(fontSize: Sizes.s16, color: AppColor.grey),
                     ),
                     Icon(
-                      Icons.local_hospital_rounded,
+                      Icons.science_outlined,
                       size: 22,
                       color: AppColor.grey,
                     )
@@ -148,6 +149,7 @@ class _HomeServiceState extends State<HomeService> {
                         height: 24,
                       ),
                       TextFormField(
+                        textAlign: TextAlign.center,
                         showCursor: false,
                         readOnly: true,
                         focusNode: AlwaysDisabledFocusNode(),
@@ -469,6 +471,10 @@ class _HomeServiceState extends State<HomeService> {
       final landmark = landmarkController.text.trim() == ''
           ? 'No landmark'
           : landmarkController.text.trim();
+      double total = widget.selectedLabTests.fold(
+          0,
+          (previousValue, element) =>
+              previousValue + double.parse(element.price));
 
       // final appointmentsListWithoutId = context
       //     .read<AppointmentListCubit>()
@@ -512,6 +518,7 @@ class _HomeServiceState extends State<HomeService> {
         'landmark': landmark,
         'service': widget.tabName,
         'boolValue': true,
+        'total': total.toString(),
       });
       //   }
     }

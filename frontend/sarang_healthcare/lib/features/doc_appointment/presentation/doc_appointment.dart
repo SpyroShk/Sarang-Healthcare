@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -57,8 +59,12 @@ class _DocAppointmentState extends State<DocAppointment> {
   @override
   void initState() {
     super.initState();
-    appointmentDateTime = DateTime.now();
-    doctorNameController.text = widget.preferredDoctor?.name ?? 'Doctor';
+    var now = DateTime.now();
+    if (now.weekday == DateTime.saturday) {
+      now = now.add(const Duration(days: 1));
+    }
+    appointmentDateTime = now;
+    doctorNameController.text = 'No Doctor selected yet.';
     context.read<AppointmentListCubit>().getAppointmentListWithoutIdDetail();
   }
 
@@ -101,7 +107,7 @@ class _DocAppointmentState extends State<DocAppointment> {
                                     fontSize: Sizes.s16, color: AppColor.grey),
                               ),
                               Icon(
-                                Icons.local_hospital_rounded,
+                                Icons.local_hospital_outlined,
                                 size: 22,
                                 color: AppColor.grey,
                               )
@@ -112,16 +118,37 @@ class _DocAppointmentState extends State<DocAppointment> {
                       const SizedBox(
                         height: 24,
                       ),
-                      PreferredDoctorCard(
-                        preferredDoctor: widget.preferredDoctor,
-                        controller: doctorNameController,
-                        validator: (value) {
-                          if (value == 'Doctor') {
-                            return 'Select your doctor.';
-                          }
-                          return null;
-                        },
-                      ),
+                      widget.preferredDoctor != null
+                          ? PreferredDoctorCard(
+                              preferredDoctor: widget.preferredDoctor,
+                            )
+                          : Column(
+                              children: [
+                                TextFormField(
+                                  textAlign: TextAlign.center,
+                                  showCursor: false,
+                                  readOnly: true,
+                                  focusNode: AlwaysDisabledFocusNode(),
+                                  controller: doctorNameController,
+                                  decoration: const InputDecoration(
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.zero,
+                                    border: InputBorder.none,
+                                  ),
+                                  style: const TextStyle(
+                                    fontSize: Sizes.s20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  validator: (value) {
+                                    if (value == 'No Doctor selected yet.') {
+                                      return 'Select your Doctor.';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                // Text('No Tests selected yet.'),
+                              ],
+                            ),
                       const SizedBox(
                         height: 24,
                       ),
@@ -141,8 +168,14 @@ class _DocAppointmentState extends State<DocAppointment> {
                             child: DataTimeSelector(
                               text: Utils.toTime(appointmentDateTime),
                               icon: Icons.access_time_outlined,
-                              onPressed: () =>
-                                  pickAppointmentDateTime(pickDate: false),
+                              onPressed: () {
+                                if (widget.preferredDoctor != null) {
+                                  pickAppointmentDateTime(pickDate: false);
+                                }
+                                return context.showCustomSnackBar(
+                                    message: 'Please select Doctor first.',
+                                    result: false);
+                              },
                             ),
                           ),
                         ],
@@ -390,11 +423,11 @@ class _DocAppointmentState extends State<DocAppointment> {
       final contact = contactController.text.trim();
       final patientName = patientNameController.text.trim();
       final age = ageController.text.trim();
-      final doctorName = doctorNameController;
+      doctorNameController;
       final patientDescription = patientDescriptionController.text.trim() == ''
           ? 'No description.'
           : patientDescriptionController.text.trim();
-
+      String total = "800.00";
       final appointmentsListWithoutId = context
           .read<AppointmentListCubit>()
           .getAppointmentsListWithoutIdDetail();
@@ -402,16 +435,24 @@ class _DocAppointmentState extends State<DocAppointment> {
       bool hasConflict = false;
       for (final appointment in appointmentsListWithoutId) {
         String timeString = appointment.appointmentTime;
-        DateTime time = DateFormat('H:mm:ss').parse(timeString);
-        String formattedTime = DateFormat('H:mm').format(time);
-
         String dateString = appointment.appointmentDate;
+
+        DateTime initialStartTime = DateTime.parse("$dateString $timeString");
+        DateTime startTime =
+            initialStartTime.subtract(const Duration(minutes: 1));
+        DateTime endTime = startTime.add(const Duration(minutes: 16));
+
         DateTime date = DateTime.parse(dateString);
         String formattedDate = DateFormat('yyyy-M-d').format(date);
 
+        log("user: ${appointmentDateTime.toString()}");
+        log("start: ${startTime.toString()}");
+        log("end: ${endTime.toString()}");
+
         if (formattedDate == Utils.toDate(appointmentDateTime) &&
-            formattedTime == Utils.toTime(appointmentDateTime) &&
-            appointment.doctorId == widget.preferredDoctor.id) {
+            appointment.doctorId == widget.preferredDoctor.id &&
+            (appointmentDateTime.isAfter(startTime) &&
+                appointmentDateTime.isBefore(endTime))) {
           hasConflict = true;
           break;
         }
@@ -420,7 +461,7 @@ class _DocAppointmentState extends State<DocAppointment> {
       if (hasConflict) {
         context.showCustomSnackBar(
             message:
-                'The Date and Time you picked is already picked by someone else, please pick a new time',
+                'The Date and Time you picked is already picked by someone else, please pick a new time.',
             result: false);
       } else {
         context.push(AppRoutes.payment, extra: {
@@ -432,11 +473,12 @@ class _DocAppointmentState extends State<DocAppointment> {
           'contact': int.parse(contact),
           'patientName': patientName,
           'age': int.parse(age),
-          'doctorName': doctorName.text,
+          'doctorName': widget.preferredDoctor.name,
           'gender': selectedGenderValue,
           'userPatientRelation': selectedRelationValue,
           'patientDescription': patientDescription,
           'boolValue': false,
+          'total': total,
         });
       }
     }
@@ -465,6 +507,10 @@ class _DocAppointmentState extends State<DocAppointment> {
         initialDate: initialDate,
         firstDate: firstDate ?? DateTime(2013, 1),
         lastDate: DateTime(2101),
+        selectableDayPredicate: (DateTime val) {
+          // Disabling Saturdays
+          return val.weekday != DateTime.saturday;
+        },
       );
       if (date == null) return null;
       final time = Duration(
@@ -473,11 +519,42 @@ class _DocAppointmentState extends State<DocAppointment> {
       );
       return date.add(time);
     } else {
+      final now = DateTime.now();
+      DateTime forInitial =
+          DateTime.parse("2023-03-05 ${widget.preferredDoctor.availableTo}");
       final timeOfDay = await showTimePicker(
         context: context,
-        initialTime: TimeOfDay.fromDateTime(initialDate),
+        initialTime: TimeOfDay.fromDateTime(forInitial),
+        builder: (BuildContext context, Widget? child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!,
+          );
+        },
       );
       if (timeOfDay == null) return null;
+      final dateTime = DateTime(
+          now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+// Disabling times
+      DateTime to =
+          DateTime.parse("2023-03-05 ${widget.preferredDoctor.availableTo}");
+      int formattedToHr = int.parse(DateFormat('HH').format(to));
+      int formattedToMin = int.parse(DateFormat('mm').format(to));
+      DateTime from =
+          DateTime.parse("2023-03-05 ${widget.preferredDoctor.availableFrom}");
+      int formattedFromHr = int.parse(DateFormat('HH').format(from));
+      int formattedFromMin = int.parse(DateFormat('mm').format(from));
+
+      if (dateTime.hour > formattedToHr ||
+          dateTime.hour < formattedFromHr ||
+          (dateTime.hour == formattedFromHr &&
+              dateTime.minute < formattedFromMin) ||
+          (dateTime.hour == formattedToHr &&
+              dateTime.minute > formattedToMin)) {
+        context.showCustomSnackBar(
+            message: 'Doctor not available in selected Time.', result: false);
+        return null;
+      }
       final date =
           DateTime(initialDate.year, initialDate.month, initialDate.day);
       final time = Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute);

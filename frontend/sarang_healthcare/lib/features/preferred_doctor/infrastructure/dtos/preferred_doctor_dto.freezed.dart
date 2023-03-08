@@ -25,6 +25,8 @@ mixin _$PreferredDoctorDto {
   String get qualifications => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
+  String get availableFrom => throw _privateConstructorUsedError;
+  String get availableTo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +45,9 @@ abstract class $PreferredDoctorDtoCopyWith<$Res> {
       String name,
       String qualifications,
       String category,
-      String image});
+      String image,
+      String availableFrom,
+      String availableTo});
 }
 
 /// @nodoc
@@ -64,6 +68,8 @@ class _$PreferredDoctorDtoCopyWithImpl<$Res, $Val extends PreferredDoctorDto>
     Object? qualifications = null,
     Object? category = null,
     Object? image = null,
+    Object? availableFrom = null,
+    Object? availableTo = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -86,6 +92,14 @@ class _$PreferredDoctorDtoCopyWithImpl<$Res, $Val extends PreferredDoctorDto>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      availableFrom: null == availableFrom
+          ? _value.availableFrom
+          : availableFrom // ignore: cast_nullable_to_non_nullable
+              as String,
+      availableTo: null == availableTo
+          ? _value.availableTo
+          : availableTo // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -103,7 +117,9 @@ abstract class _$$_PreferredDoctorDtoCopyWith<$Res>
       String name,
       String qualifications,
       String category,
-      String image});
+      String image,
+      String availableFrom,
+      String availableTo});
 }
 
 /// @nodoc
@@ -122,6 +138,8 @@ class __$$_PreferredDoctorDtoCopyWithImpl<$Res>
     Object? qualifications = null,
     Object? category = null,
     Object? image = null,
+    Object? availableFrom = null,
+    Object? availableTo = null,
   }) {
     return _then(_$_PreferredDoctorDto(
       id: null == id
@@ -144,6 +162,14 @@ class __$$_PreferredDoctorDtoCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      availableFrom: null == availableFrom
+          ? _value.availableFrom
+          : availableFrom // ignore: cast_nullable_to_non_nullable
+              as String,
+      availableTo: null == availableTo
+          ? _value.availableTo
+          : availableTo // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -158,7 +184,9 @@ class _$_PreferredDoctorDto
       required this.name,
       required this.qualifications,
       required this.category,
-      required this.image});
+      required this.image,
+      required this.availableFrom,
+      required this.availableTo});
 
   factory _$_PreferredDoctorDto.fromJson(Map<String, dynamic> json) =>
       _$$_PreferredDoctorDtoFromJson(json);
@@ -173,10 +201,14 @@ class _$_PreferredDoctorDto
   final String category;
   @override
   final String image;
+  @override
+  final String availableFrom;
+  @override
+  final String availableTo;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PreferredDoctorDto(id: $id, name: $name, qualifications: $qualifications, category: $category, image: $image)';
+    return 'PreferredDoctorDto(id: $id, name: $name, qualifications: $qualifications, category: $category, image: $image, availableFrom: $availableFrom, availableTo: $availableTo)';
   }
 
   @override
@@ -188,7 +220,9 @@ class _$_PreferredDoctorDto
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('qualifications', qualifications))
       ..add(DiagnosticsProperty('category', category))
-      ..add(DiagnosticsProperty('image', image));
+      ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('availableFrom', availableFrom))
+      ..add(DiagnosticsProperty('availableTo', availableTo));
   }
 
   @override
@@ -202,13 +236,17 @@ class _$_PreferredDoctorDto
                 other.qualifications == qualifications) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.availableFrom, availableFrom) ||
+                other.availableFrom == availableFrom) &&
+            (identical(other.availableTo, availableTo) ||
+                other.availableTo == availableTo));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, qualifications, category, image);
+  int get hashCode => Object.hash(runtimeType, id, name, qualifications,
+      category, image, availableFrom, availableTo);
 
   @JsonKey(ignore: true)
   @override
@@ -231,7 +269,9 @@ abstract class _PreferredDoctorDto implements PreferredDoctorDto {
       required final String name,
       required final String qualifications,
       required final String category,
-      required final String image}) = _$_PreferredDoctorDto;
+      required final String image,
+      required final String availableFrom,
+      required final String availableTo}) = _$_PreferredDoctorDto;
 
   factory _PreferredDoctorDto.fromJson(Map<String, dynamic> json) =
       _$_PreferredDoctorDto.fromJson;
@@ -246,6 +286,10 @@ abstract class _PreferredDoctorDto implements PreferredDoctorDto {
   String get category;
   @override
   String get image;
+  @override
+  String get availableFrom;
+  @override
+  String get availableTo;
   @override
   @JsonKey(ignore: true)
   _$$_PreferredDoctorDtoCopyWith<_$_PreferredDoctorDto> get copyWith =>

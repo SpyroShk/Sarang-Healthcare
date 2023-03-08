@@ -153,6 +153,7 @@ class AppRouter {
             final landmark = a['landmark'];
             final service = a['service'];
             final boolValue = a['boolValue'] as bool;
+            final total = a['total'];
             return Payment(
               doctorId: doctorId,
               doctorName: doctorName,
@@ -172,6 +173,7 @@ class AppRouter {
               landmark: landmark,
               service: service,
               boolValue: boolValue,
+              total:total,
             );
           }),
     ],

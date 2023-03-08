@@ -12,6 +12,8 @@ class PreferredDoctorDto with _$PreferredDoctorDto {
     required String qualifications,
     required String category,
     required String image,
+    required String availableFrom,
+    required String availableTo,
   }) = _PreferredDoctorDto;
 
   factory PreferredDoctorDto.fromJson(Map<String, dynamic> json) =>

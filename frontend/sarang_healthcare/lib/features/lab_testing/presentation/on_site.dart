@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -61,6 +63,7 @@ class _OnSiteState extends State<OnSite> {
   void initState() {
     super.initState();
     collectionDateTime = DateTime.now();
+    testNameController.text = 'No Tests selected yet.';
   }
 
   @override
@@ -88,12 +91,12 @@ class _OnSiteState extends State<OnSite> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text(
-                      'Select Tests',
+                      'Select Tests First',
                       style:
                           TextStyle(fontSize: Sizes.s16, color: AppColor.grey),
                     ),
                     Icon(
-                      Icons.local_hospital_rounded,
+                      Icons.science_outlined,
                       size: 22,
                       color: AppColor.grey,
                     )
@@ -149,6 +152,7 @@ class _OnSiteState extends State<OnSite> {
                         height: 24,
                       ),
                       TextFormField(
+                        textAlign: TextAlign.center,
                         showCursor: false,
                         readOnly: true,
                         focusNode: AlwaysDisabledFocusNode(),
@@ -427,7 +431,11 @@ class _OnSiteState extends State<OnSite> {
       final landmark = landmarkController.text.trim() == ''
           ? 'No landmark'
           : landmarkController.text.trim();
-
+      double total = widget.selectedLabTests.fold(
+          0,
+          (previousValue, element) =>
+              previousValue + double.parse(element.price));
+      log(total.toString());
       // final appointmentsListWithoutId = context
       //     .read<AppointmentListCubit>()
       //     .getAppointmentsListWithoutIdDetail();
@@ -470,6 +478,7 @@ class _OnSiteState extends State<OnSite> {
         'landmark': landmark,
         'service': widget.tabName,
         'boolValue': true,
+        'total': total.toString(),
       });
       //   }
     }

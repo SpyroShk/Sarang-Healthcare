@@ -68,6 +68,11 @@ class _ScaffoldWithButtomNavbarState extends State<ScaffoldWithButtomNavbar> {
                 icon: Icon(Icons.today_outlined),
                 label: 'Appointments',
               ),
+              BottomNavigationBarItem(
+                activeIcon: Icon(Icons.today),
+                icon: Icon(Icons.report),
+                label: 'Appointments',
+              ),
             ],
           ),
         ),

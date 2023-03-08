@@ -10,6 +10,8 @@ class PreferredDoctorMapper {
       qualifications: preferredDoctorDto.qualifications,
       category: preferredDoctorDto.category,
       image: preferredDoctorDto.image,
+      availableFrom: preferredDoctorDto.availableFrom,
+      availableTo: preferredDoctorDto.availableTo,
     );
   }
 
@@ -21,6 +23,8 @@ class PreferredDoctorMapper {
       qualifications: preferredDoctorModel.qualifications,
       category: preferredDoctorModel.category,
       image: preferredDoctorModel.image,
+      availableFrom: preferredDoctorModel.availableFrom,
+      availableTo: preferredDoctorModel.availableTo,
     );
   }
 }

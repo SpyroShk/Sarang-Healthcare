@@ -32,7 +32,8 @@ class Payment extends StatelessWidget {
       this.address,
       this.landmark,
       this.service,
-      required this.boolValue});
+      required this.boolValue,
+      required this.total});
 
   final int? doctorId;
   final String? doctorName;
@@ -52,6 +53,7 @@ class Payment extends StatelessWidget {
   final String? landmark;
   final String? service;
   final bool boolValue;
+  final String total;
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +71,9 @@ class Payment extends StatelessWidget {
                   ),
                   const Text('TOTAL',
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  const Text(
-                    'Rs. 800',
-                    style: TextStyle(
+                  Text(
+                    'Rs. $total',
+                    style: const TextStyle(
                         fontSize: Sizes.s32, fontWeight: FontWeight.bold),
                   ),
                   Expanded(

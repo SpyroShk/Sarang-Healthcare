@@ -1,9 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
+# from roles.models import AbstractUserRole
 
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
+
+
+# class UserRole(AbstractUserRole):
+#     ROLE_CHOICES = (
+#         ('admin', 'Admin'),
+#         ('patient', 'Patient'),
+#         ('staff', 'Staff'),
+#         ('doctor', 'Doctor'),
+#     )
+#     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
@@ -28,3 +40,4 @@ class EmailBackend(ModelBackend):
         else:
             if user.check_password(password) and self.user_can_authenticate(user):
                 return user
+

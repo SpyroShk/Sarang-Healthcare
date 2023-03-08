@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # new
     'django.contrib.sites',
+    # 'roles',
     # 3rd party app
     'rest_framework',
     'rest_framework.authtoken',
@@ -56,7 +57,8 @@ INSTALLED_APPS = [
     'doctor',
     'doctor_appointment',
     'lab_tests',
-    'lab_testing_appointment'
+    'lab_testing_appointment',
+    'report'
 ]
 
 AUTH_USER_MODEL = "core.User"

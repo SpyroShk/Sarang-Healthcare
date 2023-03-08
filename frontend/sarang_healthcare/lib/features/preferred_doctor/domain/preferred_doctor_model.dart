@@ -11,5 +11,7 @@ class PreferredDoctorModel with _$PreferredDoctorModel {
     required String qualifications,
     required String category,
     required String image,
+    required String availableFrom,
+    required String availableTo,
   }) = _PreferredDoctorModel;
 }

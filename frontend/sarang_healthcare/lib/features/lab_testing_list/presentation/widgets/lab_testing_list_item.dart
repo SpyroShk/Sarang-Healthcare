@@ -17,7 +17,6 @@ class LabTestingListItem extends StatelessWidget {
     String dateStr = labTestingList.collectionDate;
     String timeStr = labTestingList.collectionTime;
 
-
     List<LabTestsDto> parseLabTests(String input) {
       // Remove the brackets from the input string
       input = input
@@ -67,8 +66,8 @@ class LabTestingListItem extends StatelessWidget {
               backgroundBlendMode: BlendMode.saturation,
             )
           : null,
-      height: 250,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      height: 200,
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: AppColor.appointmentCard,
@@ -82,50 +81,69 @@ class LabTestingListItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: //labTestsList.length,
-                          parseLabTests(labTestingList.testList).length, //
-                      itemBuilder: (BuildContext context, int index) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              overflow: TextOverflow.ellipsis,
-                              // labTestsList[index].testName,
-                              parseLabTests(labTestingList.testList)[index]
-                                  .testName,
-                              style: GoogleFonts.inter(
-                                fontSize: Sizes.s20,
-                                fontWeight: FontWeight.bold,
-                                color: AppColor.secondary,
+                  Container(
+                    height: 102,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12)),
+                      border: Border.all(
+                        color: AppColor.primary.withOpacity(0.3),
+                        width: 1,
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12)),
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 5),
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: //labTestsList.length,
+                            parseLabTests(labTestingList.testList).length, //
+                        itemBuilder: (BuildContext context, int index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: 220,
+                                child: Text(
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  // labTestsList[index].testName,
+                                  "-${parseLabTests(labTestingList.testList)[index].testName}",
+                                  style: GoogleFonts.inter(
+                                    fontSize: Sizes.s18,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColor.secondary,
+                                  ),
+                                ),
                               ),
-                            ),
-                            Text(
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              parseLabTests(labTestingList.testList)[index]
-                                  .price
-                                  .toString(),
-                              style: GoogleFonts.inter(
-                                fontSize: Sizes.s14,
-                                color: AppColor.grey,
+                              Text(
+                                overflow: TextOverflow.ellipsis,
+                                "Rs. ${parseLabTests(labTestingList.testList)[index].price.toString()}",
+                                style: GoogleFonts.inter(
+                                  fontSize: Sizes.s14,
+                                  color: AppColor.grey,
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      },
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  // const SizedBox(
+                  //   height: 15,
+                  // ),
                   Container(
                     padding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(12)),
                       color: AppColor.primary.withOpacity(0.3),
                     ),
                     child: Row(

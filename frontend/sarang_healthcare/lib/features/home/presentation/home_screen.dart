@@ -112,6 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             onPressed: () => context.push(AppRoutes.profile),
                             icon: Icons.person_outline,
                           ),
+                          // CardButton(
+                          //   title: 'Reports',
+                          //   onPressed: () => context.push(AppRoutes.profile),
+                          //   icon: Icons.report_outlined,
+                          // ),
                         ],
                       ),
                     ),

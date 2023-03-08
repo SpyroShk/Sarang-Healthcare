@@ -21,6 +21,8 @@ mixin _$PreferredDoctorModel {
   String get qualifications => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
+  String get availableFrom => throw _privateConstructorUsedError;
+  String get availableTo => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PreferredDoctorModelCopyWith<PreferredDoctorModel> get copyWith =>
@@ -38,7 +40,9 @@ abstract class $PreferredDoctorModelCopyWith<$Res> {
       String name,
       String qualifications,
       String category,
-      String image});
+      String image,
+      String availableFrom,
+      String availableTo});
 }
 
 /// @nodoc
@@ -60,6 +64,8 @@ class _$PreferredDoctorModelCopyWithImpl<$Res,
     Object? qualifications = null,
     Object? category = null,
     Object? image = null,
+    Object? availableFrom = null,
+    Object? availableTo = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -82,6 +88,14 @@ class _$PreferredDoctorModelCopyWithImpl<$Res,
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      availableFrom: null == availableFrom
+          ? _value.availableFrom
+          : availableFrom // ignore: cast_nullable_to_non_nullable
+              as String,
+      availableTo: null == availableTo
+          ? _value.availableTo
+          : availableTo // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -99,7 +113,9 @@ abstract class _$$_PreferredDoctorModelCopyWith<$Res>
       String name,
       String qualifications,
       String category,
-      String image});
+      String image,
+      String availableFrom,
+      String availableTo});
 }
 
 /// @nodoc
@@ -118,6 +134,8 @@ class __$$_PreferredDoctorModelCopyWithImpl<$Res>
     Object? qualifications = null,
     Object? category = null,
     Object? image = null,
+    Object? availableFrom = null,
+    Object? availableTo = null,
   }) {
     return _then(_$_PreferredDoctorModel(
       id: null == id
@@ -140,6 +158,14 @@ class __$$_PreferredDoctorModelCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      availableFrom: null == availableFrom
+          ? _value.availableFrom
+          : availableFrom // ignore: cast_nullable_to_non_nullable
+              as String,
+      availableTo: null == availableTo
+          ? _value.availableTo
+          : availableTo // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -154,7 +180,9 @@ class _$_PreferredDoctorModel
       required this.name,
       required this.qualifications,
       required this.category,
-      required this.image});
+      required this.image,
+      required this.availableFrom,
+      required this.availableTo});
 
   @override
   final int id;
@@ -166,10 +194,14 @@ class _$_PreferredDoctorModel
   final String category;
   @override
   final String image;
+  @override
+  final String availableFrom;
+  @override
+  final String availableTo;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PreferredDoctorModel(id: $id, name: $name, qualifications: $qualifications, category: $category, image: $image)';
+    return 'PreferredDoctorModel(id: $id, name: $name, qualifications: $qualifications, category: $category, image: $image, availableFrom: $availableFrom, availableTo: $availableTo)';
   }
 
   @override
@@ -181,7 +213,9 @@ class _$_PreferredDoctorModel
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('qualifications', qualifications))
       ..add(DiagnosticsProperty('category', category))
-      ..add(DiagnosticsProperty('image', image));
+      ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('availableFrom', availableFrom))
+      ..add(DiagnosticsProperty('availableTo', availableTo));
   }
 
   @override
@@ -195,12 +229,16 @@ class _$_PreferredDoctorModel
                 other.qualifications == qualifications) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.availableFrom, availableFrom) ||
+                other.availableFrom == availableFrom) &&
+            (identical(other.availableTo, availableTo) ||
+                other.availableTo == availableTo));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, qualifications, category, image);
+  int get hashCode => Object.hash(runtimeType, id, name, qualifications,
+      category, image, availableFrom, availableTo);
 
   @JsonKey(ignore: true)
   @override
@@ -216,7 +254,9 @@ abstract class _PreferredDoctorModel implements PreferredDoctorModel {
       required final String name,
       required final String qualifications,
       required final String category,
-      required final String image}) = _$_PreferredDoctorModel;
+      required final String image,
+      required final String availableFrom,
+      required final String availableTo}) = _$_PreferredDoctorModel;
 
   @override
   int get id;
@@ -228,6 +268,10 @@ abstract class _PreferredDoctorModel implements PreferredDoctorModel {
   String get category;
   @override
   String get image;
+  @override
+  String get availableFrom;
+  @override
+  String get availableTo;
   @override
   @JsonKey(ignore: true)
   _$$_PreferredDoctorModelCopyWith<_$_PreferredDoctorModel> get copyWith =>

@@ -19,7 +19,7 @@ class PreferredDoctorListItem extends StatelessWidget {
             extra: preferredDoctor);
       },
       child: Container(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.all(20),
         height: 140,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
@@ -28,20 +28,16 @@ class PreferredDoctorListItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            LeadingIcon(preferredDoctor: preferredDoctor),
+            Center(child: LeadingIcon(preferredDoctor: preferredDoctor)),
             const SizedBox(
               width: 20,
             ),
             Expanded(
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 8),
-                    PreferredDoctorTitle(preferredDoctor: preferredDoctor),
-                  ],
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PreferredDoctorTitle(preferredDoctor: preferredDoctor),
+                ],
               ),
             ),
           ],
