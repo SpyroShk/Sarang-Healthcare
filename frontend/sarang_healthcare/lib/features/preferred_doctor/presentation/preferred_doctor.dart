@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sarang_healthcare/core/presentation/theme/app_color.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/canvas_card.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/sarang_appbar.dart';
 import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 import 'package:sarang_healthcare/features/preferred_doctor/presentation/widgets/category_header.dart';
 
+import '../../../core/presentation/theme/sizes.dart';
 import '../../../core/presentation/widgets/connection_lost.dart';
 import '../application/cubit/preferred_doctor_cubit.dart';
 import '../domain/preferred_doctor_model.dart';
@@ -61,7 +64,16 @@ class _PreferredDoctorState extends State<PreferredDoctor> {
       body: GradientBg(
         child: Column(
           children: [
-            const SarangAppbar(title: 'Doctors'),
+            SarangAppbar(
+              title: 'Doctors',
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: AppColor.canvas,
+                ),
+                onPressed: () => context.pop(),
+              ),
+            ),
             CanvasCard(
               child: BlocListener<PreferredDoctorCubit, PreferredDoctorState>(
                 listener: (context, state) {
@@ -75,6 +87,7 @@ class _PreferredDoctorState extends State<PreferredDoctor> {
                     return state.maybeWhen(
                       loadedNetwork: (preferredDoctorList) {
                         return CustomScrollView(
+                          physics: const BouncingScrollPhysics(),
                           slivers: [
                             SliverPersistentHeader(
                               floating: true,
@@ -155,26 +168,36 @@ class PreferredDoctorList extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<PreferredDoctorModel> preferredDoctor =
         context.watch<PreferredDoctorCubit>().changeDoctor(doctorCategory);
-    return ListView.separated(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.only(top: 0),
-      controller: _scrollController,
-      itemBuilder: (context, index) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            PreferredDoctorListItem(
-              preferredDoctor: preferredDoctor[index],
+    return preferredDoctor.isEmpty
+        ? const Center(
+            child: Text(
+              'No Doctors Here!',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: Sizes.s32,
+              ),
             ),
-          ],
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const SizedBox(
-          height: 18,
-        );
-      },
-      itemCount: preferredDoctor.length,
-    );
+          )
+        : ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(top: 0),
+            controller: _scrollController,
+            itemBuilder: (context, index) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PreferredDoctorListItem(
+                    preferredDoctor: preferredDoctor[index],
+                  ),
+                ],
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const SizedBox(
+                height: 18,
+              );
+            },
+            itemCount: preferredDoctor.length,
+          );
   }
 }

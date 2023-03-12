@@ -13,6 +13,7 @@ import 'package:sarang_healthcare/features/login/application/cubit/login_cubit.d
 import 'package:sarang_healthcare/features/payment/presentation/payment.dart';
 import 'package:sarang_healthcare/features/preferred_doctor/domain/preferred_doctor_model.dart';
 import 'package:sarang_healthcare/features/preferred_doctor/presentation/preferred_doctor.dart';
+import 'package:sarang_healthcare/features/report/presentation/report.dart';
 
 import '../../../features/home/presentation/home_screen.dart';
 import '../../../features/lab_testing_list/presentation/lab_testing_list.dart';
@@ -44,6 +45,7 @@ class AppRoutes {
   static const String appointmentlist = '/appointmentlist';
   static const String labtestinglist = '/labtestinglist';
   static const String payment = '/payment';
+  static const String report = '/report';
 }
 
 class AppRouter {
@@ -77,6 +79,10 @@ class AppRouter {
           return ScaffoldWithButtomNavbar(body: child);
         },
         routes: [
+          GoRoute(
+            path: AppRoutes.report,
+            builder: (_, state) => const Report(),
+          ),
           GoRoute(
             path: AppRoutes.home,
             builder: (_, state) => const HomeScreen(),

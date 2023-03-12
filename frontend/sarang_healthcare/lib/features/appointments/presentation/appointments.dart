@@ -81,6 +81,7 @@ class _AppointmentsState extends State<Appointments>
                 children: [
                   Expanded(
                     child: TabBarView(
+                      physics: const BouncingScrollPhysics(),
                       controller: _tabController,
                       children: const [
                         AppointmentList(),

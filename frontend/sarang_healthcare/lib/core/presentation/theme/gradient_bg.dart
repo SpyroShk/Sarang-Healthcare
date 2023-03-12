@@ -13,6 +13,8 @@ class GradientBg extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             AppColor.primary,
+            AppColor.primary,
+            AppColor.secondary,
             AppColor.secondary,
           ],
           begin: Alignment.topLeft,

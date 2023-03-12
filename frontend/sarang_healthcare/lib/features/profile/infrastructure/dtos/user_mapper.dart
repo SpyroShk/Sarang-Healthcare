@@ -7,9 +7,8 @@ class UserMapper {
         username: userDetailDto.username,
         email: userDetailDto.email,
       );
-  static UserDetailDto toUserDetailDto(UserDetail userDetail) =>
-      UserDetailDto(
-              pk: userDetail.pk,
+  static UserDetailDto toUserDetailDto(UserDetail userDetail) => UserDetailDto(
+        pk: userDetail.pk,
         username: userDetail.username,
         email: userDetail.email,
       );

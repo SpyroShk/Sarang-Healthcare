@@ -26,9 +26,9 @@ class AppointmentListCubit extends Cubit<AppointmentListState> {
 
   Future<void> getAppointmentListWithoutIdDetail() async {
     emit(const AppointmentListState.loading());
-    final response = await _appointmentListRepository.appointmentListWithoutId();
+    final response =
+        await _appointmentListRepository.appointmentListWithoutId();
     _handleAppointmentListResponse(response, []);
-
   }
 
   void _handleAppointmentListResponse(

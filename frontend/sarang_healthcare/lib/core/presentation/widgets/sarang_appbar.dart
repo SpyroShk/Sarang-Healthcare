@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sarang_healthcare/core/presentation/theme/app_color.dart';
 import 'package:sarang_healthcare/core/presentation/theme/sizes.dart';
 
 class SarangAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -17,6 +18,7 @@ class SarangAppbar extends StatelessWidget implements PreferredSizeWidget {
         style: const TextStyle(
           fontSize: Sizes.s22,
           fontWeight: FontWeight.w900,
+          color: AppColor.canvas,
         ),
       ),
       centerTitle: true,

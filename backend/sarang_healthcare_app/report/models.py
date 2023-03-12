@@ -7,4 +7,4 @@ class reports(models.Model):
     remarks=models.CharField(max_length=600)
 
     def __str__(self):
-        return self.remarks
+        return self.userId

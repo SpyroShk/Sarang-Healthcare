@@ -5,8 +5,11 @@ import 'package:sarang_healthcare/core/presentation/sarang_app.dart';
 import 'package:sarang_healthcare/features/appointment_list/application/cubit/appointment_list_cubit.dart';
 import 'package:sarang_healthcare/features/lab_tests/application/cubit/lab_tests_cubit.dart';
 import 'package:sarang_healthcare/features/profile/infrastructure/dtos/user_detail_dto.dart';
+import 'package:sarang_healthcare/features/report/application/cubit/report_cubit.dart';
 import 'package:sarang_healthcare/features/signup/application/cubit/signup_cubit.dart';
 import 'core/shared/get_it.dart';
+import 'features/contact/application/cubit/contact_cubit.dart';
+import 'features/contact/infrastructure/dtos/contact_model_dto.dart';
 import 'features/doc_appointment/application/cubit/doc_appointment_cubit.dart';
 import 'features/lab_testing/application/cubit/lab_testing_cubit.dart';
 import 'features/lab_testing_list/application/cubit/lab_testing_list_cubit.dart';
@@ -49,6 +52,12 @@ void main() async {
         BlocProvider.value(
           value: getIt.get<LabTestingCubit>(),
         ),
+        BlocProvider.value(
+          value: getIt.get<ReportCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt.get<ContactCubit>(),
+        ),
 
         // BlocProvider(
         //   create: (context) =>
@@ -63,4 +72,5 @@ void main() async {
 
 void registerAdapters() {
   Hive.registerAdapter(UserDetailDtoAdapter());
+  Hive.registerAdapter(ContactModelDtoAdapter());
 }

@@ -74,8 +74,15 @@ class _DocAppointmentState extends State<DocAppointment> {
       body: GradientBg(
         child: Column(
           children: [
-            const SarangAppbar(
+            SarangAppbar(
               title: 'Create new appointment',
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: AppColor.canvas,
+                ),
+                onPressed: () => context.pop(),
+              ),
             ),
             CanvasCard(
               child: SingleChildScrollView(
@@ -171,10 +178,11 @@ class _DocAppointmentState extends State<DocAppointment> {
                               onPressed: () {
                                 if (widget.preferredDoctor != null) {
                                   pickAppointmentDateTime(pickDate: false);
+                                } else {
+                                  return context.showCustomSnackBar(
+                                      message: 'Please select Doctor first.',
+                                      result: false);
                                 }
-                                return context.showCustomSnackBar(
-                                    message: 'Please select Doctor first.',
-                                    result: false);
                               },
                             ),
                           ),
@@ -362,7 +370,7 @@ class _DocAppointmentState extends State<DocAppointment> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 10),
                         decoration: BoxDecoration(
-                          color: AppColor.grey.withOpacity(0.15),
+                          color: AppColor.secondary.withOpacity(0.3),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(12),
                           ),
@@ -372,17 +380,17 @@ class _DocAppointmentState extends State<DocAppointment> {
                             Icon(
                               Icons.error,
                               size: 18,
-                              color: AppColor.grey,
+                              color: AppColor.secondary,
                             ),
                             SizedBox(
                               width: 6,
                             ),
                             Expanded(
                               child: Text(
-                                'Complete necessary data before continuing.',
+                                'Complete necessary data before continuing.\nNote: The appointments will last max upto 15 minutes.',
                                 style: TextStyle(
                                   fontSize: Sizes.s12,
-                                  color: AppColor.grey,
+                                  color: AppColor.black,
                                 ),
                               ),
                             ),

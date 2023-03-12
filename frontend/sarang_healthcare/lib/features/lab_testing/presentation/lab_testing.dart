@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/core/presentation/theme/sizes.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/canvas_card.dart';
@@ -45,8 +46,15 @@ class _LabTestingState extends State<LabTesting>
       body: GradientBg(
         child: Column(
           children: [
-            const SarangAppbar(
+            SarangAppbar(
               title: 'Book for Lab testing',
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: AppColor.canvas,
+                ),
+                onPressed: () => context.pop(),
+              ),
             ),
             Container(
               height: 55,

@@ -17,7 +17,7 @@ class AppointmentType extends StatelessWidget {
     return Text(
       appointmentTime(DateTime.parse('$dateStr $timeStr')),
       style: const TextStyle(
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.bold,
         fontSize: Sizes.s16,
         color: AppColor.black,
       ),

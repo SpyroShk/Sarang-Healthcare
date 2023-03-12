@@ -53,6 +53,8 @@ dependencies:
   circular_profile_avatar: ^2.0.5
   intl: ^0.18.0
   lottie: ^2.2.0
+  path_provider: ^2.0.13
+  downloads_path_provider_28: ^0.1.2
 
 dev_dependencies:
   flutter_test:

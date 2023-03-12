@@ -17,7 +17,7 @@ class CollectionType extends StatelessWidget {
     return Text(
       collectionTime(DateTime.parse('$dateStr $timeStr')),
       style: const TextStyle(
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.bold,
         fontSize: Sizes.s16,
         color: AppColor.black,
       ),

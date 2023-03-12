@@ -21,7 +21,7 @@ class CardButton extends StatelessWidget {
       children: [
         CircleAvatar(
           maxRadius: 25,
-          backgroundColor: AppColor.primary.withOpacity(0.1),
+          backgroundColor: AppColor.primary.withOpacity(0.2),
           child: IconButton(
             onPressed: onPressed,
             icon: Icon(
@@ -36,7 +36,7 @@ class CardButton extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: AppColor.grey,
+            color: AppColor.black,
             fontSize: Sizes.s12,
           ),
         ),

@@ -365,7 +365,7 @@ class _OnSiteState extends State<OnSite> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
-                color: AppColor.grey.withOpacity(0.15),
+                color: AppColor.secondary.withOpacity(0.3),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(12),
                 ),
@@ -375,7 +375,7 @@ class _OnSiteState extends State<OnSite> {
                   Icon(
                     Icons.error,
                     size: 18,
-                    color: AppColor.grey,
+                    color: AppColor.secondary,
                   ),
                   SizedBox(
                     width: 6,
@@ -385,7 +385,7 @@ class _OnSiteState extends State<OnSite> {
                       'Complete necessary data before continuing.',
                       style: TextStyle(
                         fontSize: Sizes.s12,
-                        color: AppColor.grey,
+                        color: AppColor.black,
                       ),
                     ),
                   ),

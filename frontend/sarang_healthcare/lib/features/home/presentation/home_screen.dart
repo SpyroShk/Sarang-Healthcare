@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   username.toString(),
                                   style: const TextStyle(
                                     fontSize: Sizes.s22,
-                                    fontWeight: FontWeight.w900,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 );
                               },
@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             title: 'Doctors',
                             onPressed: () =>
                                 context.push(AppRoutes.preferreddoc),
-                            icon: Icons.medical_information_outlined,
+                            icon: Icons.medical_services_outlined,
                           ),
                           CardButton(
                             title: 'Contact',
@@ -112,11 +112,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             onPressed: () => context.push(AppRoutes.profile),
                             icon: Icons.person_outline,
                           ),
-                          // CardButton(
-                          //   title: 'Reports',
-                          //   onPressed: () => context.push(AppRoutes.profile),
-                          //   icon: Icons.report_outlined,
-                          // ),
                         ],
                       ),
                     ),

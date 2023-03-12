@@ -52,26 +52,41 @@ class _ScaffoldWithButtomNavbarState extends State<ScaffoldWithButtomNavbar> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: BottomNavigationBar(
-            selectedFontSize: 12,
+            iconSize: 30,
+            // selectedFontSize: 12,
             enableFeedback: true,
             type: BottomNavigationBarType.fixed,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
             currentIndex: _calculateSelectedIndex(context),
             onTap: (value) => _onItemTapped(context, value),
             items: const [
               BottomNavigationBarItem(
-                activeIcon: Icon(Icons.home),
+                activeIcon: Icon(
+                  Icons.medical_information_rounded,
+                  size: 40,
+                ),
+                icon: Icon(Icons.medical_information_outlined),
+                label: 'Reports',
+                tooltip: 'Reports',
+              ),
+              BottomNavigationBarItem(
+                activeIcon: Icon(
+                  Icons.home_rounded,
+                  size: 40,
+                ),
                 icon: Icon(Icons.home_outlined),
                 label: 'Home',
+                tooltip: 'Home',
               ),
               BottomNavigationBarItem(
-                activeIcon: Icon(Icons.today),
+                activeIcon: Icon(
+                  Icons.today_rounded,
+                  size: 40,
+                ),
                 icon: Icon(Icons.today_outlined),
                 label: 'Appointments',
-              ),
-              BottomNavigationBarItem(
-                activeIcon: Icon(Icons.today),
-                icon: Icon(Icons.report),
-                label: 'Appointments',
+                tooltip: 'Appointments',
               ),
             ],
           ),
@@ -83,6 +98,10 @@ class _ScaffoldWithButtomNavbarState extends State<ScaffoldWithButtomNavbar> {
 
 String getTitle(BuildContext context) {
   final String location = GoRouterState.of(context).location;
+
+  if (location.startsWith(AppRoutes.report)) {
+    return 'Report';
+  }
   if (location.startsWith(AppRoutes.home)) {
     return 'Home';
   }
@@ -96,9 +115,12 @@ String getTitle(BuildContext context) {
 void _onItemTapped(BuildContext context, int index) {
   switch (index) {
     case 0:
-      context.go(AppRoutes.home);
+      context.go(AppRoutes.report);
       break;
     case 1:
+      context.go(AppRoutes.home);
+      break;
+    case 2:
       context.go(AppRoutes.appointments);
       break;
   }
@@ -106,11 +128,14 @@ void _onItemTapped(BuildContext context, int index) {
 
 int _calculateSelectedIndex(BuildContext context) {
   final String location = GoRouterState.of(context).location;
-  if (location.startsWith(AppRoutes.home)) {
+  if (location.startsWith(AppRoutes.report)) {
     return 0;
   }
-  if (location.startsWith(AppRoutes.appointments)) {
+  if (location.startsWith(AppRoutes.home)) {
     return 1;
   }
-  return 0;
+  if (location.startsWith(AppRoutes.appointments)) {
+    return 2;
+  }
+  return 1;
 }
