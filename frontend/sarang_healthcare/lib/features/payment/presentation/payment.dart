@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/core/presentation/theme/sizes.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/canvas_card.dart';
@@ -8,6 +9,7 @@ import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 import 'package:sarang_healthcare/features/profile/application/cubit/profile_cubit.dart';
 import 'package:sarang_healthcare/features/profile/domain/user_detail.dart';
 
+import '../../../core/presentation/theme/app_color.dart';
 import '../../../core/presentation/widgets/sarang_button.dart';
 import '../../doc_appointment/application/cubit/doc_appointment_cubit.dart';
 import '../../lab_testing/application/cubit/lab_testing_cubit.dart';
@@ -62,7 +64,16 @@ class Payment extends StatelessWidget {
       body: GradientBg(
         child: Column(
           children: [
-            const SarangAppbar(title: 'Payment'),
+            SarangAppbar(
+              title: 'Payment',
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: AppColor.canvas,
+                ),
+                onPressed: () => context.pop(),
+              ),
+            ),
             CanvasCard(
               child: Column(
                 children: [

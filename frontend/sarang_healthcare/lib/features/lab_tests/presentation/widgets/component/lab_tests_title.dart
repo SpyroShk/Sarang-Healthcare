@@ -62,7 +62,7 @@ class _LabTestsTitleState extends State<LabTestsTitle> {
           ),
           Text(
             overflow: TextOverflow.ellipsis,
-            widget.labTests!.price.toString(),
+            "Rs. ${widget.labTests!.price.toString()}",
             style: GoogleFonts.inter(
               fontSize: Sizes.s14,
               color: AppColor.grey,

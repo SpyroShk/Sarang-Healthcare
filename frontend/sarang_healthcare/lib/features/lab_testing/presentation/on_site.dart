@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 import 'package:sarang_healthcare/features/lab_tests/application/cubit/lab_tests_cubit.dart';
 
 import '../../../core/presentation/route/app_router.dart';
@@ -62,7 +63,8 @@ class _OnSiteState extends State<OnSite> {
   @override
   void initState() {
     super.initState();
-    collectionDateTime = DateTime.now();
+    final now = DateTime.now();
+    collectionDateTime = DateTime(now.year, now.month, now.day, 07, 00);
     testNameController.text = 'No Tests selected yet.';
   }
 
@@ -105,47 +107,91 @@ class _OnSiteState extends State<OnSite> {
               ),
             ),
             widget.selectedLabTests != null
-                ? ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(30),
-                            height: 140,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: AppColor.primary.withOpacity(0.1),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                LabTestsTitle(
-                                  labTests: widget.selectedLabTests[index],
-                                  controller: testNameController,
-                                  validator: (value) {
-                                    if (value == 'Tests') {
-                                      return 'Select your tests.';
-                                    }
-                                    return null;
-                                  },
+                ? widget.selectedLabTests.isNotEmpty
+                    ? ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(30),
+                                height: 140,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: AppColor.primary.withOpacity(0.1),
                                 ),
-                              ],
-                            ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    LabTestsTitle(
+                                      labTests: widget.selectedLabTests[index],
+                                      controller: testNameController,
+                                      validator: (value) {
+                                        if (value == 'Tests') {
+                                          return 'Select your tests.';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          widget.selectedLabTests
+                                              .removeAt(index);
+                                        });
+                                      },
+                                      child: Icon(
+                                        Icons.remove_circle,
+                                        color: AppColor.error.withOpacity(0.5),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(
+                            height: 18,
+                          );
+                        },
+                        itemCount: widget.selectedLabTests.length,
+                      )
+                    : Column(
+                        children: [
+                          const SizedBox(
+                            height: 24,
                           ),
+                          TextFormField(
+                            textAlign: TextAlign.center,
+                            showCursor: false,
+                            readOnly: true,
+                            focusNode: AlwaysDisabledFocusNode(),
+                            controller: testNameController,
+                            decoration: const InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.zero,
+                              border: InputBorder.none,
+                            ),
+                            style: const TextStyle(
+                              fontSize: Sizes.s20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            validator: (value) {
+                              if (value == 'No Tests selected yet.') {
+                                return 'Select your tests.';
+                              }
+                              return null;
+                            },
+                          ),
+                          // Text('No Tests selected yet.'),
                         ],
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: 18,
-                      );
-                    },
-                    itemCount: widget.selectedLabTests.length,
-                  )
+                      )
                 : Column(
                     children: [
                       const SizedBox(
@@ -222,7 +268,7 @@ class _OnSiteState extends State<OnSite> {
               height: 24,
             ),
             Textfield(
-              labelText: "Patient's Name",
+              labelText: "Patient's Full Name",
               disableSuffixIcon: false,
               suffixIcon: Icons.person_outline,
               validator: (value) {
@@ -382,7 +428,7 @@ class _OnSiteState extends State<OnSite> {
                   ),
                   Expanded(
                     child: Text(
-                      'Complete necessary data before continuing.',
+                      'Complete necessary data before continuing.\nNote: The lab will remain open from 7am to 6pm.',
                       style: TextStyle(
                         fontSize: Sizes.s12,
                         color: AppColor.black,
@@ -515,11 +561,27 @@ class _OnSiteState extends State<OnSite> {
       );
       return date.add(time);
     } else {
+      final now = DateTime.now();
       final timeOfDay = await showTimePicker(
         context: context,
-        initialTime: TimeOfDay.fromDateTime(initialDate),
+        initialTime: const TimeOfDay(hour: 7, minute: 00),
       );
       if (timeOfDay == null) return null;
+      final dateTime = DateTime(
+          now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+
+      int hrFrom = 07;
+      int minFrom = 00;
+      int hrTo = 18;
+      int minTo = 00;
+      if (dateTime.hour > hrTo ||
+          dateTime.hour < hrFrom ||
+          (dateTime.hour == hrFrom && dateTime.minute < minFrom) ||
+          (dateTime.hour == hrTo && dateTime.minute > minTo)) {
+        context.showCustomSnackBar(
+            message: 'Sorry Lab closed in selected Time.', result: false);
+        return null;
+      }
       final date =
           DateTime(initialDate.year, initialDate.month, initialDate.day);
       final time = Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute);

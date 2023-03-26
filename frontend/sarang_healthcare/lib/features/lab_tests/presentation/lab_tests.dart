@@ -8,6 +8,7 @@ import 'package:sarang_healthcare/core/presentation/widgets/sarang_appbar.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/sarang_button.dart';
 import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 
+import '../../../core/presentation/theme/app_color.dart';
 import '../../../core/presentation/widgets/connection_lost.dart';
 import '../application/cubit/lab_tests_cubit.dart';
 import '../domain/lab_tests_model.dart';
@@ -38,7 +39,16 @@ class _LabTestsState extends State<LabTests> {
       body: GradientBg(
         child: Column(
           children: [
-            const SarangAppbar(title: 'Select Tests'),
+            SarangAppbar(
+              title: 'Select Tests',
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: AppColor.canvas,
+                ),
+                onPressed: () => context.pop(),
+              ),
+            ),
             CanvasCard(
               child: BlocListener<LabTestsCubit, LabTestsState>(
                 listener: (context, state) {
@@ -61,7 +71,7 @@ class _LabTestsState extends State<LabTests> {
                               ),
                             ),
                             SarangButton(
-                              onPressed: () => context.push(
+                              onPressed: () => context.pushReplacement(
                                   AppRoutes.labtesting,
                                   extra: selectedLabTests),
                               isLoading: false,

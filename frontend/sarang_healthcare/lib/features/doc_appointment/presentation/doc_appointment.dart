@@ -63,7 +63,7 @@ class _DocAppointmentState extends State<DocAppointment> {
     if (now.weekday == DateTime.saturday) {
       now = now.add(const Duration(days: 1));
     }
-    appointmentDateTime = now;
+    appointmentDateTime = DateTime(now.year, now.month, now.day, 12, 00);
     doctorNameController.text = 'No Doctor selected yet.';
     context.read<AppointmentListCubit>().getAppointmentListWithoutIdDetail();
   }
@@ -212,7 +212,7 @@ class _DocAppointmentState extends State<DocAppointment> {
                         height: 24,
                       ),
                       Textfield(
-                        labelText: "Patient's Name",
+                        labelText: "Patient's Full Name",
                         disableSuffixIcon: false,
                         suffixIcon: Icons.person_outline,
                         validator: (value) {
