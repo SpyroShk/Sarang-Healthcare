@@ -13,9 +13,9 @@ import '../../lab_tests/domain/lab_tests_model.dart';
 class LabTesting extends StatefulWidget {
   const LabTesting({
     super.key,
-    required this.selectedLabTests,
+    this.selectedLabTests,
   });
-  final List<LabTestsModel> selectedLabTests;
+  final List<LabTestsModel>? selectedLabTests;
 
   @override
   State<LabTesting> createState() => _LabTestingState();

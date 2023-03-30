@@ -44,7 +44,7 @@ class AppTheme {
 
   //requireddd
   static TextTheme _textTheme() => TextTheme(
-        headline6: GoogleFonts.poppins(fontSize: Sizes.s12),
+        titleLarge: GoogleFonts.poppins(fontSize: Sizes.s12),
       );
 
   static AppBarTheme _appbarTheme() => AppBarTheme(

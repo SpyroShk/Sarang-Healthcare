@@ -110,7 +110,7 @@ class ContactView extends StatelessWidget {
                   ),
                   ContactViewDetails(
                     contactDetails: contactModel[index].sm3,
-                    icon: Icons.whatsapp_outlined,
+                    icon: Icons.message_outlined,
                   ),
                   Row(
                     children: [

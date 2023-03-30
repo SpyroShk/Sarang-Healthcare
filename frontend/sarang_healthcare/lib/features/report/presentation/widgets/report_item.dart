@@ -130,7 +130,6 @@ class ReportItem extends StatelessWidget {
     } catch (e) {
       context.showCustomSnackBar(
           message: 'Failed to download file: $e', result: false);
-      print(e);
     }
   }
 }

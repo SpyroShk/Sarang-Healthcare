@@ -230,3 +230,14 @@ class GoRouterRefreshStream extends ChangeNotifier {
     super.dispose();
   }
 }
+
+
+// {
+//             final a = state.extra as Map;
+//             final List<LabTestsModel>? selectedLabTests = a['selectedLabTests'];
+//             final List<LabTestsModel>? newTestsList = a['newTestsList'];
+//             return LabTesting(
+//               selectedLabTests: selectedLabTests,
+//               newTestsList: newTestsList,
+//             );
+//           }

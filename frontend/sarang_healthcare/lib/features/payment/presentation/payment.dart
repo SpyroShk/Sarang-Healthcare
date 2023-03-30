@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/core/presentation/theme/sizes.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/canvas_card.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/sarang_appbar.dart';
 import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
+import 'package:sarang_healthcare/features/notifications/infrastructure/notifications_service.dart';
 import 'package:sarang_healthcare/features/profile/application/cubit/profile_cubit.dart';
 import 'package:sarang_healthcare/features/profile/domain/user_detail.dart';
 
@@ -14,7 +16,7 @@ import '../../../core/presentation/widgets/sarang_button.dart';
 import '../../doc_appointment/application/cubit/doc_appointment_cubit.dart';
 import '../../lab_testing/application/cubit/lab_testing_cubit.dart';
 
-class Payment extends StatelessWidget {
+class Payment extends StatefulWidget {
   const Payment(
       {super.key,
       this.doctorId,
@@ -58,7 +60,25 @@ class Payment extends StatelessWidget {
   final String total;
 
   @override
+  State<Payment> createState() => _PaymentState();
+}
+
+class _PaymentState extends State<Payment> {
+  getAmt() {
+    return (double.parse(widget.total)).toInt() * 100;
+  }
+
+  NotificationsService notificationsService = NotificationsService();
+
+  @override
+  void initState() {
+    super.initState();
+    notificationsService.initializeNotification();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // print(total);
     final UserDetail userDetail = context.watch<ProfileCubit>().loadDetails();
     return Scaffold(
       body: GradientBg(
@@ -83,7 +103,7 @@ class Payment extends StatelessWidget {
                   const Text('TOTAL',
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Text(
-                    'Rs. $total',
+                    'Rs. ${widget.total}',
                     style: const TextStyle(
                         fontSize: Sizes.s32, fontWeight: FontWeight.bold),
                   ),
@@ -95,7 +115,7 @@ class Payment extends StatelessWidget {
                         child: Stack(
                           children: [
                             Visibility(
-                              visible: boolValue == false ? true : false,
+                              visible: widget.boolValue == false ? true : false,
                               child: BlocListener<DocAppointmentCubit,
                                   DocAppointmentState>(
                                 listener: (context, state) {
@@ -105,11 +125,11 @@ class Payment extends StatelessWidget {
                                       result: false,
                                       message: message,
                                     ),
-                                    succeeded: (message) =>
-                                        context.showCustomSnackBar(
-                                      result: true,
-                                      message: message,
-                                    ),
+                                    // succeeded: (message) =>
+                                    //     context.showCustomSnackBar(
+                                    //   result: true,
+                                    //   message: message,
+                                    // ),
                                   );
                                 },
                                 child: BlocBuilder<DocAppointmentCubit,
@@ -117,29 +137,60 @@ class Payment extends StatelessWidget {
                                   builder: (context, state) {
                                     return SarangButton(
                                         onPressed: () {
-                                          context
-                                              .read<DocAppointmentCubit>()
-                                              .docAppointment(
-                                                  userId:
-                                                      userDetail.pk.toString(),
-                                                  username: userDetail.username,
-                                                  doctorName: doctorName!,
-                                                  doctorId: doctorId!,
-                                                  appointmentDate:
-                                                      appointmentDate,
-                                                  appointmentTime:
-                                                      appointmentTime,
-                                                  contact: contact,
-                                                  patientName: patientName,
-                                                  age: age,
-                                                  gender: gender,
-                                                  userPatientRelation:
-                                                      userPatientRelation,
-                                                  doctorCategory:
-                                                      doctorCategory!,
-                                                  doctorImage: doctorImage!,
-                                                  patientDescription:
-                                                      patientDescription!);
+                                          KhaltiScope.of(context).pay(
+                                              config: PaymentConfig(
+                                                amount: getAmt(),
+                                                productIdentity:
+                                                    widget.doctorId.toString(),
+                                                productName: widget.doctorName
+                                                    .toString(),
+                                              ),
+                                              onSuccess: (success) {
+                                                context.showCustomSnackBar(
+                                                    message:
+                                                        'Payment Successful.',
+                                                    result: true);
+                                                context
+                                                    .read<DocAppointmentCubit>()
+                                                    .docAppointment(
+                                                        userId: userDetail.pk
+                                                            .toString(),
+                                                        username:
+                                                            userDetail.username,
+                                                        doctorName:
+                                                            widget.doctorName!,
+                                                        doctorId:
+                                                            widget.doctorId!,
+                                                        appointmentDate: widget
+                                                            .appointmentDate,
+                                                        appointmentTime: widget
+                                                            .appointmentTime,
+                                                        contact: widget.contact,
+                                                        patientName:
+                                                            widget.patientName,
+                                                        age: widget.age,
+                                                        gender: widget.gender,
+                                                        userPatientRelation: widget
+                                                            .userPatientRelation,
+                                                        doctorCategory: widget
+                                                            .doctorCategory!,
+                                                        doctorImage:
+                                                            widget.doctorImage!,
+                                                        patientDescription: widget
+                                                            .patientDescription!);
+                                                context.pop();
+                                                context.pop();
+                                                notificationsService
+                                                    .sendNotification(
+                                                  widget.appointmentDate,
+                                                  widget.appointmentTime,
+                                                );
+                                              },
+                                              onFailure: (failure) {
+                                                context.showCustomSnackBar(
+                                                    message: 'Payment Failed.',
+                                                    result: false);
+                                              });
                                         },
                                         isLoading: state.maybeWhen(
                                           orElse: () => false,
@@ -151,7 +202,7 @@ class Payment extends StatelessWidget {
                               ),
                             ),
                             Visibility(
-                              visible: boolValue == true ? true : false,
+                              visible: widget.boolValue == true ? true : false,
                               child: BlocListener<LabTestingCubit,
                                   LabTestingState>(
                                 listener: (context, state) {
@@ -161,11 +212,11 @@ class Payment extends StatelessWidget {
                                       result: false,
                                       message: message,
                                     ),
-                                    succeeded: (message) =>
-                                        context.showCustomSnackBar(
-                                      result: true,
-                                      message: message,
-                                    ),
+                                    // succeeded: (message) =>
+                                    //     context.showCustomSnackBar(
+                                    //   result: true,
+                                    //   message: message,
+                                    // ),
                                   );
                                 },
                                 child: BlocBuilder<LabTestingCubit,
@@ -173,27 +224,61 @@ class Payment extends StatelessWidget {
                                   builder: (context, state) {
                                     return SarangButton(
                                         onPressed: () {
-                                          context
-                                              .read<LabTestingCubit>()
-                                              .labTesting(
-                                                  userId:
-                                                      userDetail.pk.toString(),
-                                                  username: userDetail.username,
-                                                  testList: testName!,
-                                                  collectionDate:
-                                                      appointmentDate,
-                                                  collectionTime:
-                                                      appointmentTime,
-                                                  contact: contact,
-                                                  patientName: patientName,
-                                                  age: age,
-                                                  gender: gender,
-                                                  userPatientRelation:
-                                                      userPatientRelation,
-                                                  service: service!,
-                                                  city: city!,
-                                                  address: address!,
-                                                  landmark: landmark!);
+                                          KhaltiScope.of(context).pay(
+                                              config: PaymentConfig(
+                                                amount: getAmt(),
+                                                productIdentity:
+                                                    widget.testName.toString(),
+                                                productName:
+                                                    widget.testName.toString(),
+                                              ),
+                                              onSuccess: (success) {
+                                                context.showCustomSnackBar(
+                                                    message:
+                                                        'Payment Successful.',
+                                                    result: true);
+                                                context
+                                                    .read<LabTestingCubit>()
+                                                    .labTesting(
+                                                      userId: userDetail.pk
+                                                          .toString(),
+                                                      username:
+                                                          userDetail.username,
+                                                      testList:
+                                                          widget.testName!,
+                                                      collectionDate: widget
+                                                          .appointmentDate,
+                                                      collectionTime: widget
+                                                          .appointmentTime,
+                                                      contact: widget.contact,
+                                                      patientName:
+                                                          widget.patientName,
+                                                      age: widget.age,
+                                                      gender: widget.gender,
+                                                      userPatientRelation: widget
+                                                          .userPatientRelation,
+                                                      service: widget.service!,
+                                                      city: widget.city!,
+                                                      address: widget.address!,
+                                                      landmark:
+                                                          widget.landmark!,
+                                                    );
+                                                context.pop();
+                                                context.pop();
+                                                context.pop();
+                                                context.pop();
+                                                notificationsService
+                                                    .sendNotification(
+                                                  widget.appointmentDate,
+                                                  widget.appointmentTime,
+                                                );
+                                              },
+                                              onFailure: (failure) {
+                                                context.showCustomSnackBar(
+                                                  message: 'Payment Failed.',
+                                                  result: false,
+                                                );
+                                              });
                                         },
                                         isLoading: state.maybeWhen(
                                           orElse: () => false,

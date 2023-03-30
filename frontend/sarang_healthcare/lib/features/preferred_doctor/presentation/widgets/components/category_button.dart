@@ -32,7 +32,7 @@ class CategoryButton extends StatelessWidget {
       focusColor: Colors.black,
       child: Text(
         buttonText,
-        style: Theme.of(context).textTheme.headline6!.copyWith(
+        style: Theme.of(context).textTheme.titleLarge!.copyWith(
             color: isSelected ? AppColor.primary : AppColor.canvas,
             fontSize: Sizes.s14,
             fontWeight: FontWeight.w800),

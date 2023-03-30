@@ -326,7 +326,7 @@ class _DocAppointmentState extends State<DocAppointment> {
                               borderRadius: BorderRadius.circular(12),
                               alignment: Alignment.bottomCenter,
                               icon: const Icon(Icons.keyboard_arrow_down),
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.titleLarge,
                               items: relation.map((option) {
                                 return DropdownMenuItem(
                                   value: option,
@@ -435,7 +435,7 @@ class _DocAppointmentState extends State<DocAppointment> {
       final patientDescription = patientDescriptionController.text.trim() == ''
           ? 'No description.'
           : patientDescriptionController.text.trim();
-      String total = "800.00";
+      String total = "200.00";
       final appointmentsListWithoutId = context
           .read<AppointmentListCubit>()
           .getAppointmentsListWithoutIdDetail();

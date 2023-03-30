@@ -6,14 +6,19 @@ import '../../../../core/presentation/theme/app_color.dart';
 import '../../../../core/presentation/theme/sizes.dart';
 import '../../domain/appointment_list_model.dart';
 
-class AppointmentListItem extends StatelessWidget {
+class AppointmentListItem extends StatefulWidget {
   const AppointmentListItem({super.key, required this.appointmentList});
   final AppointmentListModel appointmentList;
 
   @override
+  State<AppointmentListItem> createState() => _AppointmentListItemState();
+}
+
+class _AppointmentListItemState extends State<AppointmentListItem> {
+  @override
   Widget build(BuildContext context) {
-    String dateStr = appointmentList.appointmentDate;
-    String timeStr = appointmentList.appointmentTime;
+    String dateStr = widget.appointmentList.appointmentDate;
+    String timeStr = widget.appointmentList.appointmentTime;
     final appointmentfilter =
         DateTime.parse('$dateStr $timeStr').isBefore(DateTime.now());
     return Container(
@@ -42,7 +47,7 @@ class AppointmentListItem extends StatelessWidget {
                   Row(
                     children: [
                       CircularProfileAvatar(
-                        appointmentList.doctorImage,
+                        widget.appointmentList.doctorImage,
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
                         placeHolder: (context, url) => const SizedBox(
@@ -64,7 +69,7 @@ class AppointmentListItem extends StatelessWidget {
                           Text(
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            appointmentList.doctorName,
+                            widget.appointmentList.doctorName,
                             style: GoogleFonts.inter(
                               fontSize: Sizes.s20,
                               fontWeight: FontWeight.bold,
@@ -74,7 +79,7 @@ class AppointmentListItem extends StatelessWidget {
                           Text(
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            appointmentList.doctorCategory,
+                            widget.appointmentList.doctorCategory,
                             style: GoogleFonts.inter(
                               fontSize: Sizes.s14,
                               color: AppColor.grey,
@@ -112,7 +117,7 @@ class AppointmentListItem extends StatelessWidget {
                             ),
                             Text(
                               overflow: TextOverflow.ellipsis,
-                              appointmentList.appointmentDate,
+                              widget.appointmentList.appointmentDate,
                               style: GoogleFonts.inter(
                                 fontSize: Sizes.s14,
                                 fontWeight: FontWeight.bold,
@@ -137,7 +142,7 @@ class AppointmentListItem extends StatelessWidget {
                             Text(
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              appointmentList.appointmentTime,
+                              widget.appointmentList.appointmentTime,
                               style: GoogleFonts.inter(
                                 fontSize: Sizes.s14,
                                 fontWeight: FontWeight.bold,
@@ -158,7 +163,7 @@ class AppointmentListItem extends StatelessWidget {
                       child: Text(
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        'Patient ${appointmentList.patientName}',
+                        'Patient ${widget.appointmentList.patientName}',
                         style: GoogleFonts.inter(
                           fontSize: Sizes.s16,
                           fontWeight: FontWeight.bold,
@@ -175,4 +180,6 @@ class AppointmentListItem extends StatelessWidget {
       ),
     );
   }
+
+
 }

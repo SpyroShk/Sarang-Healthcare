@@ -12,11 +12,11 @@ import '../../lab_tests/domain/lab_tests_model.dart';
 import '../../lab_tests/presentation/widgets/component/lab_tests_title.dart';
 
 class HomeService extends StatefulWidget {
-  final List<LabTestsModel> selectedLabTests;
+  final List<LabTestsModel>? selectedLabTests;
   final String tabName;
   const HomeService({
     super.key,
-    required this.selectedLabTests,
+    this.selectedLabTests,
     required this.tabName,
   });
 
@@ -83,7 +83,7 @@ class _HomeServiceState extends State<HomeService> {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
-              onPressed: () => context.pushReplacement(AppRoutes.labtests),
+              onPressed: () => context.push(AppRoutes.labtests),
               child: SizedBox(
                 height: 58,
                 child: Row(
@@ -104,7 +104,7 @@ class _HomeServiceState extends State<HomeService> {
               ),
             ),
             widget.selectedLabTests != null
-                ? widget.selectedLabTests.isNotEmpty
+                ? widget.selectedLabTests!.isNotEmpty
                     ? ListView.separated(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -125,7 +125,7 @@ class _HomeServiceState extends State<HomeService> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     LabTestsTitle(
-                                      labTests: widget.selectedLabTests[index],
+                                      labTests: widget.selectedLabTests![index],
                                       controller: testNameController,
                                       validator: (value) {
                                         if (value == 'Tests') {
@@ -137,7 +137,7 @@ class _HomeServiceState extends State<HomeService> {
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          widget.selectedLabTests
+                                          widget.selectedLabTests!
                                               .removeAt(index);
                                         });
                                       },
@@ -157,7 +157,7 @@ class _HomeServiceState extends State<HomeService> {
                             height: 18,
                           );
                         },
-                        itemCount: widget.selectedLabTests.length,
+                        itemCount: widget.selectedLabTests!.length,
                       )
                     : Column(
                         children: [
@@ -377,7 +377,7 @@ class _HomeServiceState extends State<HomeService> {
                     borderRadius: BorderRadius.circular(12),
                     alignment: Alignment.bottomCenter,
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                     items: relation.map((option) {
                       return DropdownMenuItem(
                         value: option,
@@ -517,7 +517,7 @@ class _HomeServiceState extends State<HomeService> {
       final landmark = landmarkController.text.trim() == ''
           ? 'No landmark'
           : landmarkController.text.trim();
-      double total = widget.selectedLabTests.fold(
+      double total = widget.selectedLabTests!.fold(
           0,
           (previousValue, element) =>
               previousValue + double.parse(element.price));

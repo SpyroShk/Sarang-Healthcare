@@ -61,17 +61,19 @@ class _LabTestsState extends State<LabTests> {
                   builder: (context, state) {
                     return state.maybeWhen(
                       loadedNetwork: (labTestsList) {
+                        List<LabTestsModel> newTestsList = [];
+                        newTestsList.addAll(labTestsList);
                         return Column(
                           children: [
                             Expanded(
                               child: LabTestsList(
                                 scrollController: _scrollController,
-                                labTestsList: labTestsList,
+                                labTestsList: newTestsList,
                                 selectedLabTests: selectedLabTests,
                               ),
                             ),
                             SarangButton(
-                              onPressed: () => context.pushReplacement(
+                              onPressed: () => context.push(
                                   AppRoutes.labtesting,
                                   extra: selectedLabTests),
                               isLoading: false,
