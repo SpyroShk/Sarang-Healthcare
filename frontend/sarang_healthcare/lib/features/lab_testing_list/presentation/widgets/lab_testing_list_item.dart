@@ -48,7 +48,7 @@ class LabTestingListItem extends StatelessWidget {
         final price = priceMatch;
 
         // Create a LabTestsDto object and add it to the list
-        labTests.add(LabTestsDto(id: id, testName: testName, price: price));
+        labTests.add(LabTestsDto(id: id, testName: testName, price: price, testDescription: ''));
       });
 
       return labTests;

@@ -8,6 +8,7 @@ class LabTestsMapper {
       id: labTestsDto.id,
       testName: labTestsDto.testName,
       price: labTestsDto.price,
+      testDescription: labTestsDto.testDescription,
     );
   }
 
@@ -17,6 +18,7 @@ class LabTestsMapper {
       id: labTestsModel.id,
       testName: labTestsModel.testName,
       price: labTestsModel.price,
+      testDescription: labTestsModel.testDescription,
     );
   }
 }

@@ -11,6 +11,7 @@ _$_LabTestsDto _$$_LabTestsDtoFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       testName: json['testName'] as String,
       price: json['price'] as String,
+      testDescription: json['testDescription'] as String,
     );
 
 Map<String, dynamic> _$$_LabTestsDtoToJson(_$_LabTestsDto instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_LabTestsDtoToJson(_$_LabTestsDto instance) =>
       'id': instance.id,
       'testName': instance.testName,
       'price': instance.price,
+      'testDescription': instance.testDescription,
     };

@@ -9,5 +9,6 @@ class LabTestsModel with _$LabTestsModel {
     required int id,
     required String testName,
     required String price,
+    required String testDescription,
   }) = _LabTestsModel;
 }

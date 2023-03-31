@@ -11,6 +11,7 @@ class LabTestsDto with _$LabTestsDto {
     required int id,
     required String testName,
     required String price,
+    required String testDescription,
   }) = _LabTestsDto;
 
   factory LabTestsDto.fromJson(Map<String, dynamic> json) =>

@@ -20,7 +20,7 @@ class LabTestsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 30, bottom: 30),
       controller: _scrollController,
       itemBuilder: (context, index) {
         return LabTestsListItem(

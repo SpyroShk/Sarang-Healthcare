@@ -19,6 +19,7 @@ mixin _$LabTestsModel {
   int get id => throw _privateConstructorUsedError;
   String get testName => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
+  String get testDescription => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LabTestsModelCopyWith<LabTestsModel> get copyWith =>
@@ -31,7 +32,7 @@ abstract class $LabTestsModelCopyWith<$Res> {
           LabTestsModel value, $Res Function(LabTestsModel) then) =
       _$LabTestsModelCopyWithImpl<$Res, LabTestsModel>;
   @useResult
-  $Res call({int id, String testName, String price});
+  $Res call({int id, String testName, String price, String testDescription});
 }
 
 /// @nodoc
@@ -50,6 +51,7 @@ class _$LabTestsModelCopyWithImpl<$Res, $Val extends LabTestsModel>
     Object? id = null,
     Object? testName = null,
     Object? price = null,
+    Object? testDescription = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -64,6 +66,10 @@ class _$LabTestsModelCopyWithImpl<$Res, $Val extends LabTestsModel>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
+      testDescription: null == testDescription
+          ? _value.testDescription
+          : testDescription // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -76,7 +82,7 @@ abstract class _$$_LabTestsModelCopyWith<$Res>
       __$$_LabTestsModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String testName, String price});
+  $Res call({int id, String testName, String price, String testDescription});
 }
 
 /// @nodoc
@@ -93,6 +99,7 @@ class __$$_LabTestsModelCopyWithImpl<$Res>
     Object? id = null,
     Object? testName = null,
     Object? price = null,
+    Object? testDescription = null,
   }) {
     return _then(_$_LabTestsModel(
       id: null == id
@@ -107,6 +114,10 @@ class __$$_LabTestsModelCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
+      testDescription: null == testDescription
+          ? _value.testDescription
+          : testDescription // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -115,7 +126,10 @@ class __$$_LabTestsModelCopyWithImpl<$Res>
 
 class _$_LabTestsModel with DiagnosticableTreeMixin implements _LabTestsModel {
   const _$_LabTestsModel(
-      {required this.id, required this.testName, required this.price});
+      {required this.id,
+      required this.testName,
+      required this.price,
+      required this.testDescription});
 
   @override
   final int id;
@@ -123,10 +137,12 @@ class _$_LabTestsModel with DiagnosticableTreeMixin implements _LabTestsModel {
   final String testName;
   @override
   final String price;
+  @override
+  final String testDescription;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LabTestsModel(id: $id, testName: $testName, price: $price)';
+    return 'LabTestsModel(id: $id, testName: $testName, price: $price, testDescription: $testDescription)';
   }
 
   @override
@@ -136,7 +152,8 @@ class _$_LabTestsModel with DiagnosticableTreeMixin implements _LabTestsModel {
       ..add(DiagnosticsProperty('type', 'LabTestsModel'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('testName', testName))
-      ..add(DiagnosticsProperty('price', price));
+      ..add(DiagnosticsProperty('price', price))
+      ..add(DiagnosticsProperty('testDescription', testDescription));
   }
 
   @override
@@ -147,11 +164,14 @@ class _$_LabTestsModel with DiagnosticableTreeMixin implements _LabTestsModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.testName, testName) ||
                 other.testName == testName) &&
-            (identical(other.price, price) || other.price == price));
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.testDescription, testDescription) ||
+                other.testDescription == testDescription));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, testName, price);
+  int get hashCode =>
+      Object.hash(runtimeType, id, testName, price, testDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -164,7 +184,8 @@ abstract class _LabTestsModel implements LabTestsModel {
   const factory _LabTestsModel(
       {required final int id,
       required final String testName,
-      required final String price}) = _$_LabTestsModel;
+      required final String price,
+      required final String testDescription}) = _$_LabTestsModel;
 
   @override
   int get id;
@@ -172,6 +193,8 @@ abstract class _LabTestsModel implements LabTestsModel {
   String get testName;
   @override
   String get price;
+  @override
+  String get testDescription;
   @override
   @JsonKey(ignore: true)
   _$$_LabTestsModelCopyWith<_$_LabTestsModel> get copyWith =>

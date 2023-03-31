@@ -32,7 +32,8 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = [    
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -165,3 +166,51 @@ REST_FRAMEWORK={
         'rest_framework.authentication.TokenAuthentication'
     ]
 }
+
+JET_THEMES = [
+    {
+        'theme': 'default', # theme folder name
+        'color': '#47bac1', # color of the theme's button in user menu
+        'title': 'Default' # theme title
+    },
+    {
+        'theme': 'green',
+        'color': '#44b78b',
+        'title': 'Green'
+    },
+    {
+        'theme': 'light-green',
+        'color': '#2faa60',
+        'title': 'Light Green'
+    },
+    {
+        'theme': 'light-violet',
+        'color': '#a464c4',
+        'title': 'Light Violet'
+    },
+    {
+        'theme': 'light-blue',
+        'color': '#5EADDE',
+        'title': 'Light Blue'
+    },
+    {
+        'theme': 'light-gray',
+        'color': '#222',
+        'title': 'Light Gray'
+    }
+]
+
+# JET_THEMES = [
+#     {
+#         'theme': 'light-blue',
+#         'title': 'Sarang',
+#         'admin_title': 'Sarang',
+#         'color': '#2ABFD3',
+#         'title_color': '#FFFFFF',
+#         'brand_color': '#2ABFD3',
+#         'menu_color': '#FFFFFF',
+#         'menu_hover_color': '#76BD43',
+#         'submenu_color': '#2ABFD3'
+#     },
+# ]
+JET_SIDE_MENU_COMPACT = True
