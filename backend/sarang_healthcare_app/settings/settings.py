@@ -32,8 +32,9 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
-INSTALLED_APPS = [    
-    'jet',
+INSTALLED_APPS = [
+    # 'jet',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -145,7 +146,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT=  os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Default primary key field type
@@ -153,52 +154,52 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD= config("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 
-AUTHENTICATION_BACKENDS=['core.models.EmailBackend']
+AUTHENTICATION_BACKENDS = ['core.models.EmailBackend']
 
-REST_FRAMEWORK={
-    "DEFAULT_AUTHENTICATION_CLASSES":[
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
         'rest_framework.authentication.TokenAuthentication'
     ]
 }
 
-JET_THEMES = [
-    {
-        'theme': 'default', # theme folder name
-        'color': '#47bac1', # color of the theme's button in user menu
-        'title': 'Default' # theme title
-    },
-    {
-        'theme': 'green',
-        'color': '#44b78b',
-        'title': 'Green'
-    },
-    {
-        'theme': 'light-green',
-        'color': '#2faa60',
-        'title': 'Light Green'
-    },
-    {
-        'theme': 'light-violet',
-        'color': '#a464c4',
-        'title': 'Light Violet'
-    },
-    {
-        'theme': 'light-blue',
-        'color': '#5EADDE',
-        'title': 'Light Blue'
-    },
-    {
-        'theme': 'light-gray',
-        'color': '#222',
-        'title': 'Light Gray'
-    }
-]
+# JET_THEMES = [
+#     {
+#         'theme': 'default', # theme folder name
+#         'color': '#47bac1', # color of the theme's button in user menu
+#         'title': 'Default' # theme title
+#     },
+#     {
+#         'theme': 'green',
+#         'color': '#44b78b',
+#         'title': 'Green'
+#     },
+#     {
+#         'theme': 'light-green',
+#         'color': '#2faa60',
+#         'title': 'Light Green'
+#     },
+#     {
+#         'theme': 'light-violet',
+#         'color': '#a464c4',
+#         'title': 'Light Violet'
+#     },
+#     {
+#         'theme': 'light-blue',
+#         'color': '#5EADDE',
+#         'title': 'Light Blue'
+#     },
+#     {
+#         'theme': 'light-gray',
+#         'color': '#222',
+#         'title': 'Light Gray'
+#     }
+# ]
 
 # JET_THEMES = [
 #     {
@@ -213,4 +214,66 @@ JET_THEMES = [
 #         'submenu_color': '#2ABFD3'
 #     },
 # ]
-JET_SIDE_MENU_COMPACT = True
+# JET_SIDE_MENU_COMPACT = True
+# JAZZMIN_UI_TWEAKS = {
+#     "theme": "flatly",
+#     "dark_mode_theme": "darkly",
+# }
+
+JAZZMIN_SETTINGS = {
+    'site_title': "Sarang Healthcare",
+    # 'site_header': "Sarang Healthcare",
+    'site_brand': "Sarang Healthcare",
+    'copyright': "sarang-healthcare",
+    "welcome_sign": "Welcome to the Sarang Healthcare",
+    # "navigation_expanded": True,
+
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "contact.Contact": "fas fa-phone",
+        "core.User": "fas fa-users",
+        "doctor.Doctor": "fas fa-hand-holding-medical",
+        "doctor.Category": "fas fa-align-justify",
+        "doctor_appointment.Appointments": "fas fa-calendar-day",
+        "lab_testing_appointment.LabTestings": "fas fa-laptop-medical",
+        "lab_tests.Labtests": "fas fa-flask",
+        "report.Reports": "fas fa-file-medical-alt",
+    },
+    # "changeform_format": "horizontal_tabs",
+    # "show_ui_builder": True,
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": False,
+    "accent": "accent-primary",
+    "navbar": "navbar-white navbar-light",
+    "no_navbar_border": True,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "minty",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    },
+    "actions_sticky_top": False
+}

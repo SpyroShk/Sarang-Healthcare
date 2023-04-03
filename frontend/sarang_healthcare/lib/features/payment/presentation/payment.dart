@@ -227,10 +227,9 @@ class _PaymentState extends State<Payment> {
                                           KhaltiScope.of(context).pay(
                                               config: PaymentConfig(
                                                 amount: getAmt(),
-                                                productIdentity:
-                                                    widget.testName.toString(),
-                                                productName:
-                                                    widget.testName.toString(),
+                                                productIdentity: userDetail.pk
+                                                          .toString(),
+                                                productName: 'tests',
                                               ),
                                               onSuccess: (success) {
                                                 context.showCustomSnackBar(

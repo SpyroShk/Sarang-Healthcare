@@ -14,7 +14,6 @@ class DocAppointmentCubit extends Cubit<DocAppointmentState> {
         super(const DocAppointmentState.initial());
   final DocAppointmentRepository _docAppointmentRepository;
 
-
   void docAppointment({
     required String userId,
     required String username,
@@ -71,6 +70,12 @@ class DocAppointmentCubit extends Cubit<DocAppointmentState> {
               message: "Appointment booked sucessfully."),
         );
       },
+    );
+  }
+
+  void clearState() {
+    emit(
+      const DocAppointmentState.initial(),
     );
   }
 }

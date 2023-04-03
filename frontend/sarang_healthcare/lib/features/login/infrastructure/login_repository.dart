@@ -23,6 +23,9 @@ class LoginRepository {
   Future<String?> getToken() async =>
       await _secureCredentialStorage.getApiToken();
 
+  Future<String?> getGroups() async =>
+      await _secureCredentialStorage.getGroups();
+
   Future<Either<LoginFailure, LoginSuccess>> login({
     required LoginDetail loginDetail,
   }) async {
@@ -38,8 +41,17 @@ class LoginRepository {
       );
       // log(response.toString());
       final respData = response.data;
-      // log(respData);
-      await _secureCredentialStorage.setApiToken(respData["key"]);
+      if (respData["groups"].contains("Staffs")) {
+        return const Left(
+          LoginFailure.client(
+            message: "No Staffs Allowed.",
+          ),
+        );
+      } else {
+        await _secureCredentialStorage.setApiToken(respData["key"]);
+        await _secureCredentialStorage.setGroups(respData["groups"].toString());
+        log(respData["groups"].toString());
+      }
       return const Right("Login successful.");
     } on DioError catch (e) {
       return Left(
@@ -73,9 +85,8 @@ class LoginRepository {
     return "Logged out successfully.";
   }
 
-    Future<String> getUser() async {
+  Future<String> getUser() async {
     final email = await _secureCredentialStorage.getUser();
     return email;
   }
-
 }

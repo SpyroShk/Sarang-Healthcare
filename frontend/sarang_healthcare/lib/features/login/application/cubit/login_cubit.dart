@@ -21,9 +21,14 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> checkSignInStatus() async {
     emit(const LoginState.loading());
     final token = await _loginRepository.getToken();
-    if (token != null) {
+    final group = await _loginRepository.getGroups();
+    if (token != null && group == '[]') {
       log('token: $token');
       emit(const LoginState.authenticated());
+    } else if (token != null && group == '[Doctors]') {
+      log('token: $token');
+      log('group: $group');
+      emit(const LoginState.docAuthenticated());
     } else {
       emit(const LoginState.unauthenticated(message: "Please sign in"));
     }
@@ -50,8 +55,19 @@ class LoginCubit extends Cubit<LoginState> {
 
         emit(LoginState.unauthenticated(message: message));
       },
-      (_) {
-        emit(const LoginState.authenticated());
+      (_) async {
+        final token = await _loginRepository.getToken();
+        final group = await _loginRepository.getGroups();
+        if (token != null && group == '[]') {
+          log('token: $token');
+          emit(const LoginState.authenticated());
+        } else if (token != null && group == '[Doctors]') {
+          log('token: $token');
+          log('group: $group');
+          emit(const LoginState.docAuthenticated());
+        } else {
+          emit(const LoginState.unauthenticated(message: "Please sign in"));
+        }
       },
     );
   }

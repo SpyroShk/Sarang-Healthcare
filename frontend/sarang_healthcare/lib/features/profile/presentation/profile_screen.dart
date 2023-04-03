@@ -5,6 +5,7 @@ import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/canvas_card.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/sarang_appbar.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/sarang_button.dart';
+import 'package:sarang_healthcare/features/doc_appointment/application/cubit/doc_appointment_cubit.dart';
 
 import '../../../core/presentation/theme/app_color.dart';
 import '../../../core/presentation/widgets/connection_lost.dart';
@@ -72,6 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: SarangButton(
                           onPressed: () {
                             context.read<LoginCubit>().logOut();
+                            context.read<DocAppointmentCubit>().clearState();
                           },
                           isLoading: false,
                           label: 'Log Out'),

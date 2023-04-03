@@ -14,11 +14,11 @@ class AppointmentList extends StatefulWidget {
 }
 
 class _AppointmentListState extends State<AppointmentList> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<AppointmentListCubit>().getAppointmentListDetail();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<AppointmentListCubit>().getAppointmentListDetail();
+  // }
 
   final ScrollController _scrollController = ScrollController();
   @override

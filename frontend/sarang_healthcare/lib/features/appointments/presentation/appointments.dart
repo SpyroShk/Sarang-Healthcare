@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/features/appointment_list/presentation/appointment_list.dart';
 import 'package:sarang_healthcare/features/lab_testing_list/presentation/lab_testing_list.dart';
@@ -7,6 +8,8 @@ import '../../../core/presentation/theme/app_color.dart';
 import '../../../core/presentation/theme/sizes.dart';
 import '../../../core/presentation/widgets/canvas_card.dart';
 import '../../../core/presentation/widgets/sarang_appbar.dart';
+import '../../appointment_list/application/cubit/appointment_list_cubit.dart';
+import '../../lab_testing_list/application/cubit/lab_testing_list_cubit.dart';
 
 class Appointments extends StatefulWidget {
   const Appointments({super.key});
@@ -23,6 +26,8 @@ class _AppointmentsState extends State<Appointments>
   int _selectedTabIndex = 0;
   @override
   void initState() {
+    context.read<AppointmentListCubit>().getAppointmentListDetail();
+    context.read<LabTestingListCubit>().getLabTestingListDetail();
     _tabController = TabController(length: tabNames.length, vsync: this);
     super.initState();
   }

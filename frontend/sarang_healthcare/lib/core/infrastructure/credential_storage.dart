@@ -4,4 +4,8 @@ abstract class CredentialStorage {
   Future<void> clear();
   Future<void> getUser();
   Future<void> saveUser(String emailValue, String passwordValue);
+  Future<String?> getUserId();
+  Future<void> setUserId(String userId);
+  Future<String?> getGroups();
+  Future<void> setGroups(String groups);
 }

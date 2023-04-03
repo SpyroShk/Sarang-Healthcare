@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/features/appointment_list/presentation/appointment_list.dart';
 import 'package:sarang_healthcare/features/appointments/presentation/appointments.dart';
 import 'package:sarang_healthcare/features/contact/presentation/contact.dart';
+import 'package:sarang_healthcare/features/doc_appo_list/presentation/doc_appo_list.dart';
 import 'package:sarang_healthcare/features/doc_appointment/presentation/doc_appointment.dart';
 import 'package:sarang_healthcare/features/lab_testing/presentation/lab_testing.dart';
 import 'package:sarang_healthcare/features/lab_tests/presentation/lab_tests.dart';
@@ -15,6 +16,7 @@ import 'package:sarang_healthcare/features/preferred_doctor/domain/preferred_doc
 import 'package:sarang_healthcare/features/preferred_doctor/presentation/preferred_doctor.dart';
 import 'package:sarang_healthcare/features/report/presentation/report.dart';
 
+import '../../../features/doc_home/presentation/doc_home.dart';
 import '../../../features/home/presentation/home_screen.dart';
 import '../../../features/lab_testing_list/presentation/lab_testing_list.dart';
 import '../../../features/lab_tests/domain/lab_tests_model.dart';
@@ -22,10 +24,13 @@ import '../../../features/login/presentation/login_screen.dart';
 import '../../../features/profile/presentation/profile_screen.dart';
 import '../../../features/signup/presentation/signup_screen.dart';
 import '../../../features/splash/presentation/splash_screen.dart';
+import '../widgets/doc_scaffold_with_bottom_nav_bar.dart';
 import '../widgets/scaffold_with_bottom_nav_bar.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _docShellNavigatorKey =
     GlobalKey<NavigatorState>();
 
 const _unProtectedRoutes = [AppRoutes.signup];
@@ -46,6 +51,8 @@ class AppRoutes {
   static const String labtestinglist = '/labtestinglist';
   static const String payment = '/payment';
   static const String report = '/report';
+  static const String dochome = '/dochome';
+  static const String docappolist = '/docappolist';
 }
 
 class AppRouter {
@@ -90,6 +97,26 @@ class AppRouter {
           GoRoute(
             path: AppRoutes.appointments,
             builder: (_, state) => const Appointments(),
+          ),
+        ],
+      ),
+      ShellRoute(
+        navigatorKey: _docShellNavigatorKey,
+        builder: (_, state, child) {
+          return DocScaffoldWithButtomNavbar(body: child);
+        },
+        routes: [
+          // GoRoute(
+          //   path: AppRoutes.report,
+          //   builder: (_, state) => const Report(),
+          // ),
+          GoRoute(
+            path: AppRoutes.dochome,
+            builder: (_, state) => const DocHomeScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.docappolist,
+            builder: (_, state) => const DocAppoList(),
           ),
         ],
       ),
@@ -179,7 +206,7 @@ class AppRouter {
               landmark: landmark,
               service: service,
               boolValue: boolValue,
-              total:total,
+              total: total,
             );
           }),
     ],
@@ -198,17 +225,36 @@ class AppRouter {
       final bool isAuthenticated =
           authState == const LoginState.authenticated();
 
-      if (!isAuthenticated) {
+      final bool isDocAuthenticated =
+          authState == const LoginState.docAuthenticated();
+
+      if (isDocAuthenticated) {
+        if (location == AppRoutes.login && isDocAuthenticated ||
+            location == AppRoutes.splash && isDocAuthenticated) {
+          return AppRoutes.dochome;
+        }
+      } else if (isAuthenticated) {
+        if (location == AppRoutes.login && isAuthenticated ||
+            location == AppRoutes.splash && isAuthenticated) {
+          return AppRoutes.home;
+        }
+      } else if (!isAuthenticated && !isDocAuthenticated) {
         if (_unProtectedRoutes.contains(location)) {
           return null;
         }
         return AppRoutes.login;
       }
 
-      if (location == AppRoutes.login && isAuthenticated ||
-          location == AppRoutes.splash && isAuthenticated) {
-        return AppRoutes.home;
-      }
+      // if (!isAuthenticated) {
+
+      //   if (!isDocAuthenticated) {
+      //     if (_unProtectedRoutes.contains(location)) {
+      //       return null;
+      //     }
+      //   } else
+      //   // return AppRoutes.login;
+      // }
+
       return null;
     },
   );
@@ -230,7 +276,6 @@ class GoRouterRefreshStream extends ChangeNotifier {
     super.dispose();
   }
 }
-
 
 // {
 //             final a = state.extra as Map;

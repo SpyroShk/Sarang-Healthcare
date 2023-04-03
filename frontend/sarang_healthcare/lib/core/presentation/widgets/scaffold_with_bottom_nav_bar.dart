@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../features/appointment_list/application/cubit/appointment_list_cubit.dart';
 import '../../../features/profile/application/cubit/profile_cubit.dart';
 import '../route/app_router.dart';
 
@@ -22,6 +23,7 @@ class _ScaffoldWithButtomNavbarState extends State<ScaffoldWithButtomNavbar> {
   void initState() {
     super.initState();
     context.read<ProfileCubit>().getUserDetails();
+    context.read<AppointmentListCubit>().getAppointmentListDetail();
     // context.read<PushNotificationCubit>().getpushNotification();
   }
 

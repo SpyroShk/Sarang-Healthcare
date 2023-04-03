@@ -14,11 +14,11 @@ class LabTestingList extends StatefulWidget {
 }
 
 class _LabTestingListState extends State<LabTestingList> {
-    @override
-  void initState() {
-    super.initState();
-    context.read<LabTestingListCubit>().getLabTestingListDetail();
-  }
+  @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<LabTestingListCubit>().getLabTestingListDetail();
+  // }
 
   final ScrollController _scrollController = ScrollController();
   @override

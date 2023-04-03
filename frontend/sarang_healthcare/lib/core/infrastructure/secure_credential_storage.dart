@@ -26,17 +26,6 @@ class SecureCredentialStorage implements CredentialStorage {
   }
 
   @override
-  Future<void> clear() async {
-    _apiToken = null;
-    return _secureStorage.delete(key: apiTokenKey);
-  }
-
-  @override
-  Future<void> saveUser(String emailValue, String? passwordValue) async {
-    await _secureStorage.write(key: "KEY_USERNAME", value: emailValue);
-  }
-
-  @override
   Future<String> getUser() async {
     final email = await _secureStorage.read(key: "KEY_USERNAME") ?? "";
     return email;
@@ -45,7 +34,7 @@ class SecureCredentialStorage implements CredentialStorage {
   static const userIdKey = "user_id";
   String? _userId;
 
-  // @override
+  @override
   Future<String?> getUserId() async {
     if (_userId != null) {
       return _userId;
@@ -54,9 +43,40 @@ class SecureCredentialStorage implements CredentialStorage {
     return token;
   }
 
-  // @override
+  @override
   Future<void> setUserId(String userId) {
     _userId = userId;
     return _secureStorage.write(key: userIdKey, value: userId);
+  }
+
+  static const groupsKey = "groups";
+  String? _groups;
+
+  @override
+  Future<String?> getGroups() async {
+    if (_groups != null) {
+      return _groups;
+    }
+    final token = await _secureStorage.read(key: groupsKey);
+    return token;
+  }
+
+  @override
+  Future<void> setGroups(String groups) {
+    _groups = groups;
+    return _secureStorage.write(key: groupsKey, value: groups);
+  }
+
+  @override
+  Future<void> clear() async {
+    _apiToken = null;
+    await _secureStorage.delete(key: apiTokenKey);
+    await _secureStorage.delete(key: userIdKey);
+    await _secureStorage.delete(key: groupsKey);
+  }
+
+  @override
+  Future<void> saveUser(String emailValue, String? passwordValue) async {
+    await _secureStorage.write(key: "KEY_USERNAME", value: emailValue);
   }
 }

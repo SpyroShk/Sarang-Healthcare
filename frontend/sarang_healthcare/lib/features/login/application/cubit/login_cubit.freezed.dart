@@ -21,6 +21,7 @@ mixin _$LoginState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() authenticated,
+    required TResult Function() docAuthenticated,
     required TResult Function(String message) unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,6 +30,7 @@ mixin _$LoginState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? authenticated,
+    TResult? Function()? docAuthenticated,
     TResult? Function(String message)? unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,6 +39,7 @@ mixin _$LoginState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? authenticated,
+    TResult Function()? docAuthenticated,
     TResult Function(String message)? unauthenticated,
     required TResult orElse(),
   }) =>
@@ -46,6 +49,7 @@ mixin _$LoginState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_DocAuthenticated value) docAuthenticated,
     required TResult Function(_Unauthenticated value) unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +58,7 @@ mixin _$LoginState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Authenticated value)? authenticated,
+    TResult? Function(_DocAuthenticated value)? docAuthenticated,
     TResult? Function(_Unauthenticated value)? unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
@@ -62,6 +67,7 @@ mixin _$LoginState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_DocAuthenticated value)? docAuthenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
     required TResult orElse(),
   }) =>
@@ -126,6 +132,7 @@ class _$_Initial implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() authenticated,
+    required TResult Function() docAuthenticated,
     required TResult Function(String message) unauthenticated,
   }) {
     return initial();
@@ -137,6 +144,7 @@ class _$_Initial implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? authenticated,
+    TResult? Function()? docAuthenticated,
     TResult? Function(String message)? unauthenticated,
   }) {
     return initial?.call();
@@ -148,6 +156,7 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? authenticated,
+    TResult Function()? docAuthenticated,
     TResult Function(String message)? unauthenticated,
     required TResult orElse(),
   }) {
@@ -163,6 +172,7 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_DocAuthenticated value) docAuthenticated,
     required TResult Function(_Unauthenticated value) unauthenticated,
   }) {
     return initial(this);
@@ -174,6 +184,7 @@ class _$_Initial implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Authenticated value)? authenticated,
+    TResult? Function(_DocAuthenticated value)? docAuthenticated,
     TResult? Function(_Unauthenticated value)? unauthenticated,
   }) {
     return initial?.call(this);
@@ -185,6 +196,7 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_DocAuthenticated value)? docAuthenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
     required TResult orElse(),
   }) {
@@ -239,6 +251,7 @@ class _$_Loading implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() authenticated,
+    required TResult Function() docAuthenticated,
     required TResult Function(String message) unauthenticated,
   }) {
     return loading();
@@ -250,6 +263,7 @@ class _$_Loading implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? authenticated,
+    TResult? Function()? docAuthenticated,
     TResult? Function(String message)? unauthenticated,
   }) {
     return loading?.call();
@@ -261,6 +275,7 @@ class _$_Loading implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? authenticated,
+    TResult Function()? docAuthenticated,
     TResult Function(String message)? unauthenticated,
     required TResult orElse(),
   }) {
@@ -276,6 +291,7 @@ class _$_Loading implements _Loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_DocAuthenticated value) docAuthenticated,
     required TResult Function(_Unauthenticated value) unauthenticated,
   }) {
     return loading(this);
@@ -287,6 +303,7 @@ class _$_Loading implements _Loading {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Authenticated value)? authenticated,
+    TResult? Function(_DocAuthenticated value)? docAuthenticated,
     TResult? Function(_Unauthenticated value)? unauthenticated,
   }) {
     return loading?.call(this);
@@ -298,6 +315,7 @@ class _$_Loading implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_DocAuthenticated value)? docAuthenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
     required TResult orElse(),
   }) {
@@ -353,6 +371,7 @@ class _$_Authenticated implements _Authenticated {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() authenticated,
+    required TResult Function() docAuthenticated,
     required TResult Function(String message) unauthenticated,
   }) {
     return authenticated();
@@ -364,6 +383,7 @@ class _$_Authenticated implements _Authenticated {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? authenticated,
+    TResult? Function()? docAuthenticated,
     TResult? Function(String message)? unauthenticated,
   }) {
     return authenticated?.call();
@@ -375,6 +395,7 @@ class _$_Authenticated implements _Authenticated {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? authenticated,
+    TResult Function()? docAuthenticated,
     TResult Function(String message)? unauthenticated,
     required TResult orElse(),
   }) {
@@ -390,6 +411,7 @@ class _$_Authenticated implements _Authenticated {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_DocAuthenticated value) docAuthenticated,
     required TResult Function(_Unauthenticated value) unauthenticated,
   }) {
     return authenticated(this);
@@ -401,6 +423,7 @@ class _$_Authenticated implements _Authenticated {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Authenticated value)? authenticated,
+    TResult? Function(_DocAuthenticated value)? docAuthenticated,
     TResult? Function(_Unauthenticated value)? unauthenticated,
   }) {
     return authenticated?.call(this);
@@ -412,6 +435,7 @@ class _$_Authenticated implements _Authenticated {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_DocAuthenticated value)? docAuthenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
     required TResult orElse(),
   }) {
@@ -424,6 +448,126 @@ class _$_Authenticated implements _Authenticated {
 
 abstract class _Authenticated implements LoginState {
   const factory _Authenticated() = _$_Authenticated;
+}
+
+/// @nodoc
+abstract class _$$_DocAuthenticatedCopyWith<$Res> {
+  factory _$$_DocAuthenticatedCopyWith(
+          _$_DocAuthenticated value, $Res Function(_$_DocAuthenticated) then) =
+      __$$_DocAuthenticatedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_DocAuthenticatedCopyWithImpl<$Res>
+    extends _$LoginStateCopyWithImpl<$Res, _$_DocAuthenticated>
+    implements _$$_DocAuthenticatedCopyWith<$Res> {
+  __$$_DocAuthenticatedCopyWithImpl(
+      _$_DocAuthenticated _value, $Res Function(_$_DocAuthenticated) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_DocAuthenticated implements _DocAuthenticated {
+  const _$_DocAuthenticated();
+
+  @override
+  String toString() {
+    return 'LoginState.docAuthenticated()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_DocAuthenticated);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() authenticated,
+    required TResult Function() docAuthenticated,
+    required TResult Function(String message) unauthenticated,
+  }) {
+    return docAuthenticated();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? authenticated,
+    TResult? Function()? docAuthenticated,
+    TResult? Function(String message)? unauthenticated,
+  }) {
+    return docAuthenticated?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? authenticated,
+    TResult Function()? docAuthenticated,
+    TResult Function(String message)? unauthenticated,
+    required TResult orElse(),
+  }) {
+    if (docAuthenticated != null) {
+      return docAuthenticated();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_DocAuthenticated value) docAuthenticated,
+    required TResult Function(_Unauthenticated value) unauthenticated,
+  }) {
+    return docAuthenticated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Authenticated value)? authenticated,
+    TResult? Function(_DocAuthenticated value)? docAuthenticated,
+    TResult? Function(_Unauthenticated value)? unauthenticated,
+  }) {
+    return docAuthenticated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_DocAuthenticated value)? docAuthenticated,
+    TResult Function(_Unauthenticated value)? unauthenticated,
+    required TResult orElse(),
+  }) {
+    if (docAuthenticated != null) {
+      return docAuthenticated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DocAuthenticated implements LoginState {
+  const factory _DocAuthenticated() = _$_DocAuthenticated;
 }
 
 /// @nodoc
@@ -493,6 +637,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() authenticated,
+    required TResult Function() docAuthenticated,
     required TResult Function(String message) unauthenticated,
   }) {
     return unauthenticated(message);
@@ -504,6 +649,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? authenticated,
+    TResult? Function()? docAuthenticated,
     TResult? Function(String message)? unauthenticated,
   }) {
     return unauthenticated?.call(message);
@@ -515,6 +661,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? authenticated,
+    TResult Function()? docAuthenticated,
     TResult Function(String message)? unauthenticated,
     required TResult orElse(),
   }) {
@@ -530,6 +677,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_DocAuthenticated value) docAuthenticated,
     required TResult Function(_Unauthenticated value) unauthenticated,
   }) {
     return unauthenticated(this);
@@ -541,6 +689,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Authenticated value)? authenticated,
+    TResult? Function(_DocAuthenticated value)? docAuthenticated,
     TResult? Function(_Unauthenticated value)? unauthenticated,
   }) {
     return unauthenticated?.call(this);
@@ -552,6 +701,7 @@ class _$_Unauthenticated implements _Unauthenticated {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_DocAuthenticated value)? docAuthenticated,
     TResult Function(_Unauthenticated value)? unauthenticated,
     required TResult orElse(),
   }) {
