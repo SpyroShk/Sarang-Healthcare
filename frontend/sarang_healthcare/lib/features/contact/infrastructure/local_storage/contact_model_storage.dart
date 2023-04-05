@@ -11,26 +11,22 @@ class ContactModelStorage {
     return _box;
   }
 
-  Future<List<ContactModelDto>> getContactModels() async {
+  Future<ContactModelDto?> getContactModels() async {
     await openBox();
 
-    final boxValue = _box.values;
 
-    return boxValue.toList() as List<ContactModelDto>;
-    // final boxValue = _box.values;
-    // if (boxValue.isEmpty) {
-    //   return null;
-    // }
-    // return boxValue.toList()[0];
+    final boxValue = _box.values;
+    if (boxValue.isEmpty) {
+      return null;
+    }
+    return boxValue.toList()[0];
   }
 
-  Future storeContactModels(List<ContactModelDto> contactModels) async {
+  Future storeContactModels(ContactModelDto contactModels) async {
     await openBox();
     await _box.clear();
 
-    for (final contact in contactModels) {
-      _box.put(contact.id, contact);
-    }
+      _box.put(contactModels.id, contactModels);
   }
 
   void clear() async {

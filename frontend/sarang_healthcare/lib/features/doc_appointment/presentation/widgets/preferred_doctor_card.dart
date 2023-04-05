@@ -2,6 +2,7 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:sarang_healthcare/core/shared/api_constants.dart';
 
 import '../../../../core/presentation/theme/app_color.dart';
 import '../../../../core/presentation/theme/sizes.dart';
@@ -23,7 +24,7 @@ class PreferredDoctorCard extends StatelessWidget {
     String formattedFrom = DateFormat('HH:mm').format(from);
     return Container(
       padding: const EdgeInsets.all(20),
-      height: 150,
+      height: 151,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: AppColor.primary.withOpacity(0.1),
@@ -33,7 +34,7 @@ class PreferredDoctorCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircularProfileAvatar(
-            preferredDoctor.image,
+            "${ApiConstants.baseUrl}/media/${preferredDoctor.image}",
             errorWidget: (context, url, error) => const Icon(Icons.error),
             placeHolder: (context, url) => const SizedBox(
               width: 50,
@@ -59,7 +60,7 @@ class PreferredDoctorCard extends StatelessWidget {
                 Text(
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  preferredDoctor.name,
+                  '${preferredDoctor.firstName} ${preferredDoctor.lastName}',
                   style: GoogleFonts.inter(
                     fontSize: Sizes.s20,
                     fontWeight: FontWeight.bold,
@@ -86,7 +87,7 @@ class PreferredDoctorCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   "Available from $formattedFrom",
                   style: GoogleFonts.inter(
-                    fontSize: Sizes.s14,
+                    fontSize: Sizes.s12,
                     color: AppColor.grey,
                     fontWeight: FontWeight.w500,
                   ),
@@ -96,7 +97,7 @@ class PreferredDoctorCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   "Available to $formattedTo",
                   style: GoogleFonts.inter(
-                    fontSize: Sizes.s14,
+                    fontSize: Sizes.s12,
                     color: AppColor.grey,
                     fontWeight: FontWeight.w500,
                   ),

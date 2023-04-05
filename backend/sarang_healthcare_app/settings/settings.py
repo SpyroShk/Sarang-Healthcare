@@ -27,7 +27,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["14e9-2404-7c00-42-764e-d2e-2598-4594-2761.in.ngrok.io"]
 
 
 # Application definition
@@ -54,8 +54,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'dj_rest_auth.registration',
     # local
-    'core',
     'accounts',
+    'core',
+    'doctors',
     'doctor',
     'doctor_appointment',
     'lab_tests',
@@ -64,7 +65,7 @@ INSTALLED_APPS = [
     'contact'
 ]
 
-AUTH_USER_MODEL = "core.User"
+AUTH_USER_MODEL = "accounts.User"
 
 SITE_ID = 1
 
@@ -168,57 +169,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-# JET_THEMES = [
-#     {
-#         'theme': 'default', # theme folder name
-#         'color': '#47bac1', # color of the theme's button in user menu
-#         'title': 'Default' # theme title
-#     },
-#     {
-#         'theme': 'green',
-#         'color': '#44b78b',
-#         'title': 'Green'
-#     },
-#     {
-#         'theme': 'light-green',
-#         'color': '#2faa60',
-#         'title': 'Light Green'
-#     },
-#     {
-#         'theme': 'light-violet',
-#         'color': '#a464c4',
-#         'title': 'Light Violet'
-#     },
-#     {
-#         'theme': 'light-blue',
-#         'color': '#5EADDE',
-#         'title': 'Light Blue'
-#     },
-#     {
-#         'theme': 'light-gray',
-#         'color': '#222',
-#         'title': 'Light Gray'
-#     }
-# ]
-
-# JET_THEMES = [
-#     {
-#         'theme': 'light-blue',
-#         'title': 'Sarang',
-#         'admin_title': 'Sarang',
-#         'color': '#2ABFD3',
-#         'title_color': '#FFFFFF',
-#         'brand_color': '#2ABFD3',
-#         'menu_color': '#FFFFFF',
-#         'menu_hover_color': '#76BD43',
-#         'submenu_color': '#2ABFD3'
-#     },
-# ]
-# JET_SIDE_MENU_COMPACT = True
-# JAZZMIN_UI_TWEAKS = {
-#     "theme": "flatly",
-#     "dark_mode_theme": "darkly",
-# }
 
 JAZZMIN_SETTINGS = {
     'site_title': "Sarang Healthcare",

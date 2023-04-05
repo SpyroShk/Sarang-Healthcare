@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/core/presentation/route/app_router.dart';
@@ -207,6 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginHandler() {
+    HapticFeedback.mediumImpact();
     if (formKey.currentState!.validate()) {
       final usernameEmail = emailController.text.trim();
       final password = passwordController.text.trim();

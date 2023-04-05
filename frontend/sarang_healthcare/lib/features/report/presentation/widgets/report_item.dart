@@ -61,8 +61,7 @@ class ReportItem extends StatelessWidget {
             ),
             Container(
               height: 70,
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: AppColor.primary.withOpacity(0.3),
@@ -120,9 +119,11 @@ class ReportItem extends StatelessWidget {
 
         // Download the file
         await dio.download(url, path);
+        // ignore: use_build_context_synchronously
         context.showCustomSnackBar(
             message: 'File downloaded successfully at $path!', result: true);
       } else {
+        // ignore: use_build_context_synchronously
         context.showCustomSnackBar(
             message: 'Failed to get external storage directory.',
             result: false);

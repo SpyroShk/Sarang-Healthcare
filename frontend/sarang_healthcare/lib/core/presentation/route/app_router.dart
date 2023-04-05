@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/features/appointment_list/presentation/appointment_list.dart';
 import 'package:sarang_healthcare/features/appointments/presentation/appointments.dart';
 import 'package:sarang_healthcare/features/contact/presentation/contact.dart';
-import 'package:sarang_healthcare/features/doc_appo_list/presentation/doc_appo_list.dart';
+import 'package:sarang_healthcare/features/appointment_list/presentation/doc_appointment_list.dart';
 import 'package:sarang_healthcare/features/doc_appointment/presentation/doc_appointment.dart';
 import 'package:sarang_healthcare/features/lab_testing/presentation/lab_testing.dart';
 import 'package:sarang_healthcare/features/lab_tests/presentation/lab_tests.dart';
@@ -116,7 +116,7 @@ class AppRouter {
           ),
           GoRoute(
             path: AppRoutes.docappolist,
-            builder: (_, state) => const DocAppoList(),
+            builder: (_, state) => const DocAppointmentList(),
           ),
         ],
       ),

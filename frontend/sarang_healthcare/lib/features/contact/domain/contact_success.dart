@@ -6,7 +6,7 @@ part 'contact_success.freezed.dart';
 
 @freezed
 class ContactSuccess with _$ContactSuccess {
-  const factory ContactSuccess.network({required List<ContactModel> apiData}) =
+  const factory ContactSuccess.network({required ContactModel apiData}) =
       _Network;
-  const factory ContactSuccess.cache({required List<ContactModel> apiData}) = _Cache;
+  const factory ContactSuccess.cache({required ContactModel apiData}) = _Cache;
 }

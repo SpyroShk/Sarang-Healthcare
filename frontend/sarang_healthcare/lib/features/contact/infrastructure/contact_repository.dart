@@ -20,21 +20,19 @@ class ContactRepository {
         _contactModelStorage = contactModelStorage;
 
   Future<Either<ContactFailure, ContactSuccess>> contactModel() async {
-    String url = "${ApiConstants.baseUrl}/contact/contactlist";
+    String url = "${ApiConstants.baseUrl}/contact/1/";
 
     try {
       final response = await _dio.get(url);
-      final respData = response.data;
-      List<ContactModel> listOfContacts = [];
-      for (final contact in respData) {
-        final dto = ContactModelDto.fromJson(contact);
-        final model = ContactMapper.toContactModel(dto);
-        listOfContacts.add(model);
-        storeContactModels(listOfContacts);
-      }
+      final respData = Map<String, dynamic>.from(response.data);
+
+      final dto = ContactModelDto.fromJson(respData);
+      final detail = ContactMapper.toContactModel(dto);
+      storeContactModels(detail);
+
       return Right(
         ContactSuccess.network(
-          apiData: listOfContacts,
+          apiData: detail,
         ),
       );
     } on DioError catch (e) {
@@ -64,26 +62,18 @@ class ContactRepository {
     }
   }
 
-  Future<void> storeContactModels(List<ContactModel> contactModel) async {
-    List<ContactModelDto> storeContactModel = [];
-
-    for (final contact in contactModel) {
-      final contactModelDto = ContactMapper.toContactModelDto(contact);
-      storeContactModel.add(contactModelDto);
-    }
-    await _contactModelStorage.storeContactModels(storeContactModel);
+  Future<void> storeContactModels(ContactModel contactModel) async {
+    final contactModelDto = ContactMapper.toContactModelDto(contactModel);
+    await _contactModelStorage.storeContactModels(contactModelDto);
   }
 
-  Future<List<ContactModel>> getCachedDetails() async {
+  Future<ContactModel?> getCachedDetails() async {
     final contactModelDto = await _contactModelStorage.getContactModels();
-    List<ContactModel> storeCachedList = [];
-
-    for (final contact in contactModelDto) {
-      final contactModels = ContactMapper.toContactModel(contact);
-      storeCachedList.add(contactModels);
+    if (contactModelDto == null) {
+      return null;
     }
-
-    return storeCachedList;
+    final contactModels = ContactMapper.toContactModel(contactModelDto);
+    return contactModels;
     // if (contactModelDto == null) {
     //   return null;
     // }

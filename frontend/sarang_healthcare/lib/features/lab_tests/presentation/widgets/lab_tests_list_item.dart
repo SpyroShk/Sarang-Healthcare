@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/widgets.dart';
 
 import '../../../../core/presentation/theme/app_color.dart';
@@ -37,6 +38,7 @@ class _LabTestsListItemState extends State<LabTestsListItem> {
     final bool isChecked = widget.selectedLabTests.contains(test);
     return InkWell(
       onTap: () {
+        HapticFeedback.mediumImpact();
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -67,6 +69,7 @@ class _LabTestsListItemState extends State<LabTestsListItem> {
                   actions: [
                     SarangButton(
                       onPressed: () {
+                        HapticFeedback.mediumImpact();
                         Navigator.of(context).pop();
                       },
                       isLoading: false,
@@ -106,6 +109,7 @@ class _LabTestsListItemState extends State<LabTestsListItem> {
                 activeColor: AppColor.primary,
                 shape: const CircleBorder(),
                 onChanged: (value) {
+                  HapticFeedback.mediumImpact();
                   setState(
                     () {
                       if (value == true) {

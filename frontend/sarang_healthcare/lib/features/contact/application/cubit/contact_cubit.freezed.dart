@@ -20,8 +20,8 @@ mixin _$ContactState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ContactModel> apiData) loadedNetwork,
-    required TResult Function(List<ContactModel> apiData) loadedCache,
+    required TResult Function(ContactModel apiData) loadedNetwork,
+    required TResult Function(ContactModel apiData) loadedCache,
     required TResult Function(String message) notLoaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,8 +29,8 @@ mixin _$ContactState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult? Function(List<ContactModel> apiData)? loadedCache,
+    TResult? Function(ContactModel apiData)? loadedNetwork,
+    TResult? Function(ContactModel apiData)? loadedCache,
     TResult? Function(String message)? notLoaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -38,8 +38,8 @@ mixin _$ContactState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult Function(List<ContactModel> apiData)? loadedCache,
+    TResult Function(ContactModel apiData)? loadedNetwork,
+    TResult Function(ContactModel apiData)? loadedCache,
     TResult Function(String message)? notLoaded,
     required TResult orElse(),
   }) =>
@@ -131,8 +131,8 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ContactModel> apiData) loadedNetwork,
-    required TResult Function(List<ContactModel> apiData) loadedCache,
+    required TResult Function(ContactModel apiData) loadedNetwork,
+    required TResult Function(ContactModel apiData) loadedCache,
     required TResult Function(String message) notLoaded,
   }) {
     return initial();
@@ -143,8 +143,8 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult? Function(List<ContactModel> apiData)? loadedCache,
+    TResult? Function(ContactModel apiData)? loadedNetwork,
+    TResult? Function(ContactModel apiData)? loadedCache,
     TResult? Function(String message)? notLoaded,
   }) {
     return initial?.call();
@@ -155,8 +155,8 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult Function(List<ContactModel> apiData)? loadedCache,
+    TResult Function(ContactModel apiData)? loadedNetwork,
+    TResult Function(ContactModel apiData)? loadedCache,
     TResult Function(String message)? notLoaded,
     required TResult orElse(),
   }) {
@@ -250,8 +250,8 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ContactModel> apiData) loadedNetwork,
-    required TResult Function(List<ContactModel> apiData) loadedCache,
+    required TResult Function(ContactModel apiData) loadedNetwork,
+    required TResult Function(ContactModel apiData) loadedCache,
     required TResult Function(String message) notLoaded,
   }) {
     return loading();
@@ -262,8 +262,8 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult? Function(List<ContactModel> apiData)? loadedCache,
+    TResult? Function(ContactModel apiData)? loadedNetwork,
+    TResult? Function(ContactModel apiData)? loadedCache,
     TResult? Function(String message)? notLoaded,
   }) {
     return loading?.call();
@@ -274,8 +274,8 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult Function(List<ContactModel> apiData)? loadedCache,
+    TResult Function(ContactModel apiData)? loadedNetwork,
+    TResult Function(ContactModel apiData)? loadedCache,
     TResult Function(String message)? notLoaded,
     required TResult orElse(),
   }) {
@@ -336,7 +336,9 @@ abstract class _$$_LoadedNetworkCopyWith<$Res> {
           _$_LoadedNetwork value, $Res Function(_$_LoadedNetwork) then) =
       __$$_LoadedNetworkCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<ContactModel> apiData});
+  $Res call({ContactModel apiData});
+
+  $ContactModelCopyWith<$Res> get apiData;
 }
 
 /// @nodoc
@@ -354,26 +356,28 @@ class __$$_LoadedNetworkCopyWithImpl<$Res>
   }) {
     return _then(_$_LoadedNetwork(
       apiData: null == apiData
-          ? _value._apiData
+          ? _value.apiData
           : apiData // ignore: cast_nullable_to_non_nullable
-              as List<ContactModel>,
+              as ContactModel,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ContactModelCopyWith<$Res> get apiData {
+    return $ContactModelCopyWith<$Res>(_value.apiData, (value) {
+      return _then(_value.copyWith(apiData: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$_LoadedNetwork implements _LoadedNetwork {
-  const _$_LoadedNetwork({required final List<ContactModel> apiData})
-      : _apiData = apiData;
+  const _$_LoadedNetwork({required this.apiData});
 
-  final List<ContactModel> _apiData;
   @override
-  List<ContactModel> get apiData {
-    if (_apiData is EqualUnmodifiableListView) return _apiData;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_apiData);
-  }
+  final ContactModel apiData;
 
   @override
   String toString() {
@@ -385,12 +389,11 @@ class _$_LoadedNetwork implements _LoadedNetwork {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LoadedNetwork &&
-            const DeepCollectionEquality().equals(other._apiData, _apiData));
+            (identical(other.apiData, apiData) || other.apiData == apiData));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_apiData));
+  int get hashCode => Object.hash(runtimeType, apiData);
 
   @JsonKey(ignore: true)
   @override
@@ -403,8 +406,8 @@ class _$_LoadedNetwork implements _LoadedNetwork {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ContactModel> apiData) loadedNetwork,
-    required TResult Function(List<ContactModel> apiData) loadedCache,
+    required TResult Function(ContactModel apiData) loadedNetwork,
+    required TResult Function(ContactModel apiData) loadedCache,
     required TResult Function(String message) notLoaded,
   }) {
     return loadedNetwork(apiData);
@@ -415,8 +418,8 @@ class _$_LoadedNetwork implements _LoadedNetwork {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult? Function(List<ContactModel> apiData)? loadedCache,
+    TResult? Function(ContactModel apiData)? loadedNetwork,
+    TResult? Function(ContactModel apiData)? loadedCache,
     TResult? Function(String message)? notLoaded,
   }) {
     return loadedNetwork?.call(apiData);
@@ -427,8 +430,8 @@ class _$_LoadedNetwork implements _LoadedNetwork {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult Function(List<ContactModel> apiData)? loadedCache,
+    TResult Function(ContactModel apiData)? loadedNetwork,
+    TResult Function(ContactModel apiData)? loadedCache,
     TResult Function(String message)? notLoaded,
     required TResult orElse(),
   }) {
@@ -480,10 +483,10 @@ class _$_LoadedNetwork implements _LoadedNetwork {
 }
 
 abstract class _LoadedNetwork implements ContactState {
-  const factory _LoadedNetwork({required final List<ContactModel> apiData}) =
+  const factory _LoadedNetwork({required final ContactModel apiData}) =
       _$_LoadedNetwork;
 
-  List<ContactModel> get apiData;
+  ContactModel get apiData;
   @JsonKey(ignore: true)
   _$$_LoadedNetworkCopyWith<_$_LoadedNetwork> get copyWith =>
       throw _privateConstructorUsedError;
@@ -495,7 +498,9 @@ abstract class _$$_LoadedCacheCopyWith<$Res> {
           _$_LoadedCache value, $Res Function(_$_LoadedCache) then) =
       __$$_LoadedCacheCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<ContactModel> apiData});
+  $Res call({ContactModel apiData});
+
+  $ContactModelCopyWith<$Res> get apiData;
 }
 
 /// @nodoc
@@ -513,26 +518,28 @@ class __$$_LoadedCacheCopyWithImpl<$Res>
   }) {
     return _then(_$_LoadedCache(
       apiData: null == apiData
-          ? _value._apiData
+          ? _value.apiData
           : apiData // ignore: cast_nullable_to_non_nullable
-              as List<ContactModel>,
+              as ContactModel,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ContactModelCopyWith<$Res> get apiData {
+    return $ContactModelCopyWith<$Res>(_value.apiData, (value) {
+      return _then(_value.copyWith(apiData: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$_LoadedCache implements _LoadedCache {
-  const _$_LoadedCache({required final List<ContactModel> apiData})
-      : _apiData = apiData;
+  const _$_LoadedCache({required this.apiData});
 
-  final List<ContactModel> _apiData;
   @override
-  List<ContactModel> get apiData {
-    if (_apiData is EqualUnmodifiableListView) return _apiData;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_apiData);
-  }
+  final ContactModel apiData;
 
   @override
   String toString() {
@@ -544,12 +551,11 @@ class _$_LoadedCache implements _LoadedCache {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LoadedCache &&
-            const DeepCollectionEquality().equals(other._apiData, _apiData));
+            (identical(other.apiData, apiData) || other.apiData == apiData));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_apiData));
+  int get hashCode => Object.hash(runtimeType, apiData);
 
   @JsonKey(ignore: true)
   @override
@@ -562,8 +568,8 @@ class _$_LoadedCache implements _LoadedCache {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ContactModel> apiData) loadedNetwork,
-    required TResult Function(List<ContactModel> apiData) loadedCache,
+    required TResult Function(ContactModel apiData) loadedNetwork,
+    required TResult Function(ContactModel apiData) loadedCache,
     required TResult Function(String message) notLoaded,
   }) {
     return loadedCache(apiData);
@@ -574,8 +580,8 @@ class _$_LoadedCache implements _LoadedCache {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult? Function(List<ContactModel> apiData)? loadedCache,
+    TResult? Function(ContactModel apiData)? loadedNetwork,
+    TResult? Function(ContactModel apiData)? loadedCache,
     TResult? Function(String message)? notLoaded,
   }) {
     return loadedCache?.call(apiData);
@@ -586,8 +592,8 @@ class _$_LoadedCache implements _LoadedCache {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult Function(List<ContactModel> apiData)? loadedCache,
+    TResult Function(ContactModel apiData)? loadedNetwork,
+    TResult Function(ContactModel apiData)? loadedCache,
     TResult Function(String message)? notLoaded,
     required TResult orElse(),
   }) {
@@ -639,10 +645,10 @@ class _$_LoadedCache implements _LoadedCache {
 }
 
 abstract class _LoadedCache implements ContactState {
-  const factory _LoadedCache({required final List<ContactModel> apiData}) =
+  const factory _LoadedCache({required final ContactModel apiData}) =
       _$_LoadedCache;
 
-  List<ContactModel> get apiData;
+  ContactModel get apiData;
   @JsonKey(ignore: true)
   _$$_LoadedCacheCopyWith<_$_LoadedCache> get copyWith =>
       throw _privateConstructorUsedError;
@@ -714,8 +720,8 @@ class _$_NotLoaded implements _NotLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ContactModel> apiData) loadedNetwork,
-    required TResult Function(List<ContactModel> apiData) loadedCache,
+    required TResult Function(ContactModel apiData) loadedNetwork,
+    required TResult Function(ContactModel apiData) loadedCache,
     required TResult Function(String message) notLoaded,
   }) {
     return notLoaded(message);
@@ -726,8 +732,8 @@ class _$_NotLoaded implements _NotLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult? Function(List<ContactModel> apiData)? loadedCache,
+    TResult? Function(ContactModel apiData)? loadedNetwork,
+    TResult? Function(ContactModel apiData)? loadedCache,
     TResult? Function(String message)? notLoaded,
   }) {
     return notLoaded?.call(message);
@@ -738,8 +744,8 @@ class _$_NotLoaded implements _NotLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ContactModel> apiData)? loadedNetwork,
-    TResult Function(List<ContactModel> apiData)? loadedCache,
+    TResult Function(ContactModel apiData)? loadedNetwork,
+    TResult Function(ContactModel apiData)? loadedCache,
     TResult Function(String message)? notLoaded,
     required TResult orElse(),
   }) {

@@ -30,7 +30,7 @@ class _PreferredDoctorTitleState extends State<PreferredDoctorTitle> {
         Text(
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          widget.preferredDoctor.name,
+          'Dr. ${widget.preferredDoctor.firstName} ${widget.preferredDoctor.lastName}',
           style: GoogleFonts.inter(
             fontSize: Sizes.s20,
             fontWeight: FontWeight.bold,
@@ -57,7 +57,7 @@ class _PreferredDoctorTitleState extends State<PreferredDoctorTitle> {
           overflow: TextOverflow.ellipsis,
           "Available from $formattedFrom",
           style: GoogleFonts.inter(
-            fontSize: Sizes.s14,
+            fontSize: Sizes.s12,
             color: AppColor.grey,
             fontWeight: FontWeight.w500,
           ),
@@ -67,7 +67,7 @@ class _PreferredDoctorTitleState extends State<PreferredDoctorTitle> {
           overflow: TextOverflow.ellipsis,
           "Available to $formattedTo",
           style: GoogleFonts.inter(
-            fontSize: Sizes.s14,
+            fontSize: Sizes.s12,
             color: AppColor.grey,
             fontWeight: FontWeight.w500,
           ),

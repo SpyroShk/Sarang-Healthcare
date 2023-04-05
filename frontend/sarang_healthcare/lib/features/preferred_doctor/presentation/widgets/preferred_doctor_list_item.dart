@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/presentation/route/app_router.dart';
@@ -15,12 +16,13 @@ class PreferredDoctorListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        HapticFeedback.mediumImpact();
         context.pushReplacement(AppRoutes.docappointment,
             extra: preferredDoctor);
       },
       child: Container(
         padding: const EdgeInsets.all(20),
-        height: 140,
+        height: 151,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           color: AppColor.primary.withOpacity(0.1),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/sarang_appbar.dart';
@@ -55,6 +56,7 @@ class _ReportState extends State<Report> {
                     loadFailure: (message) {
                       return ConnectionLost(
                         onRetry: () {
+                          HapticFeedback.mediumImpact();
                           context.read<ReportCubit>().getReportDetail();
                         },
                       );

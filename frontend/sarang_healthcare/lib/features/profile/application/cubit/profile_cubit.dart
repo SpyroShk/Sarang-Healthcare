@@ -43,8 +43,19 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   UserDetail loadDetails() {
-    UserDetail defaultDetails =
-        const UserDetail(email: '', pk: 0, username: '');
+    UserDetail defaultDetails = const UserDetail(
+      email: '',
+      pk: 0,
+      username: '',
+      availableFrom: '',
+      availableTo: '',
+      category: '',
+      firstName: '',
+      image: '',
+      isDoctor: false,
+      lastName: '',
+      qualifications: '',
+    );
     final UserDetail userDetails = state.when(
       initial: () => throw StateError(
           'Cannot load details in initial state'), //PreferredDoctorState.initial(),

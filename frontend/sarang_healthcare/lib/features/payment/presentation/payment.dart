@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
@@ -91,7 +92,10 @@ class _PaymentState extends State<Payment> {
                   Icons.arrow_back_ios_new_rounded,
                   color: AppColor.canvas,
                 ),
-                onPressed: () => context.pop(),
+                onPressed: () {
+                  HapticFeedback.mediumImpact();
+                  context.pop();
+                },
               ),
             ),
             CanvasCard(
@@ -137,6 +141,7 @@ class _PaymentState extends State<Payment> {
                                   builder: (context, state) {
                                     return SarangButton(
                                         onPressed: () {
+                                          HapticFeedback.mediumImpact();
                                           KhaltiScope.of(context).pay(
                                               config: PaymentConfig(
                                                 amount: getAmt(),
@@ -224,11 +229,12 @@ class _PaymentState extends State<Payment> {
                                   builder: (context, state) {
                                     return SarangButton(
                                         onPressed: () {
+                                          HapticFeedback.mediumImpact();
                                           KhaltiScope.of(context).pay(
                                               config: PaymentConfig(
                                                 amount: getAmt(),
-                                                productIdentity: userDetail.pk
-                                                          .toString(),
+                                                productIdentity:
+                                                    userDetail.pk.toString(),
                                                 productName: 'tests',
                                               ),
                                               onSuccess: (success) {

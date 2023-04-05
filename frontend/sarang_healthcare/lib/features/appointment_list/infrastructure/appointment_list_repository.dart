@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
@@ -17,13 +16,38 @@ class AppointmentListRepository {
   AppointmentListRepository({
     required Dio dio,
     required SecureCredentialStorage secureCredentialStorage,
-  }) : _dio = dio,
+  })  : _dio = dio,
         _secureCredentialStorage = secureCredentialStorage;
 
   Future<Either<AppointmentListFailure, AppointmentListSuccess>>
       appointmentList() async {
     final userId = await _secureCredentialStorage.getUserId();
-    String url = "${ApiConstants.baseUrl}/appointments/appointmentlist?id=$userId";
+    String url =
+        "${ApiConstants.baseUrl}/appointments/appointmentlist?id=$userId";
+    try {
+      final response = await _dio.get(url);
+      final respData = response.data;
+      List<AppointmentListModel> listOfAppointments = [];
+      for (final docs in respData) {
+        final dto = AppointmentListDto.fromJson(docs);
+        final detail = AppointmentListMapper.toAppointmentListDetail(dto);
+        listOfAppointments.add(detail);
+      }
+      return Right(
+        AppointmentListSuccess.network(apiData: listOfAppointments),
+      );
+    } on DioError catch (e) {
+      return Left(
+        failure(e),
+      );
+    }
+  }
+
+  Future<Either<AppointmentListFailure, AppointmentListSuccess>>
+      appointmentListForDoc() async {
+    final userId = await _secureCredentialStorage.getUserId();
+    String url =
+        "${ApiConstants.baseUrl}/appointments/appointmentlist?docid=$userId";
     try {
       final response = await _dio.get(url);
       final respData = response.data;

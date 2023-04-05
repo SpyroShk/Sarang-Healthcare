@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/core/presentation/route/app_router.dart';
@@ -46,7 +47,10 @@ class _LabTestsState extends State<LabTests> {
                   Icons.arrow_back_ios_new_rounded,
                   color: AppColor.canvas,
                 ),
-                onPressed: () => context.pop(),
+                onPressed: () {
+                  HapticFeedback.mediumImpact();
+                  context.pop();
+                },
               ),
             ),
             CanvasCard(
@@ -73,9 +77,11 @@ class _LabTestsState extends State<LabTests> {
                               ),
                             ),
                             SarangButton(
-                              onPressed: () => context.push(
-                                  AppRoutes.labtesting,
-                                  extra: selectedLabTests),
+                              onPressed: () {
+                                HapticFeedback.mediumImpact();
+                                context.push(AppRoutes.labtesting,
+                                    extra: selectedLabTests);
+                              },
                               isLoading: false,
                               label: 'Done',
                             ),
@@ -91,6 +97,7 @@ class _LabTestsState extends State<LabTests> {
                       loadFailure: (message) {
                         return ConnectionLost(
                           onRetry: () {
+                  HapticFeedback.mediumImpact();
                             context.read<LabTestsCubit>().getLabTestsDetail();
                           },
                         );

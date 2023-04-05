@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sarang_healthcare/features/appointment_list/presentation/widgets/widgets.dart';
 
 import '../../../core/presentation/route/app_router.dart';
 import '../../../core/presentation/theme/app_color.dart';
 import '../../../core/presentation/theme/gradient_bg.dart';
 import '../../../core/presentation/theme/sizes.dart';
+import '../../appointment_list/application/cubit/appointment_list_cubit.dart';
 import '../../home/presentation/widgets/card_button.dart';
 import '../../profile/application/cubit/profile_cubit.dart';
 
-class DocHomeScreen extends StatelessWidget {
+class DocHomeScreen extends StatefulWidget {
   const DocHomeScreen({super.key});
+
+  @override
+  State<DocHomeScreen> createState() => _DocHomeScreenState();
+}
+
+class _DocHomeScreenState extends State<DocHomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AppointmentListCubit>().getAppointmentListDetailForDoc();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +55,23 @@ class DocHomeScreen extends StatelessWidget {
                             ),
                             BlocBuilder<ProfileCubit, ProfileState>(
                               builder: (context, state) {
-                                String? username = state.maybeWhen(
+                                String? name = state.maybeWhen(
                                     loadedCache: (userDetail) =>
-                                        userDetail.username,
+                                        "${userDetail.firstName} ${userDetail.lastName}",
                                     loadedNetwork: (userDetail) =>
-                                        userDetail.username,
+                                        "${userDetail.firstName} ${userDetail.lastName}",
                                     orElse: () => null);
-                                return Text(
-                                  "Dr. ${username.toString()}",
-                                  style: const TextStyle(
-                                    fontSize: Sizes.s22,
-                                    fontWeight: FontWeight.bold,
+                                return SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
+                                  child: Text(
+                                    "Dr. ${name.toString()}",
+                                    maxLines: 2,
+                                    style: const TextStyle(
+                                      fontSize: Sizes.s22,
+                                      fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 );
                               },
@@ -84,12 +104,18 @@ class DocHomeScreen extends StatelessWidget {
                         children: [
                           CardButton(
                             title: 'Contact',
-                            onPressed: () => context.push(AppRoutes.contact),
+                            onPressed: () {
+                              HapticFeedback.mediumImpact();
+                              context.push(AppRoutes.contact);
+                            },
                             icon: Icons.phone_android_outlined,
                           ),
                           CardButton(
                             title: 'Profile',
-                            onPressed: () => context.push(AppRoutes.profile),
+                            onPressed: () {
+                              HapticFeedback.mediumImpact();
+                              context.push(AppRoutes.profile);
+                            },
                             icon: Icons.person_outline,
                           ),
                         ],
@@ -99,6 +125,76 @@ class DocHomeScreen extends StatelessWidget {
                       height: 25,
                     ),
                   ],
+                ),
+              ),
+              Expanded(
+                child: BlocBuilder<AppointmentListCubit, AppointmentListState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      loadedNetwork: (appointmentListGroup) {
+                        if (appointmentListGroup.isEmpty) {
+                          return const Text(
+                            'No Appointments',
+                            style: TextStyle(
+                              fontSize: Sizes.s16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          );
+                        }
+                        return ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.zero,
+                          itemCount: 1,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: AppointmentListItemDoc(
+                                    appointmentList: appointmentListGroup.last,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: MediaQuery.of(context).size.height,
+                                  decoration: const BoxDecoration(
+                                    color: AppColor.canvas,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(30),
+                                      topRight: Radius.circular(30),
+                                    ),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 25),
+                                ),
+                                // CanvasCard(
+                                //   child: Text(appointmentListGroup
+                                //       .last.patientDescription),
+                                // )
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      loading: () => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      loadFailure: (message) {
+                        return const Text(
+                          'Connection Lost!',
+                          style: TextStyle(
+                            fontSize: Sizes.s16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        );
+                      },
+                      orElse: () => const SizedBox.shrink(),
+                    );
+                  },
                 ),
               ),
             ],

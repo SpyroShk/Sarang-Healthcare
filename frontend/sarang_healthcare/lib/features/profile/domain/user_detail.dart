@@ -8,5 +8,13 @@ class UserDetail with _$UserDetail {
     required int pk,
     required String username,
     required String email,
+    required String firstName,
+    required String lastName,
+    required bool isDoctor,
+    required String qualifications,
+    required String image,
+    required String availableFrom,
+    required String availableTo,
+    required String category,
   }) = _UserDetail;
 }

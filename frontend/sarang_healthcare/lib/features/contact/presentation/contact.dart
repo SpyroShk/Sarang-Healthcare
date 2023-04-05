@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
@@ -21,7 +22,7 @@ class _ContactState extends State<Contact> {
   @override
   void initState() {
     super.initState();
-    context.read<ContactCubit>().getContactDetail();
+    context.read<ContactCubit>().getContactModels();
   }
 
   @override
@@ -37,41 +38,51 @@ class _ContactState extends State<Contact> {
                   Icons.arrow_back_ios_new_rounded,
                   color: AppColor.canvas,
                 ),
-                onPressed: () => context.pop(),
+                onPressed: () {
+                  HapticFeedback.mediumImpact();
+                  context.pop();
+                },
               ),
-            ),
+              ),
             CanvasCard(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30),
-                    child: Image.asset(
-                      "assets/logo.png",
-                      width: 300,
-                    ),
-                  ),
-                  BlocBuilder<ContactCubit, ContactState>(
-                    builder: (context, state) {
-                      return state.maybeWhen(
-                        loadedCache: (contactModel) {
-                          return ContactView(contactModel: contactModel);
-                        },
-                        loadedNetwork: (contactModel) {
-                          return ContactView(contactModel: contactModel);
-                        },
-                        loading: () => CircularProgressIndicator(),
-                        notLoaded: (message) {
-                          return ConnectionLost(
-                            onRetry: () {
-                              context.read<ContactCubit>().getContactDetail();
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 50),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        "assets/logo.png",
+                        width: 300,
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      BlocBuilder<ContactCubit, ContactState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            loadedCache: (contactModel) =>
+                                ContactView(contactModel: contactModel),
+                            loadedNetwork: (contactModel) =>
+                                ContactView(contactModel: contactModel),
+                            loading: () => CircularProgressIndicator(),
+                            notLoaded: (message) {
+                              return ConnectionLost(
+                                onRetry: () {
+                  HapticFeedback.mediumImpact();
+                                  context
+                                      .read<ContactCubit>()
+                                      .getContactModels();
+                                },
+                              );
                             },
+                            orElse: () => const SizedBox.shrink(),
                           );
                         },
-                        orElse: () => const SizedBox.shrink(),
-                      );
-                    },
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             )
           ],

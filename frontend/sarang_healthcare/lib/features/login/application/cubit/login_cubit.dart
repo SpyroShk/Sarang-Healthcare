@@ -21,13 +21,13 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> checkSignInStatus() async {
     emit(const LoginState.loading());
     final token = await _loginRepository.getToken();
-    final group = await _loginRepository.getGroups();
-    if (token != null && group == '[]') {
+    final isDoctor = await _loginRepository.getGroups();
+    if (token != null && isDoctor == 'false') {
       log('token: $token');
       emit(const LoginState.authenticated());
-    } else if (token != null && group == '[Doctors]') {
+    } else if (token != null && isDoctor == 'true') {
       log('token: $token');
-      log('group: $group');
+      log('group: $isDoctor');
       emit(const LoginState.docAuthenticated());
     } else {
       emit(const LoginState.unauthenticated(message: "Please sign in"));
@@ -57,13 +57,13 @@ class LoginCubit extends Cubit<LoginState> {
       },
       (_) async {
         final token = await _loginRepository.getToken();
-        final group = await _loginRepository.getGroups();
-        if (token != null && group == '[]') {
+        final isDoctor = await _loginRepository.getGroups();
+        if (token != null && isDoctor == 'false') {
           log('token: $token');
           emit(const LoginState.authenticated());
-        } else if (token != null && group == '[Doctors]') {
+        } else if (token != null && isDoctor == 'true') {
           log('token: $token');
-          log('group: $group');
+          log('group: $isDoctor');
           emit(const LoginState.docAuthenticated());
         } else {
           emit(const LoginState.unauthenticated(message: "Please sign in"));

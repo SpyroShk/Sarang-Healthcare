@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -81,7 +82,10 @@ class _DocAppointmentState extends State<DocAppointment> {
                   Icons.arrow_back_ios_new_rounded,
                   color: AppColor.canvas,
                 ),
-                onPressed: () => context.pop(),
+                onPressed: () {
+                  HapticFeedback.mediumImpact();
+                  context.pop();
+                },
               ),
             ),
             CanvasCard(
@@ -101,15 +105,17 @@ class _DocAppointmentState extends State<DocAppointment> {
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                         ),
-                        onPressed: () =>
-                            context.pushReplacement(AppRoutes.preferreddoc),
+                        onPressed: () {
+                          HapticFeedback.mediumImpact();
+                          context.pushReplacement(AppRoutes.preferreddoc);
+                        },
                         child: SizedBox(
                           height: 58,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
                               Text(
-                                'Select Your Preferred Doctor First',
+                                'Select Your Doctor First',
                                 style: TextStyle(
                                     fontSize: Sizes.s16, color: AppColor.grey),
                               ),
@@ -274,7 +280,7 @@ class _DocAppointmentState extends State<DocAppointment> {
                                     alignment: Alignment.bottomCenter,
                                     icon: const Icon(Icons.keyboard_arrow_down),
                                     style:
-                                        Theme.of(context).textTheme.headline6,
+                                        Theme.of(context).textTheme.titleLarge,
                                     items: gender.map((option) {
                                       return DropdownMenuItem(
                                         value: option,
@@ -427,6 +433,7 @@ class _DocAppointmentState extends State<DocAppointment> {
   }
 
   void continueHandler() {
+    HapticFeedback.mediumImpact();
     if (formKey.currentState!.validate()) {
       final contact = contactController.text.trim();
       final patientName = patientNameController.text.trim();
@@ -481,7 +488,8 @@ class _DocAppointmentState extends State<DocAppointment> {
           'contact': int.parse(contact),
           'patientName': patientName,
           'age': int.parse(age),
-          'doctorName': widget.preferredDoctor.name,
+          'doctorName':
+              '${widget.preferredDoctor.firstName} ${widget.preferredDoctor.lastName}',
           'gender': selectedGenderValue,
           'userPatientRelation': selectedRelationValue,
           'patientDescription': patientDescription,
@@ -528,8 +536,8 @@ class _DocAppointmentState extends State<DocAppointment> {
       return date.add(time);
     } else {
       final now = DateTime.now();
-      DateTime forInitial =
-          DateTime.parse("2023-03-05 ${widget.preferredDoctor.availableTo}");
+      DateTime forInitial = initialDate;
+      // DateTime.parse("2023-03-05 ${widget.preferredDoctor.availableTo}");
       final timeOfDay = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.fromDateTime(forInitial),
@@ -559,6 +567,7 @@ class _DocAppointmentState extends State<DocAppointment> {
               dateTime.minute < formattedFromMin) ||
           (dateTime.hour == formattedToHr &&
               dateTime.minute > formattedToMin)) {
+        // ignore: use_build_context_synchronously
         context.showCustomSnackBar(
             message: 'Doctor not available in selected Time.', result: false);
         return null;

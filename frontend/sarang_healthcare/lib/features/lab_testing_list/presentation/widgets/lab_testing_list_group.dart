@@ -22,6 +22,7 @@ class LabTestingListGroup extends StatelessWidget {
         ? const Center(
             child: Text(
               'No Lab Testings Yet!',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: Sizes.s32,

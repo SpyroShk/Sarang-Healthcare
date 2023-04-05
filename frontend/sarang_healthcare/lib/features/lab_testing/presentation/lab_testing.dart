@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/core/presentation/theme/sizes.dart';
@@ -53,7 +54,10 @@ class _LabTestingState extends State<LabTesting>
                   Icons.arrow_back_ios_new_rounded,
                   color: AppColor.canvas,
                 ),
-                onPressed: () => context.pop(),
+                onPressed: () {
+                  HapticFeedback.mediumImpact();
+                  context.pop();
+                },
               ),
             ),
             Container(
@@ -97,6 +101,7 @@ class _LabTestingState extends State<LabTesting>
                 children: [
                   Expanded(
                     child: TabBarView(
+                      physics: const BouncingScrollPhysics(),
                       controller: _tabController,
                       children: [
                         OnSite(

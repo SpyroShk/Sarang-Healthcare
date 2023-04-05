@@ -10,7 +10,8 @@ _$_PreferredDoctorDto _$$_PreferredDoctorDtoFromJson(
         Map<String, dynamic> json) =>
     _$_PreferredDoctorDto(
       id: json['id'] as int,
-      name: json['name'] as String,
+      firstName: json['firstName'] as String,
+      lastName: json['lastName'] as String,
       qualifications: json['qualifications'] as String,
       category: json['category'] as String,
       image: json['image'] as String,
@@ -22,7 +23,8 @@ Map<String, dynamic> _$$_PreferredDoctorDtoToJson(
         _$_PreferredDoctorDto instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
       'qualifications': instance.qualifications,
       'category': instance.category,
       'image': instance.image,

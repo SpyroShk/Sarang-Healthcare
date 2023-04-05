@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/presentation/theme/app_color.dart';
 import '../../../../core/presentation/theme/sizes.dart';
+import '../../../../core/shared/api_constants.dart';
 import '../../domain/appointment_list_model.dart';
 
 class AppointmentListItem extends StatefulWidget {
@@ -29,7 +30,7 @@ class _AppointmentListItemState extends State<AppointmentListItem> {
               backgroundBlendMode: BlendMode.saturation,
             )
           : null,
-      height: 170,
+      height: 180,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -47,7 +48,7 @@ class _AppointmentListItemState extends State<AppointmentListItem> {
                   Row(
                     children: [
                       CircularProfileAvatar(
-                        widget.appointmentList.doctorImage,
+                        '${ApiConstants.baseUrl}/media/${widget.appointmentList.doctorImage}',
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
                         placeHolder: (context, url) => const SizedBox(
@@ -63,29 +64,31 @@ class _AppointmentListItemState extends State<AppointmentListItem> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            widget.appointmentList.doctorName,
-                            style: GoogleFonts.inter(
-                              fontSize: Sizes.s20,
-                              fontWeight: FontWeight.bold,
-                              color: AppColor.secondary,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              "Dr. ${widget.appointmentList.doctorName}",
+                              style: GoogleFonts.inter(
+                                fontSize: Sizes.s20,
+                                fontWeight: FontWeight.bold,
+                                color: AppColor.secondary,
+                              ),
                             ),
-                          ),
-                          Text(
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            widget.appointmentList.doctorCategory,
-                            style: GoogleFonts.inter(
-                              fontSize: Sizes.s14,
-                              color: AppColor.grey,
+                            Text(
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              widget.appointmentList.doctorCategory,
+                              style: GoogleFonts.inter(
+                                fontSize: Sizes.s14,
+                                color: AppColor.grey,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -180,6 +183,4 @@ class _AppointmentListItemState extends State<AppointmentListItem> {
       ),
     );
   }
-
-
 }

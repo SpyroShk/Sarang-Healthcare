@@ -7,7 +7,8 @@ part 'preferred_doctor_model.freezed.dart';
 class PreferredDoctorModel with _$PreferredDoctorModel {
   const factory PreferredDoctorModel({
     required int id,
-    required String name,
+    required String firstName,
+    required String lastName,
     required String qualifications,
     required String category,
     required String image,

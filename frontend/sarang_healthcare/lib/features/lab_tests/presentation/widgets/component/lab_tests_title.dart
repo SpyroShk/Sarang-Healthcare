@@ -27,7 +27,7 @@ class _LabTestsTitleState extends State<LabTestsTitle> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 230,
+      width: MediaQuery.of(context).size.width * 0.55,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/core/presentation/theme/app_color.dart';
@@ -183,7 +184,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                             InkWell(
-                              onTap: () => context.pop(),
+                              onTap: () {
+                                HapticFeedback.mediumImpact();
+                                context.pop();
+                              },
                               child: const Text(
                                 "Sign In",
                                 style: TextStyle(
@@ -208,6 +212,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void signupHandler() {
+    HapticFeedback.mediumImpact();
     if (formKey.currentState!.validate()) {
       final username = userNameController.text.trim();
       final email = emailController.text.trim();

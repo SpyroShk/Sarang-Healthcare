@@ -20,19 +20,43 @@ class UserDetailDtoAdapter extends TypeAdapter<_$_UserDetailDto> {
       pk: fields[0] as int,
       username: fields[1] as String,
       email: fields[2] as String,
+      firstName: fields[3] as String,
+      lastName: fields[4] as String,
+      isDoctor: fields[5] as bool,
+      qualifications: fields[6] as String,
+      image: fields[7] as String,
+      availableFrom: fields[8] as String,
+      availableTo: fields[9] as String,
+      category: fields[10] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_UserDetailDto obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.pk)
       ..writeByte(1)
       ..write(obj.username)
       ..writeByte(2)
-      ..write(obj.email);
+      ..write(obj.email)
+      ..writeByte(3)
+      ..write(obj.firstName)
+      ..writeByte(4)
+      ..write(obj.lastName)
+      ..writeByte(5)
+      ..write(obj.isDoctor)
+      ..writeByte(6)
+      ..write(obj.qualifications)
+      ..writeByte(7)
+      ..write(obj.image)
+      ..writeByte(8)
+      ..write(obj.availableFrom)
+      ..writeByte(9)
+      ..write(obj.availableTo)
+      ..writeByte(10)
+      ..write(obj.category);
   }
 
   @override
@@ -55,6 +79,14 @@ _$_UserDetailDto _$$_UserDetailDtoFromJson(Map<String, dynamic> json) =>
       pk: json['pk'] as int,
       username: json['username'] as String? ?? '',
       email: json['email'] as String? ?? '',
+      firstName: json['firstName'] as String? ?? '',
+      lastName: json['lastName'] as String? ?? '',
+      isDoctor: json['isDoctor'] as bool? ?? false,
+      qualifications: json['qualifications'] as String? ?? '',
+      image: json['image'] as String? ?? '',
+      availableFrom: json['availableFrom'] as String? ?? '',
+      availableTo: json['availableTo'] as String? ?? '',
+      category: json['category'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$_UserDetailDtoToJson(_$_UserDetailDto instance) =>
@@ -62,4 +94,12 @@ Map<String, dynamic> _$$_UserDetailDtoToJson(_$_UserDetailDto instance) =>
       'pk': instance.pk,
       'username': instance.username,
       'email': instance.email,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'isDoctor': instance.isDoctor,
+      'qualifications': instance.qualifications,
+      'image': instance.image,
+      'availableFrom': instance.availableFrom,
+      'availableTo': instance.availableTo,
+      'category': instance.category,
     };

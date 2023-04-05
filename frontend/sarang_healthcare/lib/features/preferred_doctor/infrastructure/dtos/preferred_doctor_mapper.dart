@@ -6,7 +6,8 @@ class PreferredDoctorMapper {
       PreferredDoctorDto preferredDoctorDto) {
     return PreferredDoctorModel(
       id: preferredDoctorDto.id,
-      name: preferredDoctorDto.name,
+      firstName: preferredDoctorDto.firstName,
+      lastName: preferredDoctorDto.lastName,
       qualifications: preferredDoctorDto.qualifications,
       category: preferredDoctorDto.category,
       image: preferredDoctorDto.image,
@@ -19,7 +20,8 @@ class PreferredDoctorMapper {
       PreferredDoctorModel preferredDoctorModel) {
     return PreferredDoctorDto(
       id: preferredDoctorModel.id,
-      name: preferredDoctorModel.name,
+      firstName: preferredDoctorModel.firstName,
+      lastName: preferredDoctorModel.lastName,
       qualifications: preferredDoctorModel.qualifications,
       category: preferredDoctorModel.category,
       image: preferredDoctorModel.image,

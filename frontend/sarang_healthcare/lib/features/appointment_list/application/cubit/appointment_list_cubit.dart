@@ -24,6 +24,12 @@ class AppointmentListCubit extends Cubit<AppointmentListState> {
     _handleAppointmentListResponse(response, []);
   }
 
+  Future<void> getAppointmentListDetailForDoc() async {
+    emit(const AppointmentListState.loading());
+    final response = await _appointmentListRepository.appointmentListForDoc();
+    _handleAppointmentListResponse(response, []);
+  }
+
   Future<void> getAppointmentListWithoutIdDetail() async {
     emit(const AppointmentListState.loading());
     final response =

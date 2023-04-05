@@ -16,23 +16,23 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ContactSuccess {
-  List<ContactModel> get apiData => throw _privateConstructorUsedError;
+  ContactModel get apiData => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ContactModel> apiData) network,
-    required TResult Function(List<ContactModel> apiData) cache,
+    required TResult Function(ContactModel apiData) network,
+    required TResult Function(ContactModel apiData) cache,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ContactModel> apiData)? network,
-    TResult? Function(List<ContactModel> apiData)? cache,
+    TResult? Function(ContactModel apiData)? network,
+    TResult? Function(ContactModel apiData)? cache,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ContactModel> apiData)? network,
-    TResult Function(List<ContactModel> apiData)? cache,
+    TResult Function(ContactModel apiData)? network,
+    TResult Function(ContactModel apiData)? cache,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -67,7 +67,9 @@ abstract class $ContactSuccessCopyWith<$Res> {
           ContactSuccess value, $Res Function(ContactSuccess) then) =
       _$ContactSuccessCopyWithImpl<$Res, ContactSuccess>;
   @useResult
-  $Res call({List<ContactModel> apiData});
+  $Res call({ContactModel apiData});
+
+  $ContactModelCopyWith<$Res> get apiData;
 }
 
 /// @nodoc
@@ -89,8 +91,16 @@ class _$ContactSuccessCopyWithImpl<$Res, $Val extends ContactSuccess>
       apiData: null == apiData
           ? _value.apiData
           : apiData // ignore: cast_nullable_to_non_nullable
-              as List<ContactModel>,
+              as ContactModel,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ContactModelCopyWith<$Res> get apiData {
+    return $ContactModelCopyWith<$Res>(_value.apiData, (value) {
+      return _then(_value.copyWith(apiData: value) as $Val);
+    });
   }
 }
 
@@ -102,7 +112,10 @@ abstract class _$$_NetworkCopyWith<$Res>
       __$$_NetworkCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ContactModel> apiData});
+  $Res call({ContactModel apiData});
+
+  @override
+  $ContactModelCopyWith<$Res> get apiData;
 }
 
 /// @nodoc
@@ -119,9 +132,9 @@ class __$$_NetworkCopyWithImpl<$Res>
   }) {
     return _then(_$_Network(
       apiData: null == apiData
-          ? _value._apiData
+          ? _value.apiData
           : apiData // ignore: cast_nullable_to_non_nullable
-              as List<ContactModel>,
+              as ContactModel,
     ));
   }
 }
@@ -129,16 +142,10 @@ class __$$_NetworkCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Network implements _Network {
-  const _$_Network({required final List<ContactModel> apiData})
-      : _apiData = apiData;
+  const _$_Network({required this.apiData});
 
-  final List<ContactModel> _apiData;
   @override
-  List<ContactModel> get apiData {
-    if (_apiData is EqualUnmodifiableListView) return _apiData;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_apiData);
-  }
+  final ContactModel apiData;
 
   @override
   String toString() {
@@ -150,12 +157,11 @@ class _$_Network implements _Network {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Network &&
-            const DeepCollectionEquality().equals(other._apiData, _apiData));
+            (identical(other.apiData, apiData) || other.apiData == apiData));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_apiData));
+  int get hashCode => Object.hash(runtimeType, apiData);
 
   @JsonKey(ignore: true)
   @override
@@ -166,8 +172,8 @@ class _$_Network implements _Network {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ContactModel> apiData) network,
-    required TResult Function(List<ContactModel> apiData) cache,
+    required TResult Function(ContactModel apiData) network,
+    required TResult Function(ContactModel apiData) cache,
   }) {
     return network(apiData);
   }
@@ -175,8 +181,8 @@ class _$_Network implements _Network {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ContactModel> apiData)? network,
-    TResult? Function(List<ContactModel> apiData)? cache,
+    TResult? Function(ContactModel apiData)? network,
+    TResult? Function(ContactModel apiData)? cache,
   }) {
     return network?.call(apiData);
   }
@@ -184,8 +190,8 @@ class _$_Network implements _Network {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ContactModel> apiData)? network,
-    TResult Function(List<ContactModel> apiData)? cache,
+    TResult Function(ContactModel apiData)? network,
+    TResult Function(ContactModel apiData)? cache,
     required TResult orElse(),
   }) {
     if (network != null) {
@@ -227,11 +233,10 @@ class _$_Network implements _Network {
 }
 
 abstract class _Network implements ContactSuccess {
-  const factory _Network({required final List<ContactModel> apiData}) =
-      _$_Network;
+  const factory _Network({required final ContactModel apiData}) = _$_Network;
 
   @override
-  List<ContactModel> get apiData;
+  ContactModel get apiData;
   @override
   @JsonKey(ignore: true)
   _$$_NetworkCopyWith<_$_Network> get copyWith =>
@@ -245,7 +250,10 @@ abstract class _$$_CacheCopyWith<$Res>
       __$$_CacheCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ContactModel> apiData});
+  $Res call({ContactModel apiData});
+
+  @override
+  $ContactModelCopyWith<$Res> get apiData;
 }
 
 /// @nodoc
@@ -262,9 +270,9 @@ class __$$_CacheCopyWithImpl<$Res>
   }) {
     return _then(_$_Cache(
       apiData: null == apiData
-          ? _value._apiData
+          ? _value.apiData
           : apiData // ignore: cast_nullable_to_non_nullable
-              as List<ContactModel>,
+              as ContactModel,
     ));
   }
 }
@@ -272,16 +280,10 @@ class __$$_CacheCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Cache implements _Cache {
-  const _$_Cache({required final List<ContactModel> apiData})
-      : _apiData = apiData;
+  const _$_Cache({required this.apiData});
 
-  final List<ContactModel> _apiData;
   @override
-  List<ContactModel> get apiData {
-    if (_apiData is EqualUnmodifiableListView) return _apiData;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_apiData);
-  }
+  final ContactModel apiData;
 
   @override
   String toString() {
@@ -293,12 +295,11 @@ class _$_Cache implements _Cache {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Cache &&
-            const DeepCollectionEquality().equals(other._apiData, _apiData));
+            (identical(other.apiData, apiData) || other.apiData == apiData));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_apiData));
+  int get hashCode => Object.hash(runtimeType, apiData);
 
   @JsonKey(ignore: true)
   @override
@@ -309,8 +310,8 @@ class _$_Cache implements _Cache {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ContactModel> apiData) network,
-    required TResult Function(List<ContactModel> apiData) cache,
+    required TResult Function(ContactModel apiData) network,
+    required TResult Function(ContactModel apiData) cache,
   }) {
     return cache(apiData);
   }
@@ -318,8 +319,8 @@ class _$_Cache implements _Cache {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ContactModel> apiData)? network,
-    TResult? Function(List<ContactModel> apiData)? cache,
+    TResult? Function(ContactModel apiData)? network,
+    TResult? Function(ContactModel apiData)? cache,
   }) {
     return cache?.call(apiData);
   }
@@ -327,8 +328,8 @@ class _$_Cache implements _Cache {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ContactModel> apiData)? network,
-    TResult Function(List<ContactModel> apiData)? cache,
+    TResult Function(ContactModel apiData)? network,
+    TResult Function(ContactModel apiData)? cache,
     required TResult orElse(),
   }) {
     if (cache != null) {
@@ -370,10 +371,10 @@ class _$_Cache implements _Cache {
 }
 
 abstract class _Cache implements ContactSuccess {
-  const factory _Cache({required final List<ContactModel> apiData}) = _$_Cache;
+  const factory _Cache({required final ContactModel apiData}) = _$_Cache;
 
   @override
-  List<ContactModel> get apiData;
+  ContactModel get apiData;
   @override
   @JsonKey(ignore: true)
   _$$_CacheCopyWith<_$_Cache> get copyWith =>

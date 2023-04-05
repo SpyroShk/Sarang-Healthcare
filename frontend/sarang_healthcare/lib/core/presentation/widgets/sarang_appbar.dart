@@ -9,22 +9,27 @@ class SarangAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: leading,
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontSize: Sizes.s22,
-          fontWeight: FontWeight.w900,
-          color: AppColor.canvas,
+    return Container(
+      height: preferredSize.height,
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: leading,
+        title: Text(
+          title,
+          maxLines: 2,
+          style: const TextStyle(
+            fontSize: Sizes.s22,
+            fontWeight: FontWeight.w900,
+            color: AppColor.canvas,
+          ),
         ),
+        centerTitle: true,
       ),
-      centerTitle: true,
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 20);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight * 2.2);
 }

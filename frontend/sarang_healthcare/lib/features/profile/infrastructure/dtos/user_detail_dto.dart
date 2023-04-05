@@ -11,6 +11,14 @@ class UserDetailDto with _$UserDetailDto {
     @HiveField(0) required int pk,
     @HiveField(1) @Default('') String username,
     @HiveField(2) @Default('') String email,
+    @HiveField(3) @Default('') String firstName,
+    @HiveField(4) @Default('') String lastName,
+    @HiveField(5) @Default(false) bool isDoctor,
+    @HiveField(6) @Default('') String qualifications,
+    @HiveField(7) @Default('') String image,
+    @HiveField(8) @Default('') String availableFrom,
+    @HiveField(9) @Default('') String availableTo,
+    @HiveField(10) @Default('') String category,
   }) = _UserDetailDto;
 
   factory UserDetailDto.fromJson(Map<String, dynamic> json) =>

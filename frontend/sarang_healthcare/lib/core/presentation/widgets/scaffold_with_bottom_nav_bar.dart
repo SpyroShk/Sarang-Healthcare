@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -115,6 +116,7 @@ String getTitle(BuildContext context) {
 }
 
 void _onItemTapped(BuildContext context, int index) {
+  HapticFeedback.mediumImpact();
   switch (index) {
     case 0:
       context.go(AppRoutes.report);

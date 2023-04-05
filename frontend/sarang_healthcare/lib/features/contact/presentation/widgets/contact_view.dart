@@ -6,139 +6,129 @@ import '../../../../core/presentation/theme/sizes.dart';
 import '../../domain/contact_model.dart';
 
 class ContactView extends StatelessWidget {
-  final List<ContactModel> contactModel;
+  final ContactModel contactModel;
   const ContactView({super.key, required this.contactModel});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      itemCount: contactModel.length,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColor.grey,
-                  width: 0.5,
-                ),
-                color: AppColor.canvas,
-                borderRadius: const BorderRadius.all(Radius.circular(18)),
+    return Column(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: AppColor.grey,
+              width: 0.5,
+            ),
+            color: AppColor.canvas,
+            borderRadius: const BorderRadius.all(Radius.circular(18)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ContactViewDetails(
+                contactDetails: contactModel.phone.toString(),
+                icon: Icons.home_outlined,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              ContactViewDetails(
+                contactDetails: contactModel.mobile.toString(),
+                icon: Icons.phone_outlined,
+              ),
+              ContactViewDetails(
+                contactDetails: contactModel.sm1,
+                icon: Icons.web_outlined,
+              ),
+              ContactViewDetails(
+                contactDetails: contactModel.email,
+                icon: Icons.email_outlined,
+              ),
+              Row(
                 children: [
-                  ContactViewDetails(
-                    contactDetails: contactModel[index].phone.toString(),
-                    icon: Icons.home_outlined,
+                  const Icon(
+                    Icons.location_on_outlined,
+                    color: AppColor.primary,
                   ),
-                  ContactViewDetails(
-                    contactDetails: contactModel[index].mobile.toString(),
-                    icon: Icons.phone_outlined,
+                  const SizedBox(
+                    width: 15,
                   ),
-                  ContactViewDetails(
-                    contactDetails: contactModel[index].sm1,
-                    icon: Icons.web_outlined,
-                  ),
-                  ContactViewDetails(
-                    contactDetails: contactModel[index].email,
-                    icon: Icons.email_outlined,
-                  ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_on_outlined,
-                        color: AppColor.primary,
+                  Expanded(
+                    child: Text(
+                      contactModel.location,
+                      style: const TextStyle(
+                        fontSize: Sizes.s14,
+                        color: AppColor.grey,
                       ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      SizedBox(
-                        width: 250,
-                        child: Text(
-                          contactModel[index].location,
-                          style: const TextStyle(
-                            fontSize: Sizes.s14,
-                            color: AppColor.grey,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          child: const Text(
+            'Social Accounts',
+            style: TextStyle(
+              fontSize: Sizes.s14,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(
-              height: 20,
+            textAlign: TextAlign.left,
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: AppColor.grey,
+              width: 0.5,
             ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: const Text(
-                'Social Accounts',
-                style: TextStyle(
-                  fontSize: Sizes.s14,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.left,
+            color: AppColor.canvas,
+            borderRadius: const BorderRadius.all(Radius.circular(18)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ContactViewDetails(
+                contactDetails: contactModel.sm2,
+                icon: Icons.facebook_outlined,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColor.grey,
-                  width: 0.5,
-                ),
-                color: AppColor.canvas,
-                borderRadius: const BorderRadius.all(Radius.circular(18)),
+              ContactViewDetails(
+                contactDetails: contactModel.sm3,
+                icon: Icons.message_outlined,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  ContactViewDetails(
-                    contactDetails: contactModel[index].sm2,
-                    icon: Icons.facebook_outlined,
+                  const Icon(
+                    Icons.camera_enhance_outlined,
+                    color: AppColor.primary,
                   ),
-                  ContactViewDetails(
-                    contactDetails: contactModel[index].sm3,
-                    icon: Icons.message_outlined,
+                  const SizedBox(
+                    width: 15,
                   ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.camera_enhance_outlined,
-                        color: AppColor.primary,
+                  Expanded(
+                    child: Text(
+                      contactModel.sm4,
+                      style: const TextStyle(
+                        fontSize: Sizes.s14,
+                        color: AppColor.grey,
                       ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      SizedBox(
-                        width: 250,
-                        child: Text(
-                          contactModel[index].sm4,
-                          style: const TextStyle(
-                            fontSize: Sizes.s14,
-                            color: AppColor.grey,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

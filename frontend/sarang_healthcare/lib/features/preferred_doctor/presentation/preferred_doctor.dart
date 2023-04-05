@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/core/presentation/theme/app_color.dart';
@@ -27,6 +28,7 @@ class _PreferredDoctorState extends State<PreferredDoctor> {
   String selectedCategory = "Paediatrician";
 
   void onCategoryChanged(String category) {
+    HapticFeedback.mediumImpact();
     switch (category) {
       case ("Paediatrician"):
         categoryType = CategoryType.paediatrician;
@@ -71,7 +73,10 @@ class _PreferredDoctorState extends State<PreferredDoctor> {
                   Icons.arrow_back_ios_new_rounded,
                   color: AppColor.canvas,
                 ),
-                onPressed: () => context.pop(),
+                onPressed: () {
+                  HapticFeedback.mediumImpact();
+                  context.pop();
+                },
               ),
             ),
             CanvasCard(
@@ -132,6 +137,7 @@ class _PreferredDoctorState extends State<PreferredDoctor> {
                       loadFailure: (message) {
                         return ConnectionLost(
                           onRetry: () {
+                  HapticFeedback.mediumImpact();
                             context
                                 .read<PreferredDoctorCubit>()
                                 .getPreferredDoctorDetail();

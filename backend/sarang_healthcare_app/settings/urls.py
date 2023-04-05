@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
+from accounts.views import CustomLoginView, CustomUserInfoView
 
 urlpatterns = [
     # path('jet/', include('jet.urls', 'jet')), 
@@ -25,12 +26,17 @@ urlpatterns = [
     # path(' ', admin.site.urls),
     path('core/',include('core.urls')),
     path('accounts/', include('accounts.urls')),
+    path('login/', CustomLoginView.as_view()),
     path('registration/', include('dj_rest_auth.registration.urls')),
     path('account/',include('allauth.urls')),
+    path('user/details/', CustomUserInfoView.as_view(), name='user_details'),
+    path('category/', include('accounts.urls')),
+    path('doctors/', include('doctors.urls')),
+    path('category/', include('accounts.urls')),
     path('appointments/',include('doctor_appointment.urls')),
     path('doctor/',include('doctor.urls')),
-    path('contact/',include('contact.urls')),
+    path('',include('contact.urls')),
     path('labtests/',include('lab_tests.urls')),
     path('reports/',include('report.urls')),
     path('labtestingappointments/',include('lab_testing_appointment.urls')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

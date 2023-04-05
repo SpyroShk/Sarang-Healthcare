@@ -48,7 +48,8 @@ class LabTestingListItem extends StatelessWidget {
         final price = priceMatch;
 
         // Create a LabTestsDto object and add it to the list
-        labTests.add(LabTestsDto(id: id, testName: testName, price: price, testDescription: ''));
+        labTests.add(LabTestsDto(
+            id: id, testName: testName, price: price, testDescription: ''));
       });
 
       return labTests;
@@ -106,8 +107,7 @@ class LabTestingListItem extends StatelessWidget {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(
-                                width: 220,
+                              Expanded(
                                 child: Text(
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis,

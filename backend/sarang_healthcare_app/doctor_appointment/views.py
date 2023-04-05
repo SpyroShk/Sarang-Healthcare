@@ -11,25 +11,32 @@ from .models import appointments
 from .serializers import appointmentsSerializer
 from types import NoneType
 
+
 class appointmentList(APIView):
     def get(self, request):
-        
         a = request.query_params.get("id")
-        appointments2=appointments.objects.all()
-        serializer2=appointmentsSerializer(appointments2,many=True)
-        if(a == None):
-            return Response(serializer2.data)
-            # return Response({"message" : "error"},status=404)
-        appointments1=appointments.objects.filter(user_id=a)
-        serializer=appointmentsSerializer(appointments1,many=True)
-        return Response(serializer.data)
-    
+        b = request.query_params.get("docid")
+
+        if a is not None:
+            appointments1 = appointments.objects.filter(user_id=a)
+            serializer = appointmentsSerializer(appointments1, many=True)
+            return Response(serializer.data)
+
+        if b is not None:
+            appointments4 = appointments.objects.filter(doctor_id=b)
+            docserializer = appointmentsSerializer(appointments4, many=True)
+            return Response(docserializer.data)
+
+        appointments2 = appointments.objects.all()
+        serializer2 = appointmentsSerializer(appointments2, many=True)
+        return Response(serializer2.data)
+
     def post(self, request):
-        
-        jsonData=JSONParser().parse(request)
-        serializer=appointmentsSerializer(data=jsonData)
+
+        jsonData = JSONParser().parse(request)
+        serializer = appointmentsSerializer(data=jsonData)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         else:
-            return Response(serializer.error)
+            return Response(serializer.errors)

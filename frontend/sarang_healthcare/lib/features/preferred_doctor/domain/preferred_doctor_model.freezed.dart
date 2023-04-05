@@ -17,7 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PreferredDoctorModel {
   int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get firstName => throw _privateConstructorUsedError;
+  String get lastName => throw _privateConstructorUsedError;
   String get qualifications => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
@@ -37,7 +38,8 @@ abstract class $PreferredDoctorModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      String name,
+      String firstName,
+      String lastName,
       String qualifications,
       String category,
       String image,
@@ -60,7 +62,8 @@ class _$PreferredDoctorModelCopyWithImpl<$Res,
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? firstName = null,
+    Object? lastName = null,
     Object? qualifications = null,
     Object? category = null,
     Object? image = null,
@@ -72,9 +75,13 @@ class _$PreferredDoctorModelCopyWithImpl<$Res,
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
               as String,
       qualifications: null == qualifications
           ? _value.qualifications
@@ -110,7 +117,8 @@ abstract class _$$_PreferredDoctorModelCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      String name,
+      String firstName,
+      String lastName,
       String qualifications,
       String category,
       String image,
@@ -130,7 +138,8 @@ class __$$_PreferredDoctorModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? firstName = null,
+    Object? lastName = null,
     Object? qualifications = null,
     Object? category = null,
     Object? image = null,
@@ -142,9 +151,13 @@ class __$$_PreferredDoctorModelCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
               as String,
       qualifications: null == qualifications
           ? _value.qualifications
@@ -177,7 +190,8 @@ class _$_PreferredDoctorModel
     implements _PreferredDoctorModel {
   const _$_PreferredDoctorModel(
       {required this.id,
-      required this.name,
+      required this.firstName,
+      required this.lastName,
       required this.qualifications,
       required this.category,
       required this.image,
@@ -187,7 +201,9 @@ class _$_PreferredDoctorModel
   @override
   final int id;
   @override
-  final String name;
+  final String firstName;
+  @override
+  final String lastName;
   @override
   final String qualifications;
   @override
@@ -201,7 +217,7 @@ class _$_PreferredDoctorModel
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PreferredDoctorModel(id: $id, name: $name, qualifications: $qualifications, category: $category, image: $image, availableFrom: $availableFrom, availableTo: $availableTo)';
+    return 'PreferredDoctorModel(id: $id, firstName: $firstName, lastName: $lastName, qualifications: $qualifications, category: $category, image: $image, availableFrom: $availableFrom, availableTo: $availableTo)';
   }
 
   @override
@@ -210,7 +226,8 @@ class _$_PreferredDoctorModel
     properties
       ..add(DiagnosticsProperty('type', 'PreferredDoctorModel'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('firstName', firstName))
+      ..add(DiagnosticsProperty('lastName', lastName))
       ..add(DiagnosticsProperty('qualifications', qualifications))
       ..add(DiagnosticsProperty('category', category))
       ..add(DiagnosticsProperty('image', image))
@@ -224,7 +241,10 @@ class _$_PreferredDoctorModel
         (other.runtimeType == runtimeType &&
             other is _$_PreferredDoctorModel &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
             (identical(other.qualifications, qualifications) ||
                 other.qualifications == qualifications) &&
             (identical(other.category, category) ||
@@ -237,8 +257,8 @@ class _$_PreferredDoctorModel
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, qualifications,
-      category, image, availableFrom, availableTo);
+  int get hashCode => Object.hash(runtimeType, id, firstName, lastName,
+      qualifications, category, image, availableFrom, availableTo);
 
   @JsonKey(ignore: true)
   @override
@@ -251,7 +271,8 @@ class _$_PreferredDoctorModel
 abstract class _PreferredDoctorModel implements PreferredDoctorModel {
   const factory _PreferredDoctorModel(
       {required final int id,
-      required final String name,
+      required final String firstName,
+      required final String lastName,
       required final String qualifications,
       required final String category,
       required final String image,
@@ -261,7 +282,9 @@ abstract class _PreferredDoctorModel implements PreferredDoctorModel {
   @override
   int get id;
   @override
-  String get name;
+  String get firstName;
+  @override
+  String get lastName;
   @override
   String get qualifications;
   @override

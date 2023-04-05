@@ -21,7 +21,8 @@ PreferredDoctorDto _$PreferredDoctorDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PreferredDoctorDto {
   int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get firstName => throw _privateConstructorUsedError;
+  String get lastName => throw _privateConstructorUsedError;
   String get qualifications => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
@@ -42,7 +43,8 @@ abstract class $PreferredDoctorDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      String name,
+      String firstName,
+      String lastName,
       String qualifications,
       String category,
       String image,
@@ -64,7 +66,8 @@ class _$PreferredDoctorDtoCopyWithImpl<$Res, $Val extends PreferredDoctorDto>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? firstName = null,
+    Object? lastName = null,
     Object? qualifications = null,
     Object? category = null,
     Object? image = null,
@@ -76,9 +79,13 @@ class _$PreferredDoctorDtoCopyWithImpl<$Res, $Val extends PreferredDoctorDto>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
               as String,
       qualifications: null == qualifications
           ? _value.qualifications
@@ -114,7 +121,8 @@ abstract class _$$_PreferredDoctorDtoCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      String name,
+      String firstName,
+      String lastName,
       String qualifications,
       String category,
       String image,
@@ -134,7 +142,8 @@ class __$$_PreferredDoctorDtoCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? firstName = null,
+    Object? lastName = null,
     Object? qualifications = null,
     Object? category = null,
     Object? image = null,
@@ -146,9 +155,13 @@ class __$$_PreferredDoctorDtoCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
               as String,
       qualifications: null == qualifications
           ? _value.qualifications
@@ -181,7 +194,8 @@ class _$_PreferredDoctorDto
     implements _PreferredDoctorDto {
   const _$_PreferredDoctorDto(
       {required this.id,
-      required this.name,
+      required this.firstName,
+      required this.lastName,
       required this.qualifications,
       required this.category,
       required this.image,
@@ -194,7 +208,9 @@ class _$_PreferredDoctorDto
   @override
   final int id;
   @override
-  final String name;
+  final String firstName;
+  @override
+  final String lastName;
   @override
   final String qualifications;
   @override
@@ -208,7 +224,7 @@ class _$_PreferredDoctorDto
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PreferredDoctorDto(id: $id, name: $name, qualifications: $qualifications, category: $category, image: $image, availableFrom: $availableFrom, availableTo: $availableTo)';
+    return 'PreferredDoctorDto(id: $id, firstName: $firstName, lastName: $lastName, qualifications: $qualifications, category: $category, image: $image, availableFrom: $availableFrom, availableTo: $availableTo)';
   }
 
   @override
@@ -217,7 +233,8 @@ class _$_PreferredDoctorDto
     properties
       ..add(DiagnosticsProperty('type', 'PreferredDoctorDto'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('firstName', firstName))
+      ..add(DiagnosticsProperty('lastName', lastName))
       ..add(DiagnosticsProperty('qualifications', qualifications))
       ..add(DiagnosticsProperty('category', category))
       ..add(DiagnosticsProperty('image', image))
@@ -231,7 +248,10 @@ class _$_PreferredDoctorDto
         (other.runtimeType == runtimeType &&
             other is _$_PreferredDoctorDto &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
             (identical(other.qualifications, qualifications) ||
                 other.qualifications == qualifications) &&
             (identical(other.category, category) ||
@@ -245,8 +265,8 @@ class _$_PreferredDoctorDto
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, qualifications,
-      category, image, availableFrom, availableTo);
+  int get hashCode => Object.hash(runtimeType, id, firstName, lastName,
+      qualifications, category, image, availableFrom, availableTo);
 
   @JsonKey(ignore: true)
   @override
@@ -266,7 +286,8 @@ class _$_PreferredDoctorDto
 abstract class _PreferredDoctorDto implements PreferredDoctorDto {
   const factory _PreferredDoctorDto(
       {required final int id,
-      required final String name,
+      required final String firstName,
+      required final String lastName,
       required final String qualifications,
       required final String category,
       required final String image,
@@ -279,7 +300,9 @@ abstract class _PreferredDoctorDto implements PreferredDoctorDto {
   @override
   int get id;
   @override
-  String get name;
+  String get firstName;
+  @override
+  String get lastName;
   @override
   String get qualifications;
   @override

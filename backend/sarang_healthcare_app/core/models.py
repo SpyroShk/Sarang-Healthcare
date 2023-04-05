@@ -1,29 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser
-# from roles.models import AbstractUserRole
-
-
-class User(AbstractUser):
-    email = models.EmailField(unique=True)
-
-
-# class UserRole(AbstractUserRole):
-#     ROLE_CHOICES = (
-#         ('admin', 'Admin'),
-#         ('patient', 'Patient'),
-#         ('staff', 'Staff'),
-#         ('doctor', 'Doctor'),
-#     )
-#     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
-
 
 from django.contrib.auth import get_user_model
+# Create your models here.
 from django.contrib.auth.backends import ModelBackend
 
 class EmailBackend(ModelBackend):
 
     def authenticate(self, request, username=None, password=None, **kwargs):
-        UserModel=get_user_model()
+        UserModel = get_user_model()
 
         try:
             user = UserModel.objects.get(username=username)
@@ -40,4 +24,3 @@ class EmailBackend(ModelBackend):
         else:
             if user.check_password(password) and self.user_can_authenticate(user):
                 return user
-

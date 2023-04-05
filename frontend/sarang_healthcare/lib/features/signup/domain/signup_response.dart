@@ -4,6 +4,7 @@ part 'signup_response.freezed.dart';
 
 @freezed
 class SignupResponse with _$SignupResponse {
+  // ignore: non_constant_identifier_names
   const factory SignupResponse.non_field_errors() = _Non_field_errors;
   const factory SignupResponse.password1() = _Password1;
   const factory SignupResponse.username() = _Username;

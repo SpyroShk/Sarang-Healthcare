@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
@@ -83,7 +84,12 @@ class _HomeServiceState extends State<HomeService> {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
-              onPressed: () => context.push(AppRoutes.labtests),
+              onPressed: () {
+                HapticFeedback.mediumImpact();
+                widget.selectedLabTests == null
+                    ? context.push(AppRoutes.labtests)
+                    : context.pop();
+              },
               child: SizedBox(
                 height: 58,
                 child: Row(
@@ -136,6 +142,7 @@ class _HomeServiceState extends State<HomeService> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
+                  HapticFeedback.mediumImpact();
                                         setState(() {
                                           widget.selectedLabTests!
                                               .removeAt(index);
@@ -224,11 +231,12 @@ class _HomeServiceState extends State<HomeService> {
             ),
             Row(
               children: [
-                DataTimeSelector(
-                  text: Utils.toDate(collectionDateTime),
-                  icon: Icons.calendar_month_outlined,
-                  width: MediaQuery.of(context).size.width / 1.90,
-                  onPressed: () => pickCollectionDateTime(pickDate: true),
+                Expanded(
+                  child: DataTimeSelector(
+                    text: Utils.toDate(collectionDateTime),
+                    icon: Icons.calendar_month_outlined,
+                    onPressed: () => pickCollectionDateTime(pickDate: true),
+                  ),
                 ),
                 const SizedBox(
                   width: 24,
@@ -326,7 +334,7 @@ class _HomeServiceState extends State<HomeService> {
                           borderRadius: BorderRadius.circular(12),
                           alignment: Alignment.bottomCenter,
                           icon: const Icon(Icons.keyboard_arrow_down),
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.titleLarge,
                           items: gender.map((option) {
                             return DropdownMenuItem(
                               value: option,
@@ -507,6 +515,7 @@ class _HomeServiceState extends State<HomeService> {
   }
 
   void continueHandler() {
+    HapticFeedback.mediumImpact();
     if (formKey.currentState!.validate()) {
       final contact = contactController.text.trim();
       final patientName = patientNameController.text.trim();
@@ -618,6 +627,7 @@ class _HomeServiceState extends State<HomeService> {
           dateTime.hour < hrFrom ||
           (dateTime.hour == hrFrom && dateTime.minute < minFrom) ||
           (dateTime.hour == hrTo && dateTime.minute > minTo)) {
+        // ignore: use_build_context_synchronously
         context.showCustomSnackBar(
             message: 'Sorry Lab closed in selected Time.', result: false);
         return null;

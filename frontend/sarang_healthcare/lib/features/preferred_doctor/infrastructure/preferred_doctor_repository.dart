@@ -19,7 +19,30 @@ class PreferredDoctorRepository {
 
   Future<Either<PreferredDoctorFailure, PreferredDoctorSuccess>>
       preferredDoctor() async {
-    String url = "${ApiConstants.baseUrl}/doctor/doctorlist";
+    String url = "${ApiConstants.baseUrl}/doctors/";
+    log(url);
+    try {
+      final response = await _dio.get(url);
+      final respData = response.data;
+      List<PreferredDoctorModel> listOfDocs = [];
+      for (final docs in respData) {
+        final dto = PreferredDoctorDto.fromJson(docs);
+        final detail = PreferredDoctorMapper.toPreferredDoctorDetail(dto);
+        listOfDocs.add(detail);
+      }
+      return Right(
+        PreferredDoctorSuccess.network(apiData: listOfDocs),
+      );
+    } on DioError catch (e) {
+      return Left(
+        failure(e),
+      );
+    }
+  }
+
+  Future<Either<PreferredDoctorFailure, PreferredDoctorSuccess>>
+      category() async {
+    String url = "${ApiConstants.baseUrl}/category/categoryList";
     log(url);
     try {
       final response = await _dio.get(url);

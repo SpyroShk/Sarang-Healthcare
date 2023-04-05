@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 import 'package:sarang_healthcare/features/appointment_list/application/cubit/appointment_list_cubit.dart';
@@ -45,6 +46,7 @@ class _AppointmentListState extends State<AppointmentList> {
           loadFailure: (message) {
             return ConnectionLost(
               onRetry: () {
+                  HapticFeedback.mediumImpact();
                 context.read<AppointmentListCubit>().getAppointmentListDetail();
               },
             );

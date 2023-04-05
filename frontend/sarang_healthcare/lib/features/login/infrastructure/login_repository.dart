@@ -29,7 +29,7 @@ class LoginRepository {
   Future<Either<LoginFailure, LoginSuccess>> login({
     required LoginDetail loginDetail,
   }) async {
-    const String url = "${ApiConstants.baseUrl}/accounts/login/";
+    const String url = "${ApiConstants.baseUrl}/login/";
     log(url);
     final loginDetailDto = LoginMapper.toDto(loginDetail);
     final data = loginDetailDto.toJson();
@@ -41,7 +41,7 @@ class LoginRepository {
       );
       // log(response.toString());
       final respData = response.data;
-      if (respData["groups"].contains("Staffs")) {
+      if (respData["isStaff"] == true) {
         return const Left(
           LoginFailure.client(
             message: "No Staffs Allowed.",
@@ -49,8 +49,8 @@ class LoginRepository {
         );
       } else {
         await _secureCredentialStorage.setApiToken(respData["key"]);
-        await _secureCredentialStorage.setGroups(respData["groups"].toString());
-        log(respData["groups"].toString());
+        await _secureCredentialStorage.setGroups(respData["isDoctor"].toString());
+        log(respData["isDoctor"].toString());
       }
       return const Right("Login successful.");
     } on DioError catch (e) {

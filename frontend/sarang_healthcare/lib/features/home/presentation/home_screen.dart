@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -66,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: const TextStyle(
                                     fontSize: Sizes.s22,
                                     fontWeight: FontWeight.bold,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 );
                               },
@@ -98,18 +100,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           CardButton(
                             title: 'Doctors',
-                            onPressed: () =>
-                                context.push(AppRoutes.preferreddoc),
+                            onPressed: () {
+                              HapticFeedback.mediumImpact();
+                              context.push(AppRoutes.preferreddoc);
+                            },
                             icon: Icons.medical_services_outlined,
                           ),
                           CardButton(
                             title: 'Contact',
-                            onPressed: () => context.push(AppRoutes.contact),
+                            onPressed: () {
+                              HapticFeedback.mediumImpact();
+                              context.push(AppRoutes.contact);
+                            },
                             icon: Icons.phone_android_outlined,
                           ),
                           CardButton(
                             title: 'Profile',
-                            onPressed: () => context.push(AppRoutes.profile),
+                            onPressed: () {
+                              HapticFeedback.mediumImpact();
+                              context.push(AppRoutes.profile);
+                            },
                             icon: Icons.person_outline,
                           ),
                         ],
@@ -135,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       }
                       return SizedBox(
-                        height: 170,
+                        height: 180,
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: 1,
@@ -172,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20,
-                    vertical: 30,
+                    vertical: 25,
                   ),
                   decoration: const BoxDecoration(
                     color: AppColor.canvas,
@@ -192,18 +202,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 24,
-                      ),
-                      QuickButton(
-                        title: 'Create new Appointment',
-                        onPressed: () => context.push(AppRoutes.docappointment),
-                      ),
-                      const SizedBox(
                         height: 25,
                       ),
                       QuickButton(
+                        title: 'Create new Appointment',
+                        onPressed: () {
+                          HapticFeedback.mediumImpact();
+                          context.push(AppRoutes.docappointment);
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      QuickButton(
                         title: 'Book for lab testing',
-                        onPressed: () => context.push(AppRoutes.labtesting),
+                        onPressed: () {
+                          HapticFeedback.mediumImpact();
+                          context.push(AppRoutes.labtesting);
+                        },
                       ),
                     ],
                   ),

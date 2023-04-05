@@ -44,11 +44,9 @@ class NotificationsService {
       ),
     );
 
-    print(appointmentDate);
     String dateString = appointmentDate;
     DateTime dateTime = DateFormat('yyyy-MM-dd').parse(dateString);
     String outputDate = DateFormat('yyyy-MM-dd').format(dateTime);
-    print(outputDate);
 
     final scheduledDate = DateTime.parse('$outputDate $appointmentTime:00');
     final scheduledTime = scheduledDate.subtract(const Duration(minutes: 20));

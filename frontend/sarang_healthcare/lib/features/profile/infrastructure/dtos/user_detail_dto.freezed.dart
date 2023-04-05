@@ -26,6 +26,22 @@ mixin _$UserDetailDto {
   String get username => throw _privateConstructorUsedError;
   @HiveField(2)
   String get email => throw _privateConstructorUsedError;
+  @HiveField(3)
+  String get firstName => throw _privateConstructorUsedError;
+  @HiveField(4)
+  String get lastName => throw _privateConstructorUsedError;
+  @HiveField(5)
+  bool get isDoctor => throw _privateConstructorUsedError;
+  @HiveField(6)
+  String get qualifications => throw _privateConstructorUsedError;
+  @HiveField(7)
+  String get image => throw _privateConstructorUsedError;
+  @HiveField(8)
+  String get availableFrom => throw _privateConstructorUsedError;
+  @HiveField(9)
+  String get availableTo => throw _privateConstructorUsedError;
+  @HiveField(10)
+  String get category => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +58,15 @@ abstract class $UserDetailDtoCopyWith<$Res> {
   $Res call(
       {@HiveField(0) int pk,
       @HiveField(1) String username,
-      @HiveField(2) String email});
+      @HiveField(2) String email,
+      @HiveField(3) String firstName,
+      @HiveField(4) String lastName,
+      @HiveField(5) bool isDoctor,
+      @HiveField(6) String qualifications,
+      @HiveField(7) String image,
+      @HiveField(8) String availableFrom,
+      @HiveField(9) String availableTo,
+      @HiveField(10) String category});
 }
 
 /// @nodoc
@@ -61,6 +85,14 @@ class _$UserDetailDtoCopyWithImpl<$Res, $Val extends UserDetailDto>
     Object? pk = null,
     Object? username = null,
     Object? email = null,
+    Object? firstName = null,
+    Object? lastName = null,
+    Object? isDoctor = null,
+    Object? qualifications = null,
+    Object? image = null,
+    Object? availableFrom = null,
+    Object? availableTo = null,
+    Object? category = null,
   }) {
     return _then(_value.copyWith(
       pk: null == pk
@@ -74,6 +106,38 @@ class _$UserDetailDtoCopyWithImpl<$Res, $Val extends UserDetailDto>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
+      isDoctor: null == isDoctor
+          ? _value.isDoctor
+          : isDoctor // ignore: cast_nullable_to_non_nullable
+              as bool,
+      qualifications: null == qualifications
+          ? _value.qualifications
+          : qualifications // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      availableFrom: null == availableFrom
+          ? _value.availableFrom
+          : availableFrom // ignore: cast_nullable_to_non_nullable
+              as String,
+      availableTo: null == availableTo
+          ? _value.availableTo
+          : availableTo // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -90,7 +154,15 @@ abstract class _$$_UserDetailDtoCopyWith<$Res>
   $Res call(
       {@HiveField(0) int pk,
       @HiveField(1) String username,
-      @HiveField(2) String email});
+      @HiveField(2) String email,
+      @HiveField(3) String firstName,
+      @HiveField(4) String lastName,
+      @HiveField(5) bool isDoctor,
+      @HiveField(6) String qualifications,
+      @HiveField(7) String image,
+      @HiveField(8) String availableFrom,
+      @HiveField(9) String availableTo,
+      @HiveField(10) String category});
 }
 
 /// @nodoc
@@ -107,6 +179,14 @@ class __$$_UserDetailDtoCopyWithImpl<$Res>
     Object? pk = null,
     Object? username = null,
     Object? email = null,
+    Object? firstName = null,
+    Object? lastName = null,
+    Object? isDoctor = null,
+    Object? qualifications = null,
+    Object? image = null,
+    Object? availableFrom = null,
+    Object? availableTo = null,
+    Object? category = null,
   }) {
     return _then(_$_UserDetailDto(
       pk: null == pk
@@ -121,6 +201,38 @@ class __$$_UserDetailDtoCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
+      isDoctor: null == isDoctor
+          ? _value.isDoctor
+          : isDoctor // ignore: cast_nullable_to_non_nullable
+              as bool,
+      qualifications: null == qualifications
+          ? _value.qualifications
+          : qualifications // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      availableFrom: null == availableFrom
+          ? _value.availableFrom
+          : availableFrom // ignore: cast_nullable_to_non_nullable
+              as String,
+      availableTo: null == availableTo
+          ? _value.availableTo
+          : availableTo // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -132,7 +244,15 @@ class _$_UserDetailDto implements _UserDetailDto {
   const _$_UserDetailDto(
       {@HiveField(0) required this.pk,
       @HiveField(1) this.username = '',
-      @HiveField(2) this.email = ''});
+      @HiveField(2) this.email = '',
+      @HiveField(3) this.firstName = '',
+      @HiveField(4) this.lastName = '',
+      @HiveField(5) this.isDoctor = false,
+      @HiveField(6) this.qualifications = '',
+      @HiveField(7) this.image = '',
+      @HiveField(8) this.availableFrom = '',
+      @HiveField(9) this.availableTo = '',
+      @HiveField(10) this.category = ''});
 
   factory _$_UserDetailDto.fromJson(Map<String, dynamic> json) =>
       _$$_UserDetailDtoFromJson(json);
@@ -148,10 +268,42 @@ class _$_UserDetailDto implements _UserDetailDto {
   @JsonKey()
   @HiveField(2)
   final String email;
+  @override
+  @JsonKey()
+  @HiveField(3)
+  final String firstName;
+  @override
+  @JsonKey()
+  @HiveField(4)
+  final String lastName;
+  @override
+  @JsonKey()
+  @HiveField(5)
+  final bool isDoctor;
+  @override
+  @JsonKey()
+  @HiveField(6)
+  final String qualifications;
+  @override
+  @JsonKey()
+  @HiveField(7)
+  final String image;
+  @override
+  @JsonKey()
+  @HiveField(8)
+  final String availableFrom;
+  @override
+  @JsonKey()
+  @HiveField(9)
+  final String availableTo;
+  @override
+  @JsonKey()
+  @HiveField(10)
+  final String category;
 
   @override
   String toString() {
-    return 'UserDetailDto(pk: $pk, username: $username, email: $email)';
+    return 'UserDetailDto(pk: $pk, username: $username, email: $email, firstName: $firstName, lastName: $lastName, isDoctor: $isDoctor, qualifications: $qualifications, image: $image, availableFrom: $availableFrom, availableTo: $availableTo, category: $category)';
   }
 
   @override
@@ -162,12 +314,39 @@ class _$_UserDetailDto implements _UserDetailDto {
             (identical(other.pk, pk) || other.pk == pk) &&
             (identical(other.username, username) ||
                 other.username == username) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
+            (identical(other.isDoctor, isDoctor) ||
+                other.isDoctor == isDoctor) &&
+            (identical(other.qualifications, qualifications) ||
+                other.qualifications == qualifications) &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.availableFrom, availableFrom) ||
+                other.availableFrom == availableFrom) &&
+            (identical(other.availableTo, availableTo) ||
+                other.availableTo == availableTo) &&
+            (identical(other.category, category) ||
+                other.category == category));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, pk, username, email);
+  int get hashCode => Object.hash(
+      runtimeType,
+      pk,
+      username,
+      email,
+      firstName,
+      lastName,
+      isDoctor,
+      qualifications,
+      image,
+      availableFrom,
+      availableTo,
+      category);
 
   @JsonKey(ignore: true)
   @override
@@ -187,7 +366,15 @@ abstract class _UserDetailDto implements UserDetailDto {
   const factory _UserDetailDto(
       {@HiveField(0) required final int pk,
       @HiveField(1) final String username,
-      @HiveField(2) final String email}) = _$_UserDetailDto;
+      @HiveField(2) final String email,
+      @HiveField(3) final String firstName,
+      @HiveField(4) final String lastName,
+      @HiveField(5) final bool isDoctor,
+      @HiveField(6) final String qualifications,
+      @HiveField(7) final String image,
+      @HiveField(8) final String availableFrom,
+      @HiveField(9) final String availableTo,
+      @HiveField(10) final String category}) = _$_UserDetailDto;
 
   factory _UserDetailDto.fromJson(Map<String, dynamic> json) =
       _$_UserDetailDto.fromJson;
@@ -201,6 +388,30 @@ abstract class _UserDetailDto implements UserDetailDto {
   @override
   @HiveField(2)
   String get email;
+  @override
+  @HiveField(3)
+  String get firstName;
+  @override
+  @HiveField(4)
+  String get lastName;
+  @override
+  @HiveField(5)
+  bool get isDoctor;
+  @override
+  @HiveField(6)
+  String get qualifications;
+  @override
+  @HiveField(7)
+  String get image;
+  @override
+  @HiveField(8)
+  String get availableFrom;
+  @override
+  @HiveField(9)
+  String get availableTo;
+  @override
+  @HiveField(10)
+  String get category;
   @override
   @JsonKey(ignore: true)
   _$$_UserDetailDtoCopyWith<_$_UserDetailDto> get copyWith =>

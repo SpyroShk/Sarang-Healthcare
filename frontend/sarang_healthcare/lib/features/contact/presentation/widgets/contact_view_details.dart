@@ -23,11 +23,13 @@ class ContactViewDetails extends StatelessWidget {
             const SizedBox(
               width: 15,
             ),
-            Text(
-              contactDetails,
-              style: const TextStyle(
-                fontSize: Sizes.s14,
-                color: AppColor.grey,
+            Expanded(
+              child: Text(
+                contactDetails,
+                style: const TextStyle(
+                  fontSize: Sizes.s14,
+                  color: AppColor.grey,
+                ),
               ),
             ),
           ],
