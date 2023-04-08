@@ -10,4 +10,6 @@ class AppColor {
   static const Color dark = Color(0xFF151D19);
   static const Color grey = Color(0xFF9095A1);
   static const Color appointmentCard = Color(0xFF061C1F);
+  static Color shimmerBase = Colors.grey[300]!;
+  static Color shimmerHighlight = Colors.grey[100]!;
 }

@@ -17,8 +17,7 @@ class PreferredDoctorListItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         HapticFeedback.mediumImpact();
-        context.pushReplacement(AppRoutes.docappointment,
-            extra: preferredDoctor);
+        context.push(AppRoutes.docappointment, extra: preferredDoctor);
       },
       child: Container(
         padding: const EdgeInsets.all(20),

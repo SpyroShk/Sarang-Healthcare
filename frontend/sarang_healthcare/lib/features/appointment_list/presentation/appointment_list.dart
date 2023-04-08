@@ -3,8 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 import 'package:sarang_healthcare/features/appointment_list/application/cubit/appointment_list_cubit.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../../../core/presentation/theme/app_color.dart';
 import '../../../core/presentation/widgets/connection_lost.dart';
+import '../../../core/presentation/widgets/skeleton.dart';
 import 'widgets/widgets.dart';
 
 class AppointmentList extends StatefulWidget {
@@ -40,13 +43,29 @@ class _AppointmentListState extends State<AppointmentList> {
               appointmentListGroup: appointmentListGroup,
             );
           },
-          loading: () => const Center(
-            child: CircularProgressIndicator(),
+          loading: () => ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            itemCount: 6,
+            itemBuilder: (context, index) {
+              return Shimmer.fromColors(
+                baseColor: AppColor.shimmerBase,
+                highlightColor: AppColor.shimmerHighlight,
+                child: const Skeleton(
+                  width: double.infinity,
+                  height: 180,
+                ),
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const SizedBox(
+                height: 18,
+              );
+            },
           ),
           loadFailure: (message) {
             return ConnectionLost(
               onRetry: () {
-                  HapticFeedback.mediumImpact();
+                HapticFeedback.mediumImpact();
                 context.read<AppointmentListCubit>().getAppointmentListDetail();
               },
             );

@@ -21,6 +21,7 @@ class CustomLoginView(LoginView):
         # add additional data to the response
         response.data['isStaff'] = self.user.is_staff
         response.data['isDoctor'] = self.user.isDoctor
+        response.data['userId'] = self.user.id
         return response
 
 

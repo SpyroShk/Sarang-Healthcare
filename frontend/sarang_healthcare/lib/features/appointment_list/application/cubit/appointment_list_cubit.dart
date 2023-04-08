@@ -38,18 +38,18 @@ class AppointmentListCubit extends Cubit<AppointmentListState> {
   }
 
   void _handleAppointmentListResponse(
-    Either<AppointmentListFailure, AppointmentListSuccess> response,
+    Either<AppointmentListSuccess, AppointmentListFailure> response,
     List<AppointmentListModel> appointmentLists,
   ) {
     response.fold(
-      (appointmentListFailure) {
-        final message = _getErrorMessage(appointmentListFailure);
-        emit(AppointmentListState.loadFailure(message: message));
-      },
       (appointmentListSuccess) {
         final apiData = _getApiDataFromSuccess(appointmentListSuccess);
         emit(AppointmentListState.loadedNetwork(
             apiData: [...appointmentLists, ...apiData]));
+      },
+      (appointmentListFailure) {
+        final message = _getErrorMessage(appointmentListFailure);
+        emit(AppointmentListState.loadFailure(message: message));
       },
     );
   }

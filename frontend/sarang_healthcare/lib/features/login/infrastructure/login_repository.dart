@@ -26,6 +26,9 @@ class LoginRepository {
   Future<String?> getGroups() async =>
       await _secureCredentialStorage.getGroups();
 
+  Future<String?> getUserId() async =>
+      await _secureCredentialStorage.getUserId();
+
   Future<Either<LoginFailure, LoginSuccess>> login({
     required LoginDetail loginDetail,
   }) async {
@@ -49,7 +52,9 @@ class LoginRepository {
         );
       } else {
         await _secureCredentialStorage.setApiToken(respData["key"]);
-        await _secureCredentialStorage.setGroups(respData["isDoctor"].toString());
+        await _secureCredentialStorage
+            .setGroups(respData["isDoctor"].toString());
+        await _secureCredentialStorage.setUserId(respData["userId"].toString());
         log(respData["isDoctor"].toString());
       }
       return const Right("Login successful.");

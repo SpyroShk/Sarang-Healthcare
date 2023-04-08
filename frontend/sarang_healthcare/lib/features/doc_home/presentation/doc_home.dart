@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/features/appointment_list/presentation/widgets/widgets.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../core/presentation/route/app_router.dart';
 import '../../../core/presentation/theme/app_color.dart';
 import '../../../core/presentation/theme/gradient_bg.dart';
 import '../../../core/presentation/theme/sizes.dart';
+import '../../../core/presentation/widgets/skeleton.dart';
 import '../../appointment_list/application/cubit/appointment_list_cubit.dart';
 import '../../home/presentation/widgets/card_button.dart';
 import '../../profile/application/cubit/profile_cubit.dart';
@@ -79,7 +81,11 @@ class _DocHomeScreenState extends State<DocHomeScreen> {
                           ],
                         ),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context
+                                  .read<AppointmentListCubit>()
+                                  .getAppointmentListDetailForDoc();
+                            },
                             icon: const Icon(Icons.notifications))
                       ],
                     ),
@@ -180,8 +186,16 @@ class _DocHomeScreenState extends State<DocHomeScreen> {
                           },
                         );
                       },
-                      loading: () => const Center(
-                        child: CircularProgressIndicator(),
+                      loading: () => Shimmer.fromColors(
+                        baseColor: AppColor.shimmerBase,
+                        highlightColor: AppColor.shimmerHighlight,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                          child: const Skeleton(
+                            width: double.infinity,
+                            height: 180,
+                          ),
+                        ),
                       ),
                       loadFailure: (message) {
                         return const Text(

@@ -19,7 +19,7 @@ class AppointmentListRepository {
   })  : _dio = dio,
         _secureCredentialStorage = secureCredentialStorage;
 
-  Future<Either<AppointmentListFailure, AppointmentListSuccess>>
+  Future<Either<AppointmentListSuccess, AppointmentListFailure>>
       appointmentList() async {
     final userId = await _secureCredentialStorage.getUserId();
     String url =
@@ -33,17 +33,17 @@ class AppointmentListRepository {
         final detail = AppointmentListMapper.toAppointmentListDetail(dto);
         listOfAppointments.add(detail);
       }
-      return Right(
+      return Left(
         AppointmentListSuccess.network(apiData: listOfAppointments),
       );
     } on DioError catch (e) {
-      return Left(
+      return Right(
         failure(e),
       );
     }
   }
 
-  Future<Either<AppointmentListFailure, AppointmentListSuccess>>
+  Future<Either<AppointmentListSuccess, AppointmentListFailure>>
       appointmentListForDoc() async {
     final userId = await _secureCredentialStorage.getUserId();
     String url =
@@ -57,17 +57,17 @@ class AppointmentListRepository {
         final detail = AppointmentListMapper.toAppointmentListDetail(dto);
         listOfAppointments.add(detail);
       }
-      return Right(
+      return Left(
         AppointmentListSuccess.network(apiData: listOfAppointments),
       );
     } on DioError catch (e) {
-      return Left(
+      return Right(
         failure(e),
       );
     }
   }
 
-  Future<Either<AppointmentListFailure, AppointmentListSuccess>>
+  Future<Either<AppointmentListSuccess, AppointmentListFailure>>
       appointmentListWithoutId() async {
     String url = "${ApiConstants.baseUrl}/appointments/appointmentlist";
     try {
@@ -79,11 +79,11 @@ class AppointmentListRepository {
         final detail = AppointmentListMapper.toAppointmentListDetail(dto);
         listOfAppointments.add(detail);
       }
-      return Right(
+      return Left(
         AppointmentListSuccess.network(apiData: listOfAppointments),
       );
     } on DioError catch (e) {
-      return Left(
+      return Right(
         failure(e),
       );
     }

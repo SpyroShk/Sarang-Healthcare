@@ -23,8 +23,6 @@ class ProfileRepository {
         _secureCredentialStorage = secureCredentialStorage,
         _userDetailStorage = userDetailStorage;
 
-  Future<String?> getUserId() async =>
-      await _secureCredentialStorage.getUserId();
 
   Future<Either<ProfileFailure, ProfileSuccess>> userDetail() async {
     final apiToken = await _secureCredentialStorage.getApiToken();
@@ -40,7 +38,6 @@ class ProfileRepository {
       final dto = UserDetailDto.fromJson(respData);
       final detail = UserMapper.toUserDetail(dto);
       storeUserDetails(detail);
-      await _secureCredentialStorage.setUserId(respData["pk"].toString());
       return Right(
         ProfileSuccess.network(
           apiData: detail,

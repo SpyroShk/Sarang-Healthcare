@@ -19,16 +19,14 @@ class AppointmentListGroupDoc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return appointmentListGroup.isEmpty
-        ? const Expanded(
-            child: Center(
-              child: Text(
-                'No Doctor Appointments Yet!',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: Sizes.s32,
-                ),
-                textAlign: TextAlign.center,
+        ? const Center(
+            child: Text(
+              'No Doctor Appointments Yet!',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: Sizes.s32,
               ),
+              textAlign: TextAlign.center,
             ),
           )
         : ListView.separated(

@@ -7,9 +7,11 @@ import 'package:sarang_healthcare/core/presentation/theme/gradient_bg.dart';
 import 'package:sarang_healthcare/core/presentation/theme/sizes.dart';
 import 'package:sarang_healthcare/features/appointment_list/presentation/widgets/appointment_list_item.dart';
 import 'package:sarang_healthcare/features/home/presentation/widgets/widgets.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../core/presentation/route/app_router.dart';
 import '../../../core/presentation/theme/app_color.dart';
+import '../../../core/presentation/widgets/skeleton.dart';
 import '../../appointment_list/application/cubit/appointment_list_cubit.dart';
 import '../../profile/application/cubit/profile_cubit.dart';
 
@@ -149,7 +151,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: 1,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 0),
                           itemBuilder: (context, index) {
                             return AppointmentListItem(
                               appointmentList: appointmentListGroup.last,
@@ -158,8 +161,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     },
-                    loading: () => const Center(
-                      child: CircularProgressIndicator(),
+                    loading: () => Shimmer.fromColors(
+                      baseColor: AppColor.shimmerBase,
+                      highlightColor: AppColor.shimmerHighlight,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: const Skeleton(
+                          width: double.infinity,
+                          height: 180,
+                        ),
+                      ),
                     ),
                     loadFailure: (message) {
                       return const Text(

@@ -31,7 +31,7 @@ class LabTestingListItem extends StatelessWidget {
       List<LabTestsDto> labTests = [];
 
       // Parse each LabTestsModel string into a LabTestsDto object
-      labTestsModelStrings.forEach((modelString) {
+      for (var modelString in labTestsModelStrings) {
         // Extract the fields from the LabTestsModel string using regular expressions
         final idMatch = RegExp(r'id:\s*(\d+)').firstMatch(modelString);
         final id = idMatch != null ? int.parse(idMatch.group(1)!) : 0;
@@ -50,7 +50,7 @@ class LabTestingListItem extends StatelessWidget {
         // Create a LabTestsDto object and add it to the list
         labTests.add(LabTestsDto(
             id: id, testName: testName, price: price, testDescription: ''));
-      });
+      }
 
       return labTests;
     }

@@ -27,7 +27,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["14e9-2404-7c00-42-764e-d2e-2598-4594-2761.in.ngrok.io"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition

@@ -31,7 +31,7 @@ class SecureCredentialStorage implements CredentialStorage {
     return email;
   }
 
-  static const userIdKey = "user_id";
+  static const userIdKey = "user_Id";
   String? _userId;
 
   @override
@@ -70,6 +70,8 @@ class SecureCredentialStorage implements CredentialStorage {
   @override
   Future<void> clear() async {
     _apiToken = null;
+    _userId = null;
+    _groups = null;
     await _secureStorage.delete(key: apiTokenKey);
     await _secureStorage.delete(key: userIdKey);
     await _secureStorage.delete(key: groupsKey);

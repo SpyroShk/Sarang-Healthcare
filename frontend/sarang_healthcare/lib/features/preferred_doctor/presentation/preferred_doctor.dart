@@ -8,9 +8,11 @@ import 'package:sarang_healthcare/core/presentation/widgets/canvas_card.dart';
 import 'package:sarang_healthcare/core/presentation/widgets/sarang_appbar.dart';
 import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 import 'package:sarang_healthcare/features/preferred_doctor/presentation/widgets/category_header.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../core/presentation/theme/sizes.dart';
 import '../../../core/presentation/widgets/connection_lost.dart';
+import '../../../core/presentation/widgets/skeleton.dart';
 import '../application/cubit/preferred_doctor_cubit.dart';
 import '../domain/preferred_doctor_model.dart';
 import 'widgets/components/components.dart';
@@ -131,13 +133,29 @@ class _PreferredDoctorState extends State<PreferredDoctor> {
                           ],
                         );
                       },
-                      loading: () => const Center(
-                        child: CircularProgressIndicator(),
+                      loading: () => ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: 6,
+                        itemBuilder: (context, index) {
+                          return Shimmer.fromColors(
+                            baseColor: AppColor.shimmerBase,
+                            highlightColor: AppColor.shimmerHighlight,
+                            child: const Skeleton(
+                              width: double.infinity,
+                              height: 151,
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(
+                            height: 18,
+                          );
+                        },
                       ),
                       loadFailure: (message) {
                         return ConnectionLost(
                           onRetry: () {
-                  HapticFeedback.mediumImpact();
+                            HapticFeedback.mediumImpact();
                             context
                                 .read<PreferredDoctorCubit>()
                                 .getPreferredDoctorDetail();

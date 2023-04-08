@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../features/appointment_list/application/cubit/appointment_list_cubit.dart';
 import '../../../features/profile/application/cubit/profile_cubit.dart';
 import '../route/app_router.dart';
 
@@ -24,6 +25,8 @@ class _DocScaffoldWithButtomNavbarState
   void initState() {
     super.initState();
     context.read<ProfileCubit>().getUserDetails();
+
+    context.read<AppointmentListCubit>().getAppointmentListDetailForDoc();
     // context.read<PushNotificationCubit>().getpushNotification();
   }
 

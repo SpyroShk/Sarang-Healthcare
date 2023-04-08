@@ -66,7 +66,6 @@ class _DocAppointmentState extends State<DocAppointment> {
     }
     appointmentDateTime = DateTime(now.year, now.month, now.day, 12, 00);
     doctorNameController.text = 'No Doctor selected yet.';
-    context.read<AppointmentListCubit>().getAppointmentListWithoutIdDetail();
   }
 
   @override
@@ -107,7 +106,9 @@ class _DocAppointmentState extends State<DocAppointment> {
                         ),
                         onPressed: () {
                           HapticFeedback.mediumImpact();
-                          context.pushReplacement(AppRoutes.preferreddoc);
+                          widget.preferredDoctor == null
+                              ? context.push(AppRoutes.preferreddoc)
+                              : context.pop();
                         },
                         child: SizedBox(
                           height: 58,
