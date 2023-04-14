@@ -10,6 +10,7 @@ from rest_framework.parsers import JSONParser
 from .models import labtestings
 from .serializers import labtestingsSerializer
 from types import NoneType
+from rest_framework import generics
 
 class labtestingList(APIView):
     def get(self, request):
@@ -33,3 +34,16 @@ class labtestingList(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.error)
+
+
+class LabtestingListView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = labtestings.objects.all()
+    serializer_class = labtestingsSerializer
+    lookup_field = 'id'
+
+    def put(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)

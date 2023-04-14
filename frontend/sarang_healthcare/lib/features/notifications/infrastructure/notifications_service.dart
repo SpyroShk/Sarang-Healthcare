@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -52,21 +54,31 @@ class NotificationsService {
     final scheduledTime = scheduledDate.subtract(const Duration(minutes: 20));
 
     // Get the local timezone
-    tz.initializeTimeZones();
-    final location = tz.local;
+    if (scheduledDate
+        .isAfter(DateTime.now().add(const Duration(minutes: 20)))) {
+      tz.initializeTimeZones();
+      final location = tz.local;
 
-    // Convert the scheduled time to the local timezone
-    final scheduledTimezone = tz.TZDateTime.from(scheduledTime, location);
+      // Convert the scheduled time to the local timezone
+      final scheduledTimezone = tz.TZDateTime.from(scheduledTime, location);
 
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      0,
-      'Appointment Reminder',
-      'You have an appointment in 20 minutes!',
-      scheduledTimezone,
-      notificationDetails,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        0,
+        'Appointment Reminder',
+        'You have an appointment in 20 minutes!',
+        scheduledTimezone,
+        notificationDetails,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+    } else {
+      await flutterLocalNotificationsPlugin.show(
+        0, // notification id
+        'Appointment Reminder', // notification title
+        'You have an appointment in less than 20 minutes!', // notification body
+        notificationDetails, // notification details
+      );
+    }
   }
 }

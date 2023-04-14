@@ -169,6 +169,7 @@ REST_FRAMEWORK = {
     ]
 }
 
+OLD_PASSWORD_FIELD_ENABLED = True
 
 JAZZMIN_SETTINGS = {
     'site_title': "Sarang Healthcare",

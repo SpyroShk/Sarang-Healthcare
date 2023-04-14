@@ -71,4 +71,64 @@ class LabTestingCubit extends Cubit<LabTestingState> {
       },
     );
   }
+
+  void labTestingDelete({
+    required int id,
+    required String userId,
+    required String username,
+    required String testList,
+    required String collectionDate,
+    required String collectionTime,
+    required int contact,
+    required String patientName,
+    required int age,
+    required String gender,
+    required String userPatientRelation,
+    required String service,
+    required String city,
+    required String address,
+    required String landmark,
+  }) async {
+    emit(const LabTestingState.loading());
+
+    final labTestingDetail = LabTestingDetail(
+      username: username,
+      userId: userId,
+      age: age,
+      collectionDate: collectionDate,
+      collectionTime: collectionTime,
+      contact: contact,
+      testList: testList,
+      gender: gender,
+      patientName: patientName,
+      userPatientRelation: userPatientRelation,
+      service: service,
+      city: city,
+      address: address,
+      landmark: landmark,
+    );
+    final response = await _labTestingRepository.labTestingDelete(
+        labTestingDetail: labTestingDetail, id: id);
+
+    response.fold(
+      (labTestingFailure) {
+        String message = "";
+
+        labTestingFailure.when(
+          server: () =>
+              message = "Server error occured. Please try again later.",
+          storage: () => message = "Internal error occured.",
+          network: () => message = "Network error occured.",
+          client: (errMsg) => message = errMsg,
+        );
+        emit(LabTestingState.unsucceeded(message: message));
+      },
+      (_) {
+        emit(
+          const LabTestingState.succeeded(
+              message: "Appointment cancelled sucessfully."),
+        );
+      },
+    );
+  }
 }

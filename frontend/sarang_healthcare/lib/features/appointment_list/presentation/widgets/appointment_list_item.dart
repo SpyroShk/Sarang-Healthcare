@@ -1,10 +1,18 @@
+import 'dart:ui';
+
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sarang_healthcare/core/shared/context/show_toast.dart';
 
 import '../../../../core/presentation/theme/app_color.dart';
 import '../../../../core/presentation/theme/sizes.dart';
+import '../../../../core/presentation/widgets/sarang_button.dart';
 import '../../../../core/shared/api_constants.dart';
+import '../../../doc_appointment/application/cubit/doc_appointment_cubit.dart';
+import '../../application/cubit/appointment_list_cubit.dart';
 import '../../domain/appointment_list_model.dart';
 
 class AppointmentListItem extends StatefulWidget {
@@ -90,6 +98,157 @@ class _AppointmentListItemState extends State<AppointmentListItem> {
                           ],
                         ),
                       ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          if (!appointmentfilter) {
+                            HapticFeedback.mediumImpact();
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Stack(
+                                  children: [
+                                    BackdropFilter(
+                                      filter: ImageFilter.blur(
+                                          sigmaX: 5.0, sigmaY: 5.0),
+                                      child: Container(
+                                        color: AppColor.canvas.withOpacity(0),
+                                      ),
+                                    ),
+                                    AlertDialog(
+                                      title: const Text(
+                                        "Cancel Appointment",
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: Sizes.s20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      content: const Text(
+                                          "Are you sure you want to cancel this appointment?\nYou will not be refunded for the appointment!"),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                      actions: [
+                                        Column(
+                                          children: [
+                                            BlocListener<DocAppointmentCubit,
+                                                DocAppointmentState>(
+                                              listener: (context, state) {
+                                                state.whenOrNull(
+                                                  unsucceeded: (message) =>
+                                                      context
+                                                          .showCustomSnackBar(
+                                                    result: false,
+                                                    message: message,
+                                                  ),
+                                                  succeeded: (message) =>
+                                                      context
+                                                          .showCustomSnackBar(
+                                                    result: true,
+                                                    message: message,
+                                                  ),
+                                                );
+                                              },
+                                              child: BlocBuilder<
+                                                  DocAppointmentCubit,
+                                                  DocAppointmentState>(
+                                                builder: (context, state) {
+                                                  return SarangButton(
+                                                    onPressed: () {
+                                                      HapticFeedback
+                                                          .mediumImpact();
+                                                      context
+                                                          .read<
+                                                              DocAppointmentCubit>()
+                                                          .docAppointmentDelete(
+                                                            id: widget
+                                                                .appointmentList
+                                                                .id,
+                                                            userId: widget
+                                                                .appointmentList
+                                                                .userId,
+                                                            username: widget
+                                                                .appointmentList
+                                                                .username,
+                                                            doctorName: widget
+                                                                .appointmentList
+                                                                .doctorName,
+                                                            doctorId: widget
+                                                                .appointmentList
+                                                                .doctorId,
+                                                            doctorImage: widget
+                                                                .appointmentList
+                                                                .doctorImage,
+                                                            doctorCategory: widget
+                                                                .appointmentList
+                                                                .doctorCategory,
+                                                            appointmentDate: widget
+                                                                .appointmentList
+                                                                .appointmentDate,
+                                                            appointmentTime: widget
+                                                                .appointmentList
+                                                                .appointmentTime,
+                                                            contact: widget
+                                                                .appointmentList
+                                                                .contact,
+                                                            patientName: widget
+                                                                .appointmentList
+                                                                .patientName,
+                                                            age: widget
+                                                                .appointmentList
+                                                                .age,
+                                                            gender: widget
+                                                                .appointmentList
+                                                                .gender,
+                                                            userPatientRelation: widget
+                                                                .appointmentList
+                                                                .userPatientRelation,
+                                                            patientDescription: widget
+                                                                .appointmentList
+                                                                .patientDescription,
+                                                          );
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      context
+                                                          .read<
+                                                              AppointmentListCubit>()
+                                                          .getAppointmentListDetail();
+                                                    },
+                                                    isLoading: false,
+                                                    label: 'Cancel Appointment',
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            SarangButton(
+                                              onPressed: () {
+                                                HapticFeedback.mediumImpact();
+                                                Navigator.of(context).pop();
+                                              },
+                                              isLoading: false,
+                                              label: 'Close',
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.cancel,
+                          size: 20,
+                          color: AppColor.error,
+                        ),
+                      )
                     ],
                   ),
                   const SizedBox(

@@ -39,6 +39,30 @@ class DocAppointmentRepository {
     }
   }
 
+  Future<Either<DocAppointmentFailure, DocAppointmentSuccess>>
+      docAppointmentDelete({
+    required int id,
+    required DocAppointmentDetail docAppointmentDetail,
+  }) async {
+    String url = "${ApiConstants.baseUrl}/appointments/appointmentlist/$id/";
+    final docAppointmentDetailDto =
+        DocAppointmentMapper.toDto(docAppointmentDetail);
+    final data = docAppointmentDetailDto.toJson();
+    log(data.toString());
+    try {
+      final response = await _dio.delete(
+        url,
+        data: data,
+      );
+      response.data;
+      return const Right("Appointment Updated successfully.");
+    } on DioError catch (e) {
+      return Left(
+        failure(e),
+      );
+    }
+  }
+
   DocAppointmentFailure failure(DioError error) {
     final respData = error.response?.data;
     final statusCode = error.response?.statusCode ?? 0;

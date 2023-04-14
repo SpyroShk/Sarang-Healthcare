@@ -81,12 +81,13 @@ class _DocHomeScreenState extends State<DocHomeScreen> {
                           ],
                         ),
                         IconButton(
-                            onPressed: () {
-                              context
-                                  .read<AppointmentListCubit>()
-                                  .getAppointmentListDetailForDoc();
-                            },
-                            icon: const Icon(Icons.notifications))
+                          onPressed: () {
+                            context
+                                .read<AppointmentListCubit>()
+                                .getAppointmentListDetailForDoc();
+                          },
+                          icon: const Icon(Icons.refresh),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -133,82 +134,77 @@ class _DocHomeScreenState extends State<DocHomeScreen> {
                   ],
                 ),
               ),
-              Expanded(
-                child: BlocBuilder<AppointmentListCubit, AppointmentListState>(
-                  builder: (context, state) {
-                    return state.maybeWhen(
-                      loadedNetwork: (appointmentListGroup) {
-                        if (appointmentListGroup.isEmpty) {
-                          return const Text(
-                            'No Appointments',
-                            style: TextStyle(
-                              fontSize: Sizes.s16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          );
-                        }
-                        return ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.zero,
-                          itemCount: 1,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: AppointmentListItemDoc(
-                                    appointmentList: appointmentListGroup.last,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 25,
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  height: MediaQuery.of(context).size.height,
-                                  decoration: const BoxDecoration(
-                                    color: AppColor.canvas,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(30),
-                                      topRight: Radius.circular(30),
-                                    ),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
-                                ),
-                                // CanvasCard(
-                                //   child: Text(appointmentListGroup
-                                //       .last.patientDescription),
-                                // )
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      loading: () => Shimmer.fromColors(
-                        baseColor: AppColor.shimmerBase,
-                        highlightColor: AppColor.shimmerHighlight,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                          child: const Skeleton(
-                            width: double.infinity,
-                            height: 180,
-                          ),
-                        ),
-                      ),
-                      loadFailure: (message) {
+              BlocBuilder<AppointmentListCubit, AppointmentListState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    loadedNetwork: (appointmentListGroup) {
+                      final appointmentfilter = DateTime.parse(
+                              '${appointmentListGroup.last.appointmentDate} ${appointmentListGroup.last.appointmentTime}')
+                          .isBefore(DateTime.now());
+                      if (appointmentListGroup.isEmpty || appointmentfilter) {
                         return const Text(
-                          'Connection Lost!',
+                          'No New Appointments Yet!',
                           style: TextStyle(
-                            fontSize: Sizes.s16,
+                            fontSize: Sizes.s20,
                             fontWeight: FontWeight.w600,
                           ),
                         );
-                      },
-                      orElse: () => const SizedBox.shrink(),
-                    );
-                  },
+                      }
+                      return SizedBox(
+                        height: 180,
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 0),
+                          itemCount: 1,
+                          itemBuilder: (context, index) {
+                            return AppointmentListItemDoc(
+                              appointmentList: appointmentListGroup.last,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    loading: () => Shimmer.fromColors(
+                      baseColor: AppColor.shimmerBase,
+                      highlightColor: AppColor.shimmerHighlight,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 0),
+                        child: const Skeleton(
+                          width: double.infinity,
+                          height: 180,
+                        ),
+                      ),
+                    ),
+                    loadFailure: (message) {
+                      return const Text(
+                        'Connection Lost!',
+                        style: TextStyle(
+                          fontSize: Sizes.s16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      );
+                    },
+                    orElse: () => const SizedBox.shrink(),
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: const BoxDecoration(
+                    color: AppColor.canvas,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
                 ),
               ),
             ],

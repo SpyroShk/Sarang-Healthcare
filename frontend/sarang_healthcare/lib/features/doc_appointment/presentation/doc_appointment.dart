@@ -61,9 +61,6 @@ class _DocAppointmentState extends State<DocAppointment> {
   void initState() {
     super.initState();
     var now = DateTime.now();
-    if (now.weekday == DateTime.saturday) {
-      now = now.add(const Duration(days: 1));
-    }
     appointmentDateTime = DateTime(now.year, now.month, now.day, 12, 00);
     doctorNameController.text = 'No Doctor selected yet.';
   }
@@ -168,12 +165,14 @@ class _DocAppointmentState extends State<DocAppointment> {
                       ),
                       Row(
                         children: [
-                          DataTimeSelector(
-                            text: Utils.toDate(appointmentDateTime),
-                            icon: Icons.calendar_month_outlined,
-                            width: MediaQuery.of(context).size.width / 1.90,
-                            onPressed: () =>
-                                pickAppointmentDateTime(pickDate: true),
+                          Expanded(
+                            child: DataTimeSelector(
+                              text: Utils.toDate(appointmentDateTime),
+                              icon: Icons.calendar_month_outlined,
+                              width: MediaQuery.of(context).size.width / 1.90,
+                              onPressed: () =>
+                                  pickAppointmentDateTime(pickDate: true),
+                            ),
                           ),
                           const SizedBox(
                             width: 24,
@@ -524,10 +523,10 @@ class _DocAppointmentState extends State<DocAppointment> {
         initialDate: initialDate,
         firstDate: firstDate ?? DateTime(2013, 1),
         lastDate: DateTime(2101),
-        selectableDayPredicate: (DateTime val) {
-          // Disabling Saturdays
-          return val.weekday != DateTime.saturday;
-        },
+        // selectableDayPredicate: (DateTime val) {
+        //   // Disabling Saturdays
+        //   return val.weekday != DateTime.saturday;
+        // },
       );
       if (date == null) return null;
       final time = Duration(

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sarang_healthcare/core/presentation/sarang_app.dart';
 import 'package:sarang_healthcare/features/appointment_list/application/cubit/appointment_list_cubit.dart';
+import 'package:sarang_healthcare/features/change_pass/application/cubit/change_password_cubit.dart';
 import 'package:sarang_healthcare/features/lab_tests/application/cubit/lab_tests_cubit.dart';
 import 'package:sarang_healthcare/features/profile/infrastructure/dtos/user_detail_dto.dart';
 import 'package:sarang_healthcare/features/report/application/cubit/report_cubit.dart';
@@ -57,6 +58,9 @@ void main() async {
         ),
         BlocProvider.value(
           value: getIt.get<ContactCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt.get<ChangePasswordCubit>(),
         ),
 
         // BlocProvider(

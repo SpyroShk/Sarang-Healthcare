@@ -28,7 +28,6 @@ class LabTestingListCubit extends Cubit<LabTestingListState> {
     emit(const LabTestingListState.loading());
     final response = await _labTestingListRepository.labTestingListWithoutId();
     _handleLabTestingListResponse(response, []);
-
   }
 
   void _handleLabTestingListResponse(
@@ -64,9 +63,9 @@ class LabTestingListCubit extends Cubit<LabTestingListState> {
     );
   }
 
-  List<LabTestingListModel> getLabTestingsListWithoutIdDetail() {
-    final List<LabTestingListModel> labTestingListWithoutId = state.maybeWhen(
-        loadedNetwork: (apiData) => apiData, orElse: () => const []);
-    return labTestingListWithoutId;
-  }
+  // List<LabTestingListModel> getLabTestingsListWithoutIdDetail() {
+  //   final List<LabTestingListModel> labTestingListWithoutId = state.maybeWhen(
+  //       loadedNetwork: (apiData) => apiData, orElse: () => const []);
+  //   return labTestingListWithoutId;
+  // }
 }

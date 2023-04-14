@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sarang_healthcare/features/change_pass/infrastructure/change_password_repository.dart';
 import 'package:sarang_healthcare/features/doc_appointment/infrastructure/doc_appointment_repository.dart';
 
 import '../../features/appointment_list/application/cubit/appointment_list_cubit.dart';
 import '../../features/appointment_list/infrastructure/appointment_list_repository.dart';
+import '../../features/change_pass/application/cubit/change_password_cubit.dart';
 import '../../features/contact/application/cubit/contact_cubit.dart';
 import '../../features/contact/infrastructure/contact_repository.dart';
 import '../../features/contact/infrastructure/local_storage/contact_model_storage.dart';
@@ -84,6 +86,19 @@ void setupLocators() {
   getIt.registerLazySingleton<DocAppointmentCubit>(
     () => DocAppointmentCubit(
       docAppointmentRepository: getIt.get<DocAppointmentRepository>(),
+    ),
+  );
+
+  getIt.registerSingleton<ChangePasswordRepository>(
+    ChangePasswordRepository(
+      dio: getIt.get<Dio>(),
+      secureCredentialStorage: getIt.get<SecureCredentialStorage>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<ChangePasswordCubit>(
+    () => ChangePasswordCubit(
+      changePasswordRepository: getIt.get<ChangePasswordRepository>(),
     ),
   );
 
@@ -194,5 +209,4 @@ void setupLocators() {
       contactRepository: getIt.get<ContactRepository>(),
     ),
   );
-  
 }

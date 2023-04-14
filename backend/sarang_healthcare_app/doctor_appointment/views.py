@@ -10,6 +10,7 @@ from rest_framework.parsers import JSONParser
 from .models import appointments
 from .serializers import appointmentsSerializer
 from types import NoneType
+from rest_framework import generics
 
 
 class appointmentList(APIView):
@@ -40,3 +41,16 @@ class appointmentList(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors)
+
+
+class AppointmentListView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = appointments.objects.all()
+    serializer_class = appointmentsSerializer
+    lookup_field = 'id'
+
+    def put(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)

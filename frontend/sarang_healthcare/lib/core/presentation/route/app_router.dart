@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarang_healthcare/features/appointment_list/presentation/appointment_list.dart';
 import 'package:sarang_healthcare/features/appointments/presentation/appointments.dart';
+import 'package:sarang_healthcare/features/change_pass/presentation/change_password.dart';
 import 'package:sarang_healthcare/features/contact/presentation/contact.dart';
 import 'package:sarang_healthcare/features/appointment_list/presentation/doc_appointment_list.dart';
 import 'package:sarang_healthcare/features/doc_appointment/presentation/doc_appointment.dart';
@@ -53,6 +54,7 @@ class AppRoutes {
   static const String report = '/report';
   static const String dochome = '/dochome';
   static const String docappolist = '/docappolist';
+  static const String changepass = '/changepass';
 }
 
 class AppRouter {
@@ -119,6 +121,11 @@ class AppRouter {
             builder: (_, state) => const DocAppointmentList(),
           ),
         ],
+      ),
+      GoRoute(
+        path: AppRoutes.changepass,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, state) => const ChangePassword(),
       ),
       GoRoute(
         path: AppRoutes.appointmentlist,

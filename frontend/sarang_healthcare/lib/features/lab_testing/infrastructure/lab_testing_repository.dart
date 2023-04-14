@@ -39,6 +39,29 @@ class LabTestingRepository {
     }
   }
 
+  Future<Either<LabTestingFailure, LabTestingSuccess>> labTestingDelete({
+    required int id,
+    required LabTestingDetail labTestingDetail,
+  }) async {
+    String url =
+        "${ApiConstants.baseUrl}/labtestingappointments/labtestinglist/$id/";
+    final labTestingDetailDto = LabTestingMapper.toDto(labTestingDetail);
+    final data = labTestingDetailDto.toJson();
+    log(data.toString());
+    try {
+      final response = await _dio.delete(
+        url,
+        data: data,
+      );
+      response.data;
+      return const Right("Appointment booked successfully.");
+    } on DioError catch (e) {
+      return Left(
+        failure(e),
+      );
+    }
+  }
+
   LabTestingFailure failure(DioError error) {
     final respData = error.response?.data;
     final statusCode = error.response?.statusCode ?? 0;

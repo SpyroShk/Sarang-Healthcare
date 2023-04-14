@@ -77,8 +77,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.notifications))
+                          onPressed: () {
+                            context
+                                .read<AppointmentListCubit>()
+                                .getAppointmentListDetail();
+                          },
+                          icon: const Icon(Icons.refresh),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -137,11 +142,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context, state) {
                   return state.maybeWhen(
                     loadedNetwork: (appointmentListGroup) {
-                      if (appointmentListGroup.isEmpty) {
+                      final appointmentfilter = DateTime.parse(
+                              '${appointmentListGroup.last.appointmentDate} ${appointmentListGroup.last.appointmentTime}')
+                          .isBefore(DateTime.now());
+                      if (appointmentListGroup.isEmpty || appointmentfilter) {
                         return const Text(
-                          'No Appointments',
+                          'No New Appointments Yet!',
                           style: TextStyle(
-                            fontSize: Sizes.s16,
+                            fontSize: Sizes.s20,
                             fontWeight: FontWeight.w600,
                           ),
                         );

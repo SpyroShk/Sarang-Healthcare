@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sarang_healthcare/core/presentation/route/app_router.dart';
 import 'package:sarang_healthcare/features/profile/presentation/widgets/profile_view_doc.dart';
 
 import '../../../../core/presentation/theme/app_color.dart';
@@ -107,6 +110,36 @@ class ProfileView extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Divider(
+                  thickness: 1,
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  HapticFeedback.mediumImpact();
+                  context.push(AppRoutes.changepass);
+                },
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.password,
+                      color: AppColor.primary,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      'Change Password',
+                      style: TextStyle(
+                        fontSize: Sizes.s14,
+                        color: AppColor.grey,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
