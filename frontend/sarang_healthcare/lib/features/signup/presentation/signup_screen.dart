@@ -224,6 +224,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             password1: password,
             password2: rePassword,
           );
+      context.pop();
     }
   }
 }

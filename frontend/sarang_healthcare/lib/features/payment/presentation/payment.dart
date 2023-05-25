@@ -143,63 +143,67 @@ class _PaymentState extends State<Payment> {
                                     return SarangButton(
                                         onPressed: () {
                                           HapticFeedback.mediumImpact();
-                                          // KhaltiScope.of(context).pay(
-                                          //     config: PaymentConfig(
-                                          //       amount: getAmt(),
-                                          //       productIdentity:
-                                          //           widget.doctorId.toString(),
-                                          //       productName: widget.doctorName
-                                          //           .toString(),
-                                          //     ),
-                                          //     onSuccess: (success) {
-                                          //       context.showCustomSnackBar(
-                                          //           message:
-                                          //               'Payment Successful.',
-                                          //           result: true);
-                                          context
-                                              .read<DocAppointmentCubit>()
-                                              .docAppointment(
-                                                  userId:
-                                                      userDetail.pk.toString(),
-                                                  username: userDetail.username,
-                                                  doctorName:
-                                                      widget.doctorName!,
-                                                  doctorId: widget.doctorId!,
-                                                  appointmentDate:
-                                                      widget.appointmentDate,
-                                                  appointmentTime:
-                                                      widget.appointmentTime,
-                                                  contact: widget.contact,
-                                                  patientName:
-                                                      widget.patientName,
-                                                  age: widget.age,
-                                                  gender: widget.gender,
-                                                  userPatientRelation: widget
-                                                      .userPatientRelation,
-                                                  doctorCategory:
-                                                      widget.doctorCategory!,
-                                                  doctorImage:
-                                                      widget.doctorImage!,
-                                                  patientDescription: widget
-                                                      .patientDescription!);
-                                          context.pop();
-                                          context.pop();
-                                          context.pop();
-                                          context.pop();
-                                          notificationsService.sendNotification(
-                                            widget.appointmentDate,
-                                            widget.appointmentTime,
-                                          );
-                                          context
-                                              .read<AppointmentListCubit>()
-                                              .getAppointmentListDetail();
+                                          KhaltiScope.of(context).pay(
+                                              config: PaymentConfig(
+                                                amount: getAmt(),
+                                                productIdentity:
+                                                    widget.doctorId.toString(),
+                                                productName: widget.doctorName
+                                                    .toString(),
+                                              ),
+                                              onSuccess: (success) {
+                                                context.showCustomSnackBar(
+                                                    message:
+                                                        'Payment Successful.',
+                                                    result: true);
+                                                context
+                                                    .read<DocAppointmentCubit>()
+                                                    .docAppointment(
+                                                        userId: userDetail.pk
+                                                            .toString(),
+                                                        username:
+                                                            userDetail.username,
+                                                        doctorName:
+                                                            widget.doctorName!,
+                                                        doctorId:
+                                                            widget.doctorId!,
+                                                        appointmentDate: widget
+                                                            .appointmentDate,
+                                                        appointmentTime: widget
+                                                            .appointmentTime,
+                                                        contact: widget.contact,
+                                                        patientName:
+                                                            widget.patientName,
+                                                        age: widget.age,
+                                                        gender: widget.gender,
+                                                        userPatientRelation: widget
+                                                            .userPatientRelation,
+                                                        doctorCategory: widget
+                                                            .doctorCategory!,
+                                                        doctorImage:
+                                                            widget.doctorImage!,
+                                                        patientDescription: widget
+                                                            .patientDescription!);
+                                                context.pop();
+                                                context.pop();
+                                                context.pop();
+                                                context.pop();
+                                                notificationsService
+                                                    .sendNotification(
+                                                  widget.appointmentDate,
+                                                  widget.appointmentTime,
+                                                );
+                                                context
+                                                    .read<
+                                                        AppointmentListCubit>()
+                                                    .getAppointmentListDetail();
+                                              },
+                                              onFailure: (failure) {
+                                                context.showCustomSnackBar(
+                                                    message: 'Payment Failed.',
+                                                    result: false);
+                                              });
                                         },
-                                        // onFailure: (failure) {
-                                        //   context.showCustomSnackBar(
-                                        //       message: 'Payment Failed.',
-                                        //       result: false);
-                                        // });
-                                        // },
                                         isLoading: state.maybeWhen(
                                           orElse: () => false,
                                           loading: () => true,

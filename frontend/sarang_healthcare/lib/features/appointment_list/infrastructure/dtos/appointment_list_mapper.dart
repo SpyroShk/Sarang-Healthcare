@@ -10,8 +10,8 @@ class AppointmentListMapper {
       username: appointmentListDto.username,
       doctorName: appointmentListDto.doctorName,
       doctorId: appointmentListDto.doctorId,
-        doctorImage: appointmentListDto.doctorImage,
-        doctorCategory: appointmentListDto.doctorCategory,
+      doctorImage: appointmentListDto.doctorImage,
+      doctorCategory: appointmentListDto.doctorCategory,
       appointmentDate: appointmentListDto.appointmentDate,
       appointmentTime: appointmentListDto.appointmentTime,
       contact: appointmentListDto.contact,
@@ -19,7 +19,7 @@ class AppointmentListMapper {
       age: appointmentListDto.age,
       gender: appointmentListDto.gender,
       userPatientRelation: appointmentListDto.userPatientRelation,
-        patientDescription: appointmentListDto.patientDescription,
+      patientDescription: appointmentListDto.patientDescription,
     );
   }
 
@@ -31,8 +31,8 @@ class AppointmentListMapper {
       username: appointmentListModel.username,
       doctorName: appointmentListModel.doctorName,
       doctorId: appointmentListModel.doctorId,
-        doctorImage: appointmentListModel.doctorImage,
-        doctorCategory: appointmentListModel.doctorCategory,
+      doctorImage: appointmentListModel.doctorImage,
+      doctorCategory: appointmentListModel.doctorCategory,
       appointmentDate: appointmentListModel.appointmentDate,
       appointmentTime: appointmentListModel.appointmentTime,
       contact: appointmentListModel.contact,
@@ -40,7 +40,7 @@ class AppointmentListMapper {
       age: appointmentListModel.age,
       gender: appointmentListModel.gender,
       userPatientRelation: appointmentListModel.userPatientRelation,
-        patientDescription: appointmentListModel.patientDescription,
+      patientDescription: appointmentListModel.patientDescription,
     );
   }
 }

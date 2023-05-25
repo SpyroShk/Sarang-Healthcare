@@ -120,17 +120,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            'Forgot Password?',
-                            style: TextStyle(
-                              fontSize: Sizes.s12,
-                              fontWeight: FontWeight.w900,
-                              color: AppColor.primary,
-                            ),
-                          ),
-                        ),
+                        // const Align(
+                        //   alignment: Alignment.centerRight,
+                        //   child: Text(
+                        //     'Forgot Password?',
+                        //     style: TextStyle(
+                        //       fontSize: Sizes.s12,
+                        //       fontWeight: FontWeight.w900,
+                        //       color: AppColor.primary,
+                        //     ),
+                        //   ),
+                        // ),
                         const SizedBox(
                           height: 50,
                         ),

@@ -7,5 +7,6 @@ class AppointmentListFailure with _$AppointmentListFailure {
   const factory AppointmentListFailure.server() = _Server;
   const factory AppointmentListFailure.storage() = _Storage;
   const factory AppointmentListFailure.network() = _Network;
-  const factory AppointmentListFailure.client({required String message}) = _Client;
+  const factory AppointmentListFailure.client({required String message}) =
+      _Client;
 }
